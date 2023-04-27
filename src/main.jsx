@@ -9,8 +9,6 @@ import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 import Home from "./routes/home.jsx";
 import NewJobOpportunity from "./routes/NewJobOpportunity.jsx";
 
-import './index.css';
-
 const router = createBrowserRouter([
   {
     element: <App />,
