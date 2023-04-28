@@ -32,8 +32,8 @@ function navbar(args) {
                             <NavLink href="/newjobopportunity">Nova Oportunidade</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="https://github.com/reactstrap/reactstrap">
-                                GitHub
+                            <NavLink href="/dashboard">
+                                Dashboard
                             </NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
