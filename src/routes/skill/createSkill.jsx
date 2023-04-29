@@ -10,11 +10,8 @@ import {
     Button,    
 } from 'reactstrap';
 
-const create = () => {
+const createSkill = () => {
     const navigate = new useNavigate()
-
-    //const [name, setName] = useState();
-    //const [type, setType] = useState();
 
     const [name, setName] = new useState();
     const [type, setType] = new useState();
@@ -72,4 +69,4 @@ const create = () => {
     )
 }
 
-export default create
+export default createSkill
