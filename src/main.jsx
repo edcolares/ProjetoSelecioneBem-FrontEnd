@@ -10,6 +10,7 @@ import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 import Home from "./routes/home.jsx";
 import NewJobOpportunity from "./routes/NewJobOpportunity.jsx";
 import Dashboard from './routes/dashboard.jsx';
+import CreateSkill from './routes/skill/createSkill.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "/skill",
+        element: <CreateSkill></CreateSkill>,
       },
     ],
   },

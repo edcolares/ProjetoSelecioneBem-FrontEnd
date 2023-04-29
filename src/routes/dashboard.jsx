@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import fetch from '../axios/config';
 
 import {
     Row,
@@ -19,9 +20,7 @@ const Dashboard = () => {
 
         try {
 
-            const response = await axios.get(
-                "http://localhost:3001/skill"
-            );
+            const response = await fetch.get("/skill");
 
             const data = response.data;
 
