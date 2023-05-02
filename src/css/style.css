@@ -1,3 +1,16 @@
 body {
-    font-family: ABeeZee, MUSEOMODERNO, COMFORTAA;
+    font-family: Blinker, Comme, Roboto, ABeeZee, MUSEOMODERNO, COMFORTAA;
+    /* font-family: poppins; */
+}
+
+.titulo {
+    font-weight: bold;
+}
+.subtitulo {
+    font-weight: 100;
+    color: #8f8f8f;
+}
+
+.primary {
+    background-color: aqua;
 }

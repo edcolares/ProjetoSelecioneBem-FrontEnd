@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import fetch from '../axios/config';
+import CreateSkill from './skill/createSkill';
 
 import {
     Row,
@@ -20,9 +21,7 @@ const Dashboard = () => {
         try {
 
             const response = await fetch.get("/skill");
-
             const data = response.data;
-
             setSkills(data);
 
         } catch (error) {
@@ -99,7 +98,7 @@ const Dashboard = () => {
                 Column
             </Col>
             <Col className="bg-light border">
-                Column
+                <CreateSkill></CreateSkill>
             </Col>
         </Row>
     )

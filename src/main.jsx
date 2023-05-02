@@ -11,6 +11,8 @@ import Home from "./routes/home.jsx";
 import NewJobOpportunity from "./routes/NewJobOpportunity.jsx";
 import Dashboard from './routes/dashboard.jsx';
 import CreateSkill from './routes/skill/createSkill.jsx';
+import CreateInterview from './routes/interview/createInterview.jsx';
+import CreateJobOpportunity from './routes/jobopportunity/createJobOpportunity.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path: "/skill",
         element: <CreateSkill></CreateSkill>,
+      },
+      {
+        path: "/interview",
+        element: <CreateInterview></CreateInterview>,
+      },
+      {
+        path: "/jobopportunity",
+        element: <CreateJobOpportunity></CreateJobOpportunity>,
       },
     ],
   },

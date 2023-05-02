@@ -31,7 +31,7 @@ const createSkill = () => {
 
             <FormGroup controlId="form-group-id">
                 <Label>
-                    <div><h4>Cadastro de nova skill</h4></div>                    
+                    <div className='titulo'><h4>Cadastro de nova skill</h4></div>                    
                 </Label>
             </FormGroup>
 
