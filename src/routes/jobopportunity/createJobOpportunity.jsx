@@ -2,22 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import fetch from '../../axios/config';
 import '../../css/style.css';
-
-
-import {
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    Col,
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    CardText,
-    CardTitle,
-    ButtonGroup,
-} from 'reactstrap';
+import { Form, FormGroup, Label, Input, Col, Button, Card, CardHeader, CardBody, CardText, Badge } from 'reactstrap';
+import { colorBadgeSkills } from '../codeUtils.jsx'
 
 const createJobOpportunity = () => {
 
@@ -27,14 +13,47 @@ const createJobOpportunity = () => {
     const [level, setLevel] = new useState();
     const [openingDate, setOpeningDate] = new useState();
     const [expectedDate, setExpectedDate] = new useState();
-    // const [closingDate, setClosingDate] = new useState();
+    const [departments, setDepartments] = new useState([]);
     const [useId, setUseId] = new useState();
+    // const [closingDate, setClosingDate] = new useState();
+
+    const [departmentId, setDepartmentId] = new useState()
+    // const handleChange = (e) => {
+    //     setDepartID(e.target.value);
+    // }
+
+    // Busca todos os departamentos ativos
+    const getDepartments = async () => {
+        try {
+
+            const response = await fetch.get("/department");
+            const data = response.data;
+            setDepartments(data);
+            console.log(data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     /**
-     * Código para do BUTTON GROUP COM SELEÇÃO MULTIPLA
+     * Lista todas as SKILLS do sistemas
      */
+    const [Skills, setSkills] = useState([]);
+    const getSkills = async () => {
+        try {
+            const response = await fetch.get("/skill");
+            const data = response.data;
+            setSkills(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    /**
+ * Código para do BUTTON GROUP COM SELEÇÃO MULTIPLA
+ */
     const [cSelected, setCSelected] = useState([]);
-    const [rSelected, setRSelected] = useState(null);
 
     const onCheckboxBtnClick = (selected) => {
         const index = cSelected.indexOf(selected);
@@ -45,53 +64,44 @@ const createJobOpportunity = () => {
         }
         setCSelected([...cSelected]);
     };
-    /************************************************************ */
 
-    const [departmentId, setDepartmentId] = new useState([]);
-
-    // Busca todos os departamentos ativos
-    const getDepartments = async () => {
-        try {
-
-            const response = await fetch.get("/department");
-            const data = response.data;
-            setDepartmentId(data);
-            console.log(data);
-
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    // **************************************************************** */
-
-    const [Skills, setSkills] = useState([]);
-    const getSkills = async () => {
-
-        try {
-
-            const response = await fetch.get("/skill");
-            const data = response.data;
-            setSkills(data);
-
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
-
-    // **************************************************************** */
-
-
+    /**
+     * Adiciona uma JOBOPPORTUNITY
+     * @param {Event} e Evento do mouse
+     */
     const createJobOpportunity = async (e) => {
         e.preventDefault();
-        console.log(title, level, openingDate, expectedDate, useId, departmentId);
+        let idNewJobOpportunity = null;
+
         await fetch.post("/jobopportunity", {
             title, level, openingDate, expectedDate, useId, departmentId
-        }).then(() => { alert("Oportunidade de emprego cadastrada com sucesso!") });
+        }).then(async (response) => {
 
-        navigate("/dashboard");
+            if (response.request.statusText === "OK") {
+                alert("Oportunidade de emprego cadastrada com sucesso!");
+                for (let i = 0; i < cSelected.length; i++) {
+                    console.log(cSelected[i]);
+
+                    const skillId = cSelected[i];
+                    await fetch.post("/jobopportunity_skill/" + response.data.id, {
+                        skillId
+                    }).then(() => { console.log("Cadastrada: Skill> " + skillId + "Opportunity> " + response.data.id); })
+                }
+                idNewJobOpportunity = response.data.id;
+                console.log(response.data.id);
+            } else {
+                console.log("Erro ao cadastrar oportunidade de emprego");
+            }
+        });
+
+        navigate("/teste/" + idNewJobOpportunity);
     };
+
+    /**
+     * Código para executar o FILTER dentro de SKILLS
+     */
+    const [query, setQuery] = useState("");
+    // console.log(Skills.filter(skill => skill.name.toLowerCase().includes("em")));
 
     // *****************************************************************
 
@@ -107,13 +117,14 @@ const createJobOpportunity = () => {
             <FormGroup>
                 <Label>
                     <div className='titulo'><h4>Oportunidade de emprego</h4></div>
-                    <div className='subtitulo'><h6 className='fw-light'>Preencha as informações pertinentes a oportunidade de emprego</h6></div>            </Label>
+                    <div className='subtitulo'><h6 className='fw-light'>Preencha as informações pertinentes a oportunidade de emprego</h6></div>
+                </Label>
             </FormGroup>
 
             {/* ID */}
             <FormGroup>
                 <Col lg={10}>
-                    <Input id="useId" name="useId" value="5" placeholder="Id" type="hidden"
+                    <Input id="useId" name="useId" placeholder="Id" type="text"
                         onChange={(e) => setUseId(e.target.value)} />
                 </Col>
             </FormGroup>
@@ -135,10 +146,10 @@ const createJobOpportunity = () => {
                     Nível/Level
                 </Label>
                 <Col lg={10}>
-                    <Input id="level" name="level" type="select" placeholder='Selecione o nível do candidato para a oportunidade'
-                        onChange={(e) => setLevel(e.target.value)} >
+                    <Input id="level" name="level" type="select"
+                        onChange={(e) => setLevel(e.target.value)}>
                         <option key={"default"} value="">-- Selecione o nível de experiência</option>
-                        <option key={"Entry level"} value="null">Entry level</option>
+                        <option key={"Entry level"} value={"Entry level"}>Entry level</option>
                         <option key={"Júnior"} value={"Júnior"}>Júnior</option>
                         <option key={"Pleno"} value={"Pleno"}>Pleno</option>
                         <option key={"Senior"} value={"Senior"}>Senior</option>
@@ -149,16 +160,16 @@ const createJobOpportunity = () => {
 
             {/* DEPARTMENT */}
             <FormGroup row>
-                <Label for="departmentId" lg={2} >
+                <Label for="departments" lg={2} >
                     Departamento
                 </Label>
                 <Col lg={10}>
-                    <Input id="departmentId" name="departmentId" type="select"
+                    <Input id="departments" name="departments" type="select"
                         onChange={(e) => setDepartmentId(e.target.value)} >
 
-                        <option value={""}>-- Selecione um departamento</option>
-                        {departmentId.length === 0 ? <p>Sem departamentos para relacionar</p> : (
-                            departmentId.map((department) => (
+                        <option value="">-- Selecione um departamento</option>
+                        {departments.length === 0 ? <p>Sem departamentos para relacionar</p> : (
+                            departments.map((department) => (
                                 <option key={department.id} value={department.id}>{department.name} ({department.manager})</option>
                             ))
                         )}
@@ -187,6 +198,14 @@ const createJobOpportunity = () => {
                         onChange={(e) => setExpectedDate(e.target.value)} />
                 </Col>
             </FormGroup>
+            <FormGroup check row>
+
+                <Col lg={12}>
+                    <Button color='success' size='lg'>
+                        Salvar
+                    </Button>
+                </Col>
+            </FormGroup>
 
             {/* *************SELEÇÃO DAS SKILLS************* */}
 
@@ -200,33 +219,60 @@ const createJobOpportunity = () => {
                 </Label>
             </FormGroup>
 
-            <FormGroup row>
+            <FormGroup>
 
-                <Col lg={6}>
-
+                <Col lg={12} >
+                    {/* Para alinhar o componente Col ao centro, usar className='mx-auto' */}
                     <Card
                         className="my-2"
-                        color="primary"
+                        color="secondary"
+                        outline
                         style={{
                             width: '100%'
                         }}>
                         <CardHeader>
-                            Relação de Skills
+                            <FormGroup row>
+                                <Col lg={2}>
+                                    <Label>
+                                        Agilize sua busca
+                                    </Label>
+                                </Col>
+                                <Col lg={10}>
+                                    <Input
+                                        id='search'
+                                        name='search'
+                                        placeholder='Filtro'
+                                        type='search'
+                                        style={{
+                                            width: '100%'
+                                        }}
+                                        onChange={e => setQuery(e.target.value)}
+                                    >
+                                    </Input>
+                                </Col>
+                            </FormGroup>
                         </CardHeader>
                         <CardBody>
                             <CardText>
-                                    {Skills.length === 0 ? <p>Carregando...</p> : (
-                                        Skills.map((skill) => (
-                                            <Button
-                                                color='light'
-                                                className='my-2'
-                                                block
-                                                onClick={() => onCheckboxBtnClick(skill.id)}
-                                                active={cSelected.includes(skill.id)} >
-                                                {skill.name}
-                                            </Button>
-                                        ))
-                                    )}
+                                {Skills.length === 0 ? <p>Carregando...</p> : (
+                                    Skills.filter(skill => skill.name.toLowerCase().includes(query) || skill.type.toLowerCase().includes(query)
+                                    ).map((skill) => (
+                                        <Button
+                                            color='light'
+                                            className='my-1 d-flex justify-content-between'
+                                            block
+                                            onClick={() => onCheckboxBtnClick(skill.id)}
+                                            active={cSelected.includes(skill.id)} >
+                                            {skill.name}
+
+                                            <Badge
+                                                color={colorBadgeSkills(skill.type)}
+                                                className='align-self-center'>
+                                                {skill.type}
+                                            </Badge>
+                                        </Button>
+                                    ))
+                                )}
                                 <p></p>
                                 <p>Selecionados: {JSON.stringify(cSelected)}</p>
                             </CardText>
@@ -234,41 +280,6 @@ const createJobOpportunity = () => {
                     </Card>
                 </Col>
 
-                <Col lg={6}>
-                    <Card
-                        className="my-2"
-                        color="success"
-                        inverse
-                        style={{
-                            width: '100%'
-                        }}>
-                        <CardHeader>
-                            SKILLS SELECIONADAS
-                        </CardHeader>
-
-                        <CardBody>
-                            <CardTitle tag="h5">
-                                Atrasadas
-                            </CardTitle>
-                            <CardText>
-                                Aqui iremos colocar um lista com todas as oportunidades que estão com prazo
-                                de término superadas, mas ainda estão em aberto. A partir daqui o profissional poderá
-                                clicar na oportunidade que será encaminhado para a tela com todos os dados da
-                                oportunidade de emprego.
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </FormGroup>
-
-
-            <FormGroup check row>
-
-                <Col lg={12}>
-                    <Button color='success' size='lg'>
-                        Salvar
-                    </Button>
-                </Col>
             </FormGroup>
         </Form>
     )
