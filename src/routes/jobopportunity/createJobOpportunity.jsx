@@ -18,19 +18,14 @@ const createJobOpportunity = () => {
     // const [closingDate, setClosingDate] = new useState();
 
     const [departmentId, setDepartmentId] = new useState()
-    // const handleChange = (e) => {
-    //     setDepartID(e.target.value);
-    // }
 
     // Busca todos os departamentos ativos
     const getDepartments = async () => {
         try {
-
             const response = await fetch.get("/department");
             const data = response.data;
             setDepartments(data);
             console.log(data);
-
         } catch (error) {
             console.log(error);
         }
@@ -94,7 +89,7 @@ const createJobOpportunity = () => {
             }
         });
 
-        navigate("/teste/" + idNewJobOpportunity);
+        navigate("/jobopportunityskill/" + idNewJobOpportunity);
     };
 
     /**
@@ -198,14 +193,6 @@ const createJobOpportunity = () => {
                         onChange={(e) => setExpectedDate(e.target.value)} />
                 </Col>
             </FormGroup>
-            <FormGroup check row>
-
-                <Col lg={12}>
-                    <Button color='success' size='lg'>
-                        Salvar
-                    </Button>
-                </Col>
-            </FormGroup>
 
             {/* *************SELEÇÃO DAS SKILLS************* */}
 
@@ -231,13 +218,13 @@ const createJobOpportunity = () => {
                             width: '100%'
                         }}>
                         <CardHeader>
-                            <FormGroup row>
-                                <Col lg={2}>
-                                    <Label>
+                            <FormGroup row className='my-3 d-flex align-items-baseline'>
+                                <Col lg={2} md={3} xl={3}>
+                                    <Label className='d-flex justify-content-center'>
                                         Agilize sua busca
                                     </Label>
                                 </Col>
-                                <Col lg={10}>
+                                <Col lg={10} md={9} xl={9}>
                                     <Input
                                         id='search'
                                         name='search'
@@ -253,33 +240,40 @@ const createJobOpportunity = () => {
                             </FormGroup>
                         </CardHeader>
                         <CardBody>
-                            <CardText>
+                            <CardText className='d-flex flex-fill flex-wrap'>
                                 {Skills.length === 0 ? <p>Carregando...</p> : (
                                     Skills.filter(skill => skill.name.toLowerCase().includes(query) || skill.type.toLowerCase().includes(query)
                                     ).map((skill) => (
-                                        <Button
-                                            color='light'
-                                            className='my-1 d-flex justify-content-between'
-                                            block
-                                            onClick={() => onCheckboxBtnClick(skill.id)}
-                                            active={cSelected.includes(skill.id)} >
-                                            {skill.name}
+                                        <Col xs={12} sm={12} md={6} lg={6} xxl={4} className='p-1'>
+                                            <Button
+                                                color='light'
+                                                className='p-2 d-flex justify-content-between align-items-center'
+                                                block
+                                                onClick={() => onCheckboxBtnClick(skill.id)}
+                                                active={cSelected.includes(skill.id)} >
+                                                {skill.name}
 
-                                            <Badge
-                                                color={colorBadgeSkills(skill.type)}
-                                                className='align-self-center'>
-                                                {skill.type}
-                                            </Badge>
-                                        </Button>
+                                                <Badge
+                                                    color={colorBadgeSkills(skill.type)}
+                                                    className='d-flex align-items-center'>
+                                                    {skill.type}
+                                                </Badge>
+                                            </Button>
+                                        </Col>
                                     ))
                                 )}
-                                <p></p>
-                                <p>Selecionados: {JSON.stringify(cSelected)}</p>
                             </CardText>
+
                         </CardBody>
                     </Card>
                 </Col>
-
+            </FormGroup>
+            <FormGroup check row>
+                <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
+                    <Button color='success' type='submit' size='lg'>
+                        Próximo passo
+                    </Button>
+                </Col>
             </FormGroup>
         </Form>
     )

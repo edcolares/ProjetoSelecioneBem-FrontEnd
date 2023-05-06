@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import '../css/style.css';
+
 
 import {
     Collapse,
@@ -23,7 +25,7 @@ function navbar(args) {
 
     return (
         <div>
-            <Navbar color="primary" dark expand='md' container="md">
+            <Navbar className='navbarStyle' dark expand='md' container="md">
                 <NavbarBrand href="/">SelecioneBem
                     {/* <img
                         src='../assets/SelecioneBem2.svg'
@@ -32,7 +34,7 @@ function navbar(args) {
                         height={150}
                     /> */}
                 </NavbarBrand>
-                
+
                 <NavbarToggler onClick={toggle} />
 
                 <Collapse isOpen={isOpen} navbar>
@@ -50,12 +52,12 @@ function navbar(args) {
                                 Oportunidades
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem href="/newjobopportunity">
-                                    Criar nova
+                                <DropdownItem href="/jobopportunity/dashboard">
+                                    Dashboard
                                 </DropdownItem>
-                                <DropdownItem href='/jobopportunity'>Ver todas</DropdownItem>
+                                <DropdownItem href='/teste'>Ver todas</DropdownItem>
                                 <DropdownItem divider />
-                                <DropdownItem>Reset</DropdownItem>
+                                <DropdownItem href='/jobopportunity'>Nova Oportunidade</DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>

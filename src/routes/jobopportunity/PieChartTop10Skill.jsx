@@ -1,4 +1,4 @@
-import fetch from '../axios/config';
+import fetch from '../../axios/config';
 import React, { useState, useEffect } from 'react'
 import { Chart } from 'react-google-charts'
 
@@ -28,9 +28,9 @@ const teste = () => {
 
 
     const options = {
-        // title: "Top 10 Skills",
-        legend: false, //Remove a legenda do canot superior direito
-        pieSliceText: "%", // "label" "value" aparece o titulo
+        title: "Top 10 Skills",
+        legend: true, //Remove a legenda do canot superior direito
+        pieSliceText: "label", // "label" "value" aparece o titulo
         chartArea: { width: "100%" },
         is3D: true, // Gráfico 3D (Em alguns gráficos 3D tem que ser false)
         //pieHole: 0.2,
@@ -52,10 +52,11 @@ const teste = () => {
 
     return (
         <Chart
-            chartType="PieChart" //BarChart, ColumnChart, PieChart,LineChart
-            width="100%"
+            chartType="BarChart" //BarChart, ColumnChart, PieChart,LineChart
+            width="100%
+            "
             height="400px"
-            //legendToggle
+            // legendToggle
             options={options}
             data={data}
         // data={[["Age", "Weight"], [4, 5.5], [8, 12]]}

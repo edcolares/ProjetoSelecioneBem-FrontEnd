@@ -1,6 +1,8 @@
 import Navbar from "./components/navbar";
 import { Outlet } from 'react-router-dom';
 import { Container } from 'reactstrap'
+import './css/style.css';
+
 
 function App() {
 
@@ -12,7 +14,7 @@ function App() {
 
       <Navbar></Navbar>
 
-      <Container className="my-3 p-5 bg-light rounded shadow-sm">
+      <Container className="my-3 p-5 bg-white rounded shadow-sm">
 
         <Outlet></Outlet>
 

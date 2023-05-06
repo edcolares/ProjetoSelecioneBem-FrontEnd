@@ -15,6 +15,8 @@ import CreateInterview from './routes/interview/createInterview.jsx';
 import CreateJobOpportunity from './routes/jobopportunity/createJobOpportunity.jsx';
 import AddJobOpportunitySkill from './routes/jobopportunitySkill/addJobOpportunitySkill.jsx';
 import Teste from './routes/teste.jsx';
+import DashboardJobOpportunity from './routes/jobopportunity/dashboardJobOpportunity.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -45,12 +47,16 @@ const router = createBrowserRouter([
         element: <CreateJobOpportunity></CreateJobOpportunity>,
       },
       {
-        path: "/jobopportunity-skill/:id",
+        path: "/jobopportunityskill/:id",
         element: <AddJobOpportunitySkill></AddJobOpportunitySkill>,
       },
       {
-        path: "/teste/:id",
+        path: "/teste",
         element: <Teste></Teste>,
+      },
+      {
+        path: "/jobopportunity/dashboard",
+        element: <DashboardJobOpportunity></DashboardJobOpportunity>,
       },
     ],
   },

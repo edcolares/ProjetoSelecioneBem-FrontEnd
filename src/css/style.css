@@ -16,26 +16,29 @@ body {
     background-color: aqua;
 }
 
+/* Inseri uma linha abaixo do componente */
 .list-divider {
-    border-bottom : 1px solid #c2c2c2;
-    padding-bottom: 5px;
+    border-bottom : 2px solid #c2c2c2;
+    padding-bottom: 20px;
 }
+
 
 .list-item {
     padding                   : 1rem;
-    background-color          : #e3e3e3;
+    background                : linear-gradient(#ebecf0, #bdbec0);
     margin-bottom             : 0.5rem;
-    border-top-left-radius    : 5px;
-    border-top-right-radius   : 5px;
-    border-bottom-left-radius : 5px;
-    border-bottom-right-radius: 5px;
+    border-top-left-radius    : 10px;
+    border-top-right-radius   : 10px;
+    border-bottom-left-radius : 10px;
+    border-bottom-right-radius: 10px;
 }
 
 /* Define a cor de fundo do elemento range para vermelho */
 input[type="range"] {
-    background: #c1c0c0;
+    background   : #c2c2c2;
     border-radius: 10pt;
-    padding: 0px 10px 0px 10px
+    padding      : 0px 10px 0px 10px;
+    border       : solid 1px #a8a7a7;
 }
 
 /* Define a cor do botão deslizante para branco */
@@ -46,3 +49,11 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
     background: white;
 }
+
+/* Cor para a NAVBAR */
+.navbarStyle {
+    background: linear-gradient(45deg, #3853f0, #111d61);
+}
+
+/* $theme-colors: ("primary": #111d61,
+    "danger": #ff4136); */
