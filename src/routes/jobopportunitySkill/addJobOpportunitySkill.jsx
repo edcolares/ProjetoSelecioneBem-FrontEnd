@@ -83,7 +83,7 @@ const addJobOpportunitySkill = () => {
                 <div>
                     {jobOpportunitySkill.map(peso => (
                         <div key={peso.id} className='list-item'>
-                            <h5 className="d-flex justify-content-between">
+                            <h6 className="d-flex justify-content-between">
                                 <span>
                                     {JSON.stringify(peso.skill.name).replace(/"/g, '') + ' '}
 
@@ -94,7 +94,7 @@ const addJobOpportunitySkill = () => {
                                     </Badge>
                                 </span>
                                 <span className="bg-secondary rounded px-2 text-light">{peso.weightingFactor}</span>
-                            </h5>
+                            </h6>
                             <Input
                                 type="range"
                                 min={0}
@@ -112,7 +112,7 @@ const addJobOpportunitySkill = () => {
                 </div>
                 <FormGroup check row>
                     <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
-                        <Button color='success' type='submit' size='lg'>
+                        <Button color='success' type='submit' size='md'>
                             Concluir Cadastro
                         </Button>
                     </Col>

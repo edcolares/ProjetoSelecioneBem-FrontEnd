@@ -65,7 +65,7 @@ const addJobOpportunitySkill = (props) => {
 
             {
                 //  JSON.stringify(jobOpportunitySkill)
-                jobOpportunitySkill.length === 0 ? <p>Sem oportunidades</p> : (
+                jobOpportunitySkill.length === 0 ? <div>Sem oportunidades</div> : (
                     jobOpportunitySkill.map((jobSkills) => (
 
                         // <FormGroup row color='primary'>

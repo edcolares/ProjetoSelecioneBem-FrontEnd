@@ -1,6 +1,6 @@
 body {
-    font-family   : Blinker, Comme, Roboto, ABeeZee, MUSEOMODERNO, COMFORTAA;
-    /* font-family: poppins; */
+    font-family   : Blinker, Comme, Roboto, ABeeZee;
+    /* MUSEOMODERNO, COMFORTAA, Blinker, Comme, Roboto, ABeeZee; */
 }
 
 .titulo {
@@ -22,28 +22,27 @@ body {
     padding-bottom: 20px;
 }
 
-
 .list-item {
     padding                   : 1rem;
-    background                : linear-gradient(#ebecf0, #bdbec0);
+    background                : linear-gradient(#f0f1f3, #f0f1f3);
     margin-bottom             : 0.5rem;
-    border-top-left-radius    : 10px;
-    border-top-right-radius   : 10px;
-    border-bottom-left-radius : 10px;
-    border-bottom-right-radius: 10px;
+    border-top-left-radius    : 5px;
+    border-top-right-radius   : 5px;
+    border-bottom-left-radius : 5px;
+    border-bottom-right-radius: 5px;
 }
 
 /* Define a cor de fundo do elemento range para vermelho */
 input[type="range"] {
-    background   : #c2c2c2;
+    background   : #f0f1f3;
     border-radius: 10pt;
     padding      : 0px 10px 0px 10px;
-    border       : solid 1px #a8a7a7;
+    border       : solid 0.4px #d8d9db;
 }
 
 /* Define a cor do botão deslizante para branco */
 input[type="range"]::-webkit-slider-thumb {
-    background: rgb(31, 31, 31);
+    background: #131212;
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -54,6 +53,3 @@ input[type="range"]::-moz-range-thumb {
 .navbarStyle {
     background: linear-gradient(45deg, #3853f0, #111d61);
 }
-
-/* $theme-colors: ("primary": #111d61,
-    "danger": #ff4136); */

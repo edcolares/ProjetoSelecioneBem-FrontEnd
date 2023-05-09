@@ -1,25 +1,110 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 import fetch from '../../axios/config';
 import '../../css/style.css';
-import { Form, FormGroup, Label, Input, Col, Button, Card, CardHeader, CardBody, CardText, Badge } from 'reactstrap';
-import { colorBadgeSkills } from '../codeUtils.jsx'
+import { colorBadgeSkills } from '../codeUtils.jsx';
+import {
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    Col,
+    Button,
+    Card,
+    CardHeader,
+    CardBody,
+    CardText,
+    Badge,
+    FormFeedback,
+} from 'reactstrap';
+
+/**
+ * Esquema de VALIDAÇÃO do FORMULÁRIO
+ */
+const schema = yup.object().shape({
+    title: yup.string().required('Campo título é obrigatório.'),
+    level: yup.string().required('Selecione o nível necessário para a oportunidade.'),
+    openingDate: yup.date('Por favor, insira uma data válida.').required('Insira a data em que foi aberta a oportunidade.'),
+    expectedDate: yup.date('Por favor, insira uma data válida').required('Insira a data prevista para fechamento da oportunidade.').test(
+        'is-greater',
+        'A data deve ser maior que a data de abertura da oportunidade',
+        function (value) {
+            return value > this.resolve(yup.ref('openingDate'))
+        }
+    ),
+    departments: yup.string().required('Selecione o departamento.'),
+    useId: yup.string().required('UserId é obrigatório.'),
+    cSelected: yup.array().required('Campo obrigatório').min(3, 'Selecione no mínimno três habilidades.'),
+});
 
 const createJobOpportunity = () => {
 
     const navigate = new useNavigate();
 
-    const [title, setTitle] = new useState();
-    const [level, setLevel] = new useState();
-    const [openingDate, setOpeningDate] = new useState();
-    const [expectedDate, setExpectedDate] = new useState();
-    const [departments, setDepartments] = new useState([]);
-    const [useId, setUseId] = new useState();
-    // const [closingDate, setClosingDate] = new useState();
+    /* Variavel que recebe os campos do formulário */
+    const [formData, setFormData] = useState({});
+    const [errors, setErrors] = useState({});
 
-    const [departmentId, setDepartmentId] = new useState()
+    console.log(formData);
+    /**
+ * Função responsável por atualizar o state da variável com o valor
+ * passado.
+ * Quando ela atender uma validação, vai remover o erro da variável errors.
+ * @param {Form} event Recebe o formulário e atualiza o campo
+ */
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        // Aqui atualiza os valores
+        setFormData(prevState => ({ ...prevState, [name]: value }));
+        // Se um campo for corrigido, aqui remove a linha onde armazenava o erro
+        // const { [name]: deletedError, ...restErrors } = errors;
+        // setErrors(restErrors);
 
+        const updatedErrors = { ...errors };
+        delete updatedErrors[name];
+        setErrors(updatedErrors);
+    }
+
+    /**
+      * Função responsável pela validação das informações conforme o schema montado.
+      * Caso encontre erros, a variável errors será alimentada com o campo e o tipo 
+      * que gerou o erro, caso o formulário não tenha erros fará a conecção com a API
+      * e add uma nova Skill
+      * @param {*} event 
+      */
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        /**
+         * Faz a validação do SCHEMA
+         * se atendido em .then fará a inclusão no BD
+         * se atendido em .catch atualiza o erro e não inclui dado no BD
+         */
+        schema.validate(formData, { abortEarly: false })
+            .then(async validData => {
+                const name = validData.name;
+                const type = validData.type;
+                setErrors({});
+
+                await fetch.post("/skill", {
+                    name, type,
+                }).then(() => { alert("Skill incluída com sucesso") });
+
+                navigate("/dashboard");
+            })
+            .catch(error => {
+                const errorObj = error.inner.reduce((acc, curr) => {
+                    acc[curr.path] = curr.message;
+                    return acc;
+                }, {});
+                setErrors(errorObj);
+            });
+    }
+
+    console.log(errors);
     // Busca todos os departamentos ativos
+    const [departments, setDepartments] = useState([]);
     const getDepartments = async () => {
         try {
             const response = await fetch.get("/department");
@@ -59,38 +144,40 @@ const createJobOpportunity = () => {
         }
         setCSelected([...cSelected]);
     };
+    console.log(cSelected)
+
 
     /**
      * Adiciona uma JOBOPPORTUNITY
      * @param {Event} e Evento do mouse
      */
-    const createJobOpportunity = async (e) => {
-        e.preventDefault();
-        let idNewJobOpportunity = null;
+    // const createJobOpportunity = async (e) => {
+    //     e.preventDefault();
+    //     let idNewJobOpportunity = null;
 
-        await fetch.post("/jobopportunity", {
-            title, level, openingDate, expectedDate, useId, departmentId
-        }).then(async (response) => {
+    //     await fetch.post("/jobopportunity", {
+    //         title, level, openingDate, expectedDate, useId, departmentId
+    //     }).then(async (response) => {
 
-            if (response.request.statusText === "OK") {
-                alert("Oportunidade de emprego cadastrada com sucesso!");
-                for (let i = 0; i < cSelected.length; i++) {
-                    console.log(cSelected[i]);
+    //         if (response.request.statusText === "OK") {
+    //             alert("Oportunidade de emprego cadastrada com sucesso!");
+    //             for (let i = 0; i < cSelected.length; i++) {
+    //                 console.log(cSelected[i]);
 
-                    const skillId = cSelected[i];
-                    await fetch.post("/jobopportunity_skill/" + response.data.id, {
-                        skillId
-                    }).then(() => { console.log("Cadastrada: Skill> " + skillId + "Opportunity> " + response.data.id); })
-                }
-                idNewJobOpportunity = response.data.id;
-                console.log(response.data.id);
-            } else {
-                console.log("Erro ao cadastrar oportunidade de emprego");
-            }
-        });
+    //                 const skillId = cSelected[i];
+    //                 await fetch.post("/jobopportunity_skill/" + response.data.id, {
+    //                     skillId
+    //                 }).then(() => { console.log("Cadastrada: Skill> " + skillId + "Opportunity> " + response.data.id); })
+    //             }
+    //             idNewJobOpportunity = response.data.id;
+    //             console.log(response.data.id);
+    //         } else {
+    //             console.log("Erro ao cadastrar oportunidade de emprego");
+    //         }
+    //     });
 
-        navigate("/jobopportunityskill/" + idNewJobOpportunity);
-    };
+    //     navigate("/jobopportunityskill/" + idNewJobOpportunity);
+    // };
 
     /**
      * Código para executar o FILTER dentro de SKILLS
@@ -107,7 +194,7 @@ const createJobOpportunity = () => {
 
     return (
 
-        <Form color='light' onSubmit={(e) => createJobOpportunity(e)}>
+        <Form color='light' onSubmit={handleSubmit}>
 
             <FormGroup>
                 <Label>
@@ -119,8 +206,15 @@ const createJobOpportunity = () => {
             {/* ID */}
             <FormGroup>
                 <Col lg={10}>
-                    <Input id="useId" name="useId" placeholder="Id" type="text"
-                        onChange={(e) => setUseId(e.target.value)} />
+                    <Input
+                        id="useId"
+                        name="useId"
+                        placeholder="Id"
+                        type="text"
+                        invalid={!!errors.useId}
+                        onChange={handleChange}
+                    />
+                    {errors.useId && <FormFeedback>{errors.useId}</FormFeedback>}
                 </Col>
             </FormGroup>
 
@@ -130,19 +224,32 @@ const createJobOpportunity = () => {
                     Descrição/Título
                 </Label>
                 <Col lg={10}>
-                    <Input id="title" name="title" placeholder="Título descritivo da oportunidade de emprego" type="text"
-                        onChange={(e) => setTitle(e.target.value)} />
+                    <Input
+                        id="title"
+                        name="title"
+                        placeholder="Título descritivo da oportunidade de emprego"
+                        type="text"
+                        invalid={!!errors.title}
+                        onChange={handleChange}
+                    />
+                    {errors.title && <FormFeedback>{errors.title}</FormFeedback>}
                 </Col>
             </FormGroup>
 
+            
             {/* LEVEL */}
             <FormGroup row>
                 <Label for="level" lg={2}>
                     Nível/Level
                 </Label>
                 <Col lg={10}>
-                    <Input id="level" name="level" type="select"
-                        onChange={(e) => setLevel(e.target.value)}>
+                    <Input
+                        id="level"
+                        name="level"
+                        type="select"
+                        invalid={!!errors.level}
+                        onChange={handleChange}
+                    >
                         <option key={"default"} value="">-- Selecione o nível de experiência</option>
                         <option key={"Entry level"} value={"Entry level"}>Entry level</option>
                         <option key={"Júnior"} value={"Júnior"}>Júnior</option>
@@ -150,6 +257,7 @@ const createJobOpportunity = () => {
                         <option key={"Senior"} value={"Senior"}>Senior</option>
                         <option key={"LíderTécnico"} value={"Líder Técnico"}>Líder Técnico</option>
                     </Input>
+                    {errors.level && <FormFeedback>{errors.level}</FormFeedback>}
                 </Col>
             </FormGroup>
 
@@ -159,16 +267,26 @@ const createJobOpportunity = () => {
                     Departamento
                 </Label>
                 <Col lg={10}>
-                    <Input id="departments" name="departments" type="select"
-                        onChange={(e) => setDepartmentId(e.target.value)} >
-
+                    <Input
+                        id="departments"
+                        name="departments"
+                        type="select"
+                        invalid={!!errors.departments}
+                        onChange={handleChange}
+                    >
                         <option value="">-- Selecione um departamento</option>
-                        {departments.length === 0 ? <p>Sem departamentos para relacionar</p> : (
+                        {departments.length === 0 ? <div>Sem departamentos para relacionar</div> : (
                             departments.map((department) => (
-                                <option key={department.id} value={department.id}>{department.name} ({department.manager})</option>
+                                <option
+                                    key={department.id}
+                                    value={department.id}
+                                >
+                                    {department.name} ({department.manager})
+                                </option>
                             ))
                         )}
                     </Input>
+                    {errors.departments && <FormFeedback>{errors.departments}</FormFeedback>}
                 </Col>
             </FormGroup>
 
@@ -178,9 +296,17 @@ const createJobOpportunity = () => {
                     Data de abertura
                 </Label>
                 <Col lg={10}>
-                    <Input id='openingDate' name='openingDate' placeholder='' type='date'
-                        onChange={(e) => setOpeningDate(e.target.value)} />
+                    <Input
+                        id='openingDate'
+                        name='openingDate'
+                        type='date'
+                        invalid={!!errors.openingDate}
+                        onChange={handleChange}
+                    />
+                    {errors.openingDate && <FormFeedback>{errors.openingDate}</FormFeedback>}
+
                 </Col>
+
             </FormGroup>
 
             {/* EXPECTED DATE */}
@@ -189,8 +315,14 @@ const createJobOpportunity = () => {
                     Expectativa fechar
                 </Label>
                 <Col lg={10}>
-                    <Input id='expectedDate' name='expectedDate' placeholder='' type='date'
-                        onChange={(e) => setExpectedDate(e.target.value)} />
+                    <Input
+                        id='expectedDate'
+                        name='expectedDate'
+                        type='date'
+                        invalid={!!errors.expectedDate}
+                        onChange={handleChange}
+                    />
+                    {errors.expectedDate && <FormFeedback>{errors.expectedDate}</FormFeedback>}
                 </Col>
             </FormGroup>
 
@@ -212,7 +344,8 @@ const createJobOpportunity = () => {
                     {/* Para alinhar o componente Col ao centro, usar className='mx-auto' */}
                     <Card
                         className="my-2"
-                        color="secondary"
+                        color={!!errors.cSelected ? 'danger' : 'secondary'}
+                        invalid={!!errors.cSelected}
                         outline
                         style={{
                             width: '100%'
@@ -241,14 +374,16 @@ const createJobOpportunity = () => {
                         </CardHeader>
                         <CardBody>
                             <CardText className='d-flex flex-fill flex-wrap'>
-                                {Skills.length === 0 ? <p>Carregando...</p> : (
+                                {Skills.length === 0 ? <div>Carregando...</div> : (
                                     Skills.filter(skill => skill.name.toLowerCase().includes(query) || skill.type.toLowerCase().includes(query)
                                     ).map((skill) => (
                                         <Col xs={12} sm={12} md={6} lg={6} xxl={4} className='p-1'>
                                             <Button
+                                                name='cSelected'
                                                 color='light'
                                                 className='p-2 d-flex justify-content-between align-items-center'
                                                 block
+                                                onChange={handleChange}
                                                 onClick={() => onCheckboxBtnClick(skill.id)}
                                                 active={cSelected.includes(skill.id)} >
                                                 {skill.name}
@@ -262,10 +397,12 @@ const createJobOpportunity = () => {
                                         </Col>
                                     ))
                                 )}
+
                             </CardText>
 
                         </CardBody>
                     </Card>
+                    {/* {errors.cSelected && <div>{errors.cSelected}</div>} */}
                 </Col>
             </FormGroup>
             <FormGroup check row>
