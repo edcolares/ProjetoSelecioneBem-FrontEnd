@@ -1,239 +1,213 @@
-import React, { useState, useRef } from 'react';
-import { Button, Form, FormGroup, Label, Input, Col, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
+import React from 'react';
+import { useState, useEffect } from 'react';
 import fetch from '../axios/config';
+import { format } from 'date-fns';
+// import CreateSkill from './skill/createSkill';
+import '../css/style.css'
+import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill } from 'react-icons/bs'
 
+import {
+  Badge,
+  Col,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardBody,
+  CardText,
+  Row,
+  Spinner,
+  Table,
+  Button,
+} from 'reactstrap';
 
-const CandidateForm = () => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+const Dashboard = () => {
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [skills, setSkills] = useState([]);
+  const getSkills = async () => {
     try {
-      console.log("Valor do campo email: ", email)
-      const response = await fetch.get(`/candidate/${email}`);
-      console.log('Resposta da API' + JSON.stringify(response));
-      setName(response.data.name);
+      const response = await fetch.get("/skill");
+      const data = response.data;
+      setSkills(data);
     } catch (error) {
-      setName('');
+      console.log(error);
     }
-  };
+  }
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSave = async () => {
+  /**
+   * Busca todas as oportunidades com data de fechamento em aberto
+   */
+  const [jobopportunities, setJobOpportunities] = useState([]);
+  const getJobOpportunityByClosingDateOpen = async () => {
     try {
-      await fetch.post('/candidate', { name, email });
+      const idUser = 5;
+      const response = await fetch.get(`/jobopportunity/find/${idUser}`);
+      const data = response.data;
+      setJobOpportunities(data);
     } catch (error) {
-      console.error(error);
+      console.log(error)
     }
-  };
+  }
 
-
-  // ultima inclusoes
-
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
-  const [observation, setObservation] = useState('');
-
-  const intervalRef = useRef(null);
-
-  const startTimer = () => {
-    setStartTime(new Date());
-    setIsRunning(true);
-    intervalRef.current = setInterval(() => {
-      setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
-    }, 1000);
-  };
-
-  const stopTimer = () => {
-    clearInterval(intervalRef.current);
-    setEndTime(new Date());
-    setIsRunning(false);
-    sendInterviewData();
-  };
-
-  const handleObservationChange = (event) => {
-    setObservation(event.target.value);
-  };
-
-  const sendInterviewData = () => {
-    const data = {
-      start_time: startTime,
-      end_time: endTime,
-      elapsed_time: elapsedTime,
-      observation: observation,
-    };
-    fetch.post('sua-api.com/entrevista', data).then((response) => {
-      console.log(response);
-    });
-  };
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''
-      }${seconds}`;
-  };
+  useEffect(() => {
+    getSkills();
+    getJobOpportunityByClosingDateOpen();
+  }, []);
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <div>
 
-      <FormGroup>
-        <Label>
-          <div className='titulo'>
-            <h4>
-              Entrevista
-            </h4>
-          </div>
-          <div className='subtitulo'>
-            <h6 className='fw-light'>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi dolores, minima dolorem tempora pariatur itaque ipsa quos, dignissimos optio, fuga omnis quaerat quod vero. Voluptas id cumque obcaecati nesciunt ex.
-            </h6>
-          </div>
-        </Label>
-      </FormGroup>
+      <Row>
+        <Col md={12}>
 
+          <Card
+            className="my-2"
+            color="secondary"
+            outline
+            style={{
+              width: '100%'
+            }}
+          >
+            <CardHeader>
+              Oportunidades em aberto
+            </CardHeader>
+            <CardBody>
+              <CardText>
+                {jobopportunities.length === 0 ? <Spinner
+                  color="primary"
+                  size="sm"
+                >
+                  Loading...
+                </Spinner> : (
 
-      <Card
-        className="my-2"
-        color="light"
-        style={{
-          width: '100%'
-        }}
-      >
-        <CardHeader tag={'h5'}>
-          Defina o candidato
-        </CardHeader>
-        <CardBody>
-          <CardText>
-            <FormGroup row>
-              <Col lg={2}>
-                <Label for="email">E-mail do candidato</Label>
-              </Col>
-              <Col lg={10}>
-                <Input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Informe o e-mail do candidato"
-                  value={email}
-                  onBlur={handleSubmit}
-                  onChange={handleEmailChange}
-                />
-              </Col>
-              {/* <Col lg={2}>
-                <Button color="primary" type="submit">
-                  Verificar Candidato
-                </Button>
-              </Col> */}
-            </FormGroup>
+                  <div>
 
+                    <Table
+                      bordered
+                      hover
+                      responsive
+                      size="sm"
+                      striped
+                    >
+                      <thead>
+                        <tr>
+                          <th>
+                            Nome da oportunidade
+                          </th>
+                          <th>
+                            Level
+                          </th>
+                          <th>
+                            Abertura
+                          </th>
+                          <th>
+                            Fechamento
+                          </th>
+                          <th>
 
-            {name ? (
-              <FormGroup row>
-                <Col lg={2}>
-                  <Label for="name">Nome do candidato</Label>
-                </Col>
-                <Col lg={10}>
-                  <Input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={name}
-                    onChange={handleNameChange}
-                  />
-                </Col>
-              </FormGroup>
-            ) : (
-              <>
-                <FormGroup row>
-                  <Col lg={2}>
-                    <Label for="name">Nome</Label>
-                  </Col>
-                  <Col lg={10}>
-                    <Input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Informe o nome do candidato"
-                      value={name}
-                      onChange={handleNameChange}
-                    />
-                  </Col>
-                </FormGroup>
+                          </th>
+                        </tr>
+                      </thead >
+                      <tbody>
+                        {jobopportunities.map((opportunity) => (
+                          <tr key={opportunity.id}>
+                            <td>
+                              {opportunity.title}
+                            </td>
+                            <td>
+                              {opportunity.level}
+                            </td>
+                            <td>
+                              {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}
+                            </td>
+                            <td>
+                              {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
+                            </td>
+                            <td className='d-inline-flex align-items-center'>
+                              <Button color='danger' outline size="sm"><BsFillTrash3Fill />Deletar</Button>
+                              <Button color='success' outline size="sm"><BsPlusCircleFill />Entrevista</Button>
+                              <Button color='danger' outline size="sm"><BsFileTextFill />Relatório</Button>
 
-                <FormGroup row switch>
-                  <Col lg={2}>
-
-                  </Col>
-                  <Col lg={10}>
-                    <Input
-                      type="switch"
-                      role="switch"
-                    />
-                    <Label check>Candidato chegou atrasado!</Label>
-                  </Col>
-                </FormGroup>
-
-              </>
-            )}
-
-            <FormGroup check row>
-              <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
-                {!name && (
-                  <Button color="success" onClick={handleSave}>
-                    Salvar Candidato
-                  </Button>
+                            </td>
+                          </tr>
+                        ))
+                        }
+                      </tbody >
+                    </Table >
+                  </div >
                 )}
-              </Col>
-            </FormGroup>
+              </CardText >
+            </CardBody >
+          </Card >
+        </Col >
 
-          </CardText>
-        </CardBody>
-      </Card>
+        <Col>
+          <Card
+            className="my-2"
+            color="danger"
+            outline
+            style={{
+              width: '100%'
+            }}
+          >
+            <CardHeader>
+              Relação de Skills
+            </CardHeader>
+            <CardBody>
+              <CardText>
+                {skills.length === 0 ? <Spinner
+                  color="light"
+                  size="sm"
+                >
+                  Loading...
+                </Spinner> : (
+                  skills.map((skill) => (
+                    <div className='skill' key={skill.id}>
+
+                      <div>{skill.name}</div>
+                    </div>
+                  ))
+                )}
 
 
+              </CardText >
+            </CardBody >
+          </Card >
 
+        </Col >
+        <Col>
+          <Card
+            className="my-2"
+            color="danger"
+            inverse
+            style={{
+              width: '100%'
+            }}
+          >
+            <CardHeader>
+              Oportunidades fora do prazo
+            </CardHeader>
+            <CardBody>
+              <CardTitle tag="h5">
+                Atrasadas
+              </CardTitle>
+              <CardText>
+                Aqui iremos colocar um lista com todas as oportunidades que estão com prazo
+                de término superadas, mas ainda estão em aberto. A partir daqui o profissional poderá
+                clicar na oportunidade que será encaminhado para a tela com todos os dados da
+                oportunidade de emprego.
+              </CardText>
+            </CardBody>
+          </Card>
+        </Col>
+        <Col className="bg-light border">
+          Column
+        </Col>
+        <Col className="bg-light border">
+          oLÁ MUNDO
+        </Col>
+      </Row>
+    </div >
+  )
+}
 
-
-
-
-      {/* codigo novo */}
-
-
-      <div>
-        <Button color="primary" onClick={startTimer} disabled={isRunning}>
-          Iniciar entrevista
-        </Button>
-
-        <h2>{formatTime(elapsedTime)}</h2>
-
-        <Input
-          type="textarea"
-          name="observation"
-          id="observation"
-          placeholder="Observações sobre a entrevista"
-          onChange={handleObservationChange}
-          value={observation}
-        />
-
-
-        <Button color="danger" onClick={stopTimer} disabled={!isRunning}>
-          Terminar entrevista
-        </Button>
-      </div>
-
-    </Form>
-  );
-};
-
-export default CandidateForm;
+export default Dashboard
