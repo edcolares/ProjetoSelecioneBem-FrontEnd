@@ -1,8 +1,6 @@
 body {
-    font-family   : Blinker, Comme, Roboto, ABeeZee;
-    /* MUSEOMODERNO, COMFORTAA, Blinker, Comme, Roboto, ABeeZee; */
+    font-family: 'Courier New', Courier, monospace;
 }
-
 .titulo {
     font-weight: bold;
 }

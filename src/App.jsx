@@ -1,8 +1,6 @@
 import Navbar from "./components/navbar";
 import { Outlet } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import './css/style.css'
-
 
 function App() {
 

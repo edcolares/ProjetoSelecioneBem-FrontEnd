@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import fetch from '../axios/config';
+import { format } from 'date-fns';
 // import CreateSkill from './skill/createSkill';
 import '../css/style.css'
 import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill } from 'react-icons/bs'
@@ -107,7 +108,7 @@ const Dashboard = () => {
                                             </thead >
                                             <tbody>
                                                 {jobopportunities.map((opportunity) => (
-                                                    <tr key={opportunity}>
+                                                    <tr key={opportunity.id}>
                                                         <th>
                                                             {opportunity.title}
                                                         </th>
@@ -115,10 +116,10 @@ const Dashboard = () => {
                                                             {opportunity.level}
                                                         </th>
                                                         <th>
-                                                            {opportunity.openingDate}
+                                                            {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}
                                                         </th>
                                                         <th>
-                                                            {opportunity.expectedDate}
+                                                            {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
                                                         </th>
                                                         <th className='d-inline-flex align-items-center'>
                                                             <Button color='danger' outline size="sm"><BsFillTrash3Fill />Deletar</Button>
