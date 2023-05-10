@@ -32,14 +32,12 @@ function navbar(args) {
                         height={150}
                     /> */}
                 </NavbarBrand>
-                
+
                 <NavbarToggler onClick={toggle} />
 
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
-                        <NavItem>
-                            <NavLink href="/interview">Entrevista</NavLink>
-                        </NavItem>
+
                         <NavItem>
                             <NavLink href="/dashboard">
                                 Dashboard
@@ -50,14 +48,27 @@ function navbar(args) {
                                 Oportunidades
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem href="/newjobopportunity">
+                                <DropdownItem href="/jobopportunity">
                                     Criar nova
                                 </DropdownItem>
-                                <DropdownItem href='/jobopportunity'>Ver todas</DropdownItem>
+
                                 <DropdownItem divider />
-                                <DropdownItem>Reset</DropdownItem>
+
+                                <DropdownItem href='/jobopportunity/dashboard'>
+                                    Dashboard
+                                </DropdownItem>
+
                             </DropdownMenu>
                         </UncontrolledDropdown>
+                        <NavItem>
+                            <NavLink href="/interview">Entrevista</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/skill">Skill</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/teste">Teste</NavLink>
+                        </NavItem>
                     </Nav>
                     <NavbarText>Simple Text</NavbarText>
                 </Collapse>
