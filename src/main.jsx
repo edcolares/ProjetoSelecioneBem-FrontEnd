@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <CreateSkill></CreateSkill>,
       },
       {
-        path: "/interview",
+        path: "/interview/:idJobOpportunity",
         element: <CreateInterview></CreateInterview>,
       },
       {
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <DashboardJobOpportunity></DashboardJobOpportunity>,
       },
       {
-        path: "/teste",
+        path: "/teste/:idJobOpportunity",
         element: <Teste></Teste>,
       },
     ],

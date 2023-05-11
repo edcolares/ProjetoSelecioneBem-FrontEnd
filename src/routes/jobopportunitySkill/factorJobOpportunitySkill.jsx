@@ -57,10 +57,10 @@ const factorJobOpportunitySkill = () => {
 
     return (
 
-        <Form color='light' onSubmit={(e) => updateWeightingFactor(e)}>
+        <Form name='form' id='name' color='light' onSubmit={(e) => updateWeightingFactor(e)}>
 
-            <FormGroup>
-                <Label>
+            <FormGroup name='FormTitulo' id='FormTitulo'>
+                <Label name='LabelFormTitulo' id='LabelFormTitulo'>
                     <div className='titulo'>
                         <h4>
                             Fator de peso
@@ -79,7 +79,7 @@ const factorJobOpportunitySkill = () => {
                 </Label>
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup name='FormCard' id='FormCard'>
                 <div>
                     {jobOpportunitySkill.map(peso => (
                         <div key={peso.id} className='list-item'>
@@ -107,8 +107,6 @@ const factorJobOpportunitySkill = () => {
                             />
                         </div>
                     ))}
-                    {/* <p>{JSON.stringify(jobOpportunitySkill)}</p>
-                    <p>{JSON.stringify(jobOpportunitySkill)}</p> */}
                 </div>
                 <FormGroup check row>
                     <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>

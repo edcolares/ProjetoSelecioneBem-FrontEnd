@@ -2,12 +2,16 @@ import React from 'react';
 import { Alert, Col, Row, FormGroup, Container, Card, CardBody, CardHeader, CardTitle, CardText } from 'reactstrap';
 import Teste from '../teste';
 import PieChartTop10Skill from './PieChartTop10Skill.jsx'
+import TableOpenJobOpportunity from './tableOpenJobOpportunity.jsx'
 
 
 const dashboardJobOpportunity = () => {
     return (
         <Container>
             <Row>
+                <Col lg={12}>
+                    <TableOpenJobOpportunity></TableOpenJobOpportunity>
+                </Col>
                 <Col lg={6}>
                     <Card
                         className="my-0"
@@ -40,7 +44,7 @@ const dashboardJobOpportunity = () => {
                         <CardBody className='p-0 my-0'>
                             <CardText>
                                 <Alert variant="primary">
-                                    <Teste></Teste>
+                                    Gráfico 2
                                 </Alert>
                             </CardText>
                         </CardBody>

@@ -104,7 +104,7 @@ const CandidateForm = () => {
 
 
             <Card
-                className="my-2"
+                className="card my-2"
                 color="light"
                 style={{
                     width: '100%'
@@ -190,9 +190,11 @@ const CandidateForm = () => {
                         <FormGroup check row>
                             <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
                                 {!name && (
-                                    <Button color="success" onClick={handleSave}>
+
+                                    <Button className="button-77" role="button" onClick={handleSave}>
                                         Salvar Candidato
                                     </Button>
+
                                 )}
                             </Col>
                         </FormGroup>

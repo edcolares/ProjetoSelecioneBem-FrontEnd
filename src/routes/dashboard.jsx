@@ -37,7 +37,6 @@ const Dashboard = () => {
     return (
         <Row xs="2">
             <Col>
-                {/* <Col className="bg-light border"> */}
 
                 <Card
                     className="my-2"
@@ -51,19 +50,16 @@ const Dashboard = () => {
                         Relação de Skills
                     </CardHeader>
                     <CardBody>
-                        {/* <CardTitle tag="h5">
-                            Special Title Treatment
-                        </CardTitle> */}
                         <CardText>
-                            {Skills.length === 0 ? <p>Carregando...</p> : (
+                            {Skills.length === 0 ? (
+                                <div>Carregando...</div>
+                            ) : (
                                 Skills.map((skill) => (
                                     <div className='skill' key={skill.id}>
-                                        <p>{skill.name}</p>
+                                        <span>{skill.name}</span>
                                     </div>
                                 ))
                             )}
-
-
                         </CardText>
                     </CardBody>
                 </Card>

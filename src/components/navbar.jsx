@@ -23,7 +23,7 @@ function navbar(args) {
 
     return (
         <div>
-            <Navbar color="primary" dark expand='md' container="md">
+            <Navbar dark expand='md' container="md">
                 <NavbarBrand href="/">SelecioneBem
                     {/* <img
                         src='../assets/SelecioneBem2.svg'
