@@ -4,6 +4,10 @@ import fetch from '../axios/config';
 import CreateSkill from './skill/createSkill';
 
 import {
+    Accordion,
+    AccordionBody,
+    AccordionHeader,
+    AccordionItem,
     Row,
     Col,
     Card,
@@ -17,85 +21,79 @@ const Dashboard = () => {
     const [Skills, setSkills] = useState([]);
 
     const getSkills = async () => {
-
         try {
-
             const response = await fetch.get("/skill");
             const data = response.data;
             setSkills(data);
-
         } catch (error) {
             console.log(error);
         }
-
     }
+
+
+    const [open, setOpen] = useState();
+    const toggle = (id) => {
+        if (open === id) {
+            setOpen();
+        } else {
+            setOpen(id);
+        }
+    };
+
+
 
     useEffect(() => {
         getSkills();
     }, []);
 
     return (
-        <Row xs="2">
-            <Col>
+        <Row>
 
+            <Col xs={12} md={12}>
                 <Card
-                    className="my-2"
-                    color="danger"
+                    className="p-0"
+                    color="secondary"
                     outline
                     style={{
                         width: '100%'
                     }}
                 >
-                    <CardHeader>
-                        Relação de Skills
+                    <CardHeader tag={'h4'}>
+                        Insira uma nova Skill
                     </CardHeader>
-                    <CardBody>
-                        <CardText>
+                    <CardBody className='d-flex justify-content-center'>
+                        <CardText
+                            style={{
+                                width: '80%'
+                            }}
+                            className='d-flex flex-column'>
+                            <CreateSkill></CreateSkill>
+                        </CardText>
+                    </CardBody>
+                </Card>
+            </Col>
+            <Col md={12}>
+
+
+                <Accordion xs={12} md={12} open={open} toggle={toggle} className="bg-light border">
+                    <AccordionItem>
+                        <AccordionHeader targetId="1">Adicionar uma nova Skill</AccordionHeader>
+                        <AccordionBody accordionId="1">
                             {Skills.length === 0 ? (
                                 <div>Carregando...</div>
                             ) : (
                                 Skills.map((skill) => (
                                     <div className='skill' key={skill.id}>
-                                        <span>{skill.name}</span>
+                                        <span>{skill.name} - {skill.type}</span>
                                     </div>
                                 ))
                             )}
-                        </CardText>
-                    </CardBody>
-                </Card>
+                        </AccordionBody>
+                    </AccordionItem>
+                </Accordion>
 
             </Col>
-            <Col>
-                <Card
-                    className="my-2"
-                    color="danger"
-                    inverse
-                    style={{
-                        width: '100%'
-                    }}
-                >
-                    <CardHeader>
-                        Oportunidades fora do prazo
-                    </CardHeader>
-                    <CardBody>
-                        <CardTitle tag="h5">
-                            Atrasadas
-                        </CardTitle>
-                        <CardText>
-                            Aqui iremos colocar um lista com todas as oportunidades que estão com prazo
-                            de término superadas, mas ainda estão em aberto. A partir daqui o profissional poderá
-                            clicar na oportunidade que será encaminhado para a tela com todos os dados da
-                            oportunidade de emprego.
-                        </CardText>
-                    </CardBody>
-                </Card>
-            </Col>
-            <Col className="bg-light border">
-                Column
-            </Col>
-            <Col className="bg-light border">
-                <CreateSkill></CreateSkill>
-            </Col>
+
         </Row>
     )
 }

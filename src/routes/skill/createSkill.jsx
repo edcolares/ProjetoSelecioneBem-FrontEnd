@@ -12,6 +12,7 @@ import {
     Button,
     FormFeedback,
 } from 'reactstrap';
+import { useEffect } from 'react';
 
 /**
  * Esquema de VALIDAÇÃO do FORMULÁRIO
@@ -28,6 +29,15 @@ const createSkill = () => {
     const [formData, setFormData] = useState({});
     const [errors, setErrors] = useState({});
 
+
+    /**
+     * Tem como objetivo controlar a atualização do componente junto a página dashboard
+     * Vai adotar a abordagem de `refs` = useRef  do React
+     */
+    const [refresh, setRefresh] = useState(false);
+    const refreshComponent = () => {
+        setRefresh((prevRefresh) => !prevRefresh);
+    };
 
     /**
      * Função responsável por atualizar o state da variável com o valor
@@ -75,7 +85,8 @@ const createSkill = () => {
                     name, type,
                 }).then(() => { alert("Skill incluída com sucesso") });
 
-                navigate("/dashboard");
+                refreshComponent(true);
+
             })
             .catch(error => {
                 const errorObj = error.inner.reduce((acc, curr) => {
@@ -85,6 +96,10 @@ const createSkill = () => {
                 setErrors(errorObj);
             });
     }
+
+    useEffect(() => {
+        console.log('Roda na renderização');
+    }, [formData]);
 
     return (
         <Form color='light' onSubmit={handleSubmit}>

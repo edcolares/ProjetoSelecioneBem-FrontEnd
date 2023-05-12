@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import fetch from '../../axios/config';
 import { format } from 'date-fns';
+import AlertComponent from '../AlertComponent';
 import '../../css/style.css'
 import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill } from 'react-icons/bs'
 
@@ -9,6 +11,7 @@ import {
   Col,
   Card,
   CardHeader,
+  CardTitle,
   CardBody,
   CardText,
   Row,
@@ -17,7 +20,13 @@ import {
   Button,
 } from 'reactstrap';
 
-const tableOpenJobOpportunity = () => {
+const Dashboard = () => {
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertColor, setAlertColor] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+
+  const navigate = new useNavigate();
 
   /**
    * Busca todas as oportunidades com data de fechamento em aberto
@@ -34,6 +43,32 @@ const tableOpenJobOpportunity = () => {
     }
   }
 
+  const deleteJobOpportunity = async (idJobOpportunity) => {
+    const response = await fetch.delete(`/jobopportunity/${idJobOpportunity}`)
+      .then(response => {
+        setJobOpportunities(prevOpportunities =>
+          prevOpportunities.filter(opportunity => opportunity.id !== idJobOpportunity)
+        );
+        setAlertColor('success');
+        setAlertMessage('Oportunidade de emprego excluída com sucesso!');
+        setShowAlert(true);
+      })
+      .catch(error => {
+        console.error(error);
+        setAlertColor('danger');
+        setAlertMessage('Erro ao excluir a oportunidade de emprego. Por favor, tente novamente.');
+      });
+  }
+
+  const newInterviewByJobOpportunity = async (idJobOpportunity) => {
+    alert('Nova entrevista para a oportunidade id=' + idJobOpportunity);
+    navigate(`/interview/${idJobOpportunity}`);
+  }
+
+  const relatorioOfJobOpportunity = async (idJobOpportunity) => {
+    alert('Relatório para a oportunidade de id=' + idJobOpportunity)
+  }
+
   useEffect(() => {
     getJobOpportunityByClosingDateOpen();
   }, []);
@@ -41,9 +76,12 @@ const tableOpenJobOpportunity = () => {
   let i = 0
 
   return (
-    <div>
-
       <Row>
+        <Col md={12}>
+          {showAlert && (
+            <AlertComponent color={alertColor} message={alertMessage} />
+          )}
+        </Col>
         <Col md={12}>
 
           <Card
@@ -54,7 +92,7 @@ const tableOpenJobOpportunity = () => {
               width: '100%'
             }}
           >
-            <CardHeader tag="h5">
+            <CardHeader color='danger'>
               Oportunidades em aberto
             </CardHeader>
             <CardBody>
@@ -96,6 +134,7 @@ const tableOpenJobOpportunity = () => {
 
                         {jobopportunities.map((opportunity) => (
                           <tr key={opportunity.id} className='align-middle'>
+                            {/* className={Number(i++) % 2 === 0 ? 'align-middle text-secondary' : 'align-middle text-success'}> */}
 
                             <td className='align-middle'>
                               {opportunity.title}
@@ -110,9 +149,34 @@ const tableOpenJobOpportunity = () => {
                               {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
                             </td>
                             <td className='d-flex align-middle'>
-                              <Button color='danger opacity-80' className='p-1 my-0 mx-0 opacity-75 rounded' size="sm"><BsFillTrash3Fill /></Button>
-                              <Button color='success opacity-80' className='p-1 my-0 mx-1 opacity-75 bordered' size="sm"><BsPlusCircleFill /></Button>
-                              <Button color='secondary opacity-80' className='p-1 my-0 mx-0 opacity-75 bordered' size="sm"><BsFileTextFill /></Button>
+                              {/* Button excluir entrevista */}
+                              <Button
+                                color='danger opacity-80'
+                                className='p-1 my-0 mx-0 opacity-75 rounded'
+                                size="sm"
+                                onClick={() => deleteJobOpportunity(opportunity.id)}
+                              >
+                                <BsFillTrash3Fill />
+                              </Button>
+                              {/* Button nova entrevista */}
+                              <Button
+                                color='success opacity-80'
+                                className='p-1 my-0 mx-1 opacity-75 bordered'
+                                size="sm"
+                                onClick={() => newInterviewByJobOpportunity(opportunity.id)}
+                              >
+                                <BsPlusCircleFill />
+                              </Button>
+                              {/* Button relatório */}
+                              <Button
+                                color='secondary opacity-80'
+                                className='p-1 my-0 mx-0 opacity-75 bordered'
+                                size="sm"
+                                onClick={() => relatorioOfJobOpportunity(opportunity.id)}
+                              >
+                                <BsFileTextFill />
+                              </Button>
+
                             </td>
                           </tr>
                         ))
@@ -125,10 +189,8 @@ const tableOpenJobOpportunity = () => {
             </CardBody >
           </Card >
         </Col >
-
       </Row>
-    </div >
   )
 }
 
-export default tableOpenJobOpportunity
+export default Dashboard

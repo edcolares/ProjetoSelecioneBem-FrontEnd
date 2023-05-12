@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 
 import Home from "./routes/home.jsx";
 import Dashboard from './routes/dashboard.jsx';
-import CreateSkill from './routes/skill/createSkill.jsx';
+import DashboardSkill from './routes/skill/dashboardSkill.jsx';
 import CreateInterview from './routes/interview/createInterview.jsx';
 import CreateJobOpportunity from './routes/jobopportunity/createJobOpportunity.jsx';
 import FactorJobOpportunitySkill from './routes/jobopportunitySkill/factorJobOpportunitySkill.jsx';
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/skill",
-        element: <CreateSkill></CreateSkill>,
+        element: <DashboardSkill></DashboardSkill>,
       },
       {
         path: "/interview/:idJobOpportunity",
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <DashboardJobOpportunity></DashboardJobOpportunity>,
       },
       {
-        path: "/teste/:idJobOpportunity",
+        path: "/teste",
         element: <Teste></Teste>,
       },
     ],
