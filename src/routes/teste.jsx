@@ -1,7 +1,7 @@
 import fetch from '../axios/config';
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
+import { Button, Form, FormGroup, Label, Input, Col, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
 
 const getJobOpportunityById = () => {
 
@@ -65,6 +65,23 @@ const getJobOpportunityById = () => {
 
   return (
     <div>
+      <Form>
+        <FormGroup>
+          <Label>
+            <div className='titulo'>
+              <h4>
+                Entrevista
+              </h4>
+            </div>
+            <div className='subtitulo'>
+              <h6 className='fw-light'>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi dolores, minima dolorem tempora pariatur itaque ipsa quos, dignissimos optio, fuga omnis quaerat quod vero. Voluptas id cumque obcaecati nesciunt ex.
+              </h6>
+            </div>
+          </Label>
+        </FormGroup>
+      </Form>
+
       {/* <p>Id: {jobOpportunity.id}</p>
       <p>Title: {jobOpportunity.title}</p>
       <p>Level: {jobOpportunity.level}</p>
