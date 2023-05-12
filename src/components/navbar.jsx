@@ -23,7 +23,7 @@ function navbar(args) {
 
     return (
         <div>
-            <Navbar className='navbarStyle' dark expand='md' container="md">
+            <Navbar dark expand='md' container="md">
                 <NavbarBrand href="/">SelecioneBem
                     {/* <img
                         src='../assets/SelecioneBem2.svg'
@@ -37,9 +37,7 @@ function navbar(args) {
 
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
-                        <NavItem>
-                            <NavLink href="/interview">Entrevista</NavLink>
-                        </NavItem>
+
                         <NavItem>
                             <NavLink href="/dashboard">
                                 Dashboard
@@ -50,14 +48,27 @@ function navbar(args) {
                                 Oportunidades
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem href="/jobopportunity/dashboard">
+                                <DropdownItem href="/jobopportunity">
+                                    Criar nova
+                                </DropdownItem>
+
+                                <DropdownItem divider />
+
+                                <DropdownItem href='/jobopportunity/dashboard'>
                                     Dashboard
                                 </DropdownItem>
-                                <DropdownItem href='/teste'>Ver todas</DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem href='/jobopportunity'>Nova Oportunidade</DropdownItem>
+
                             </DropdownMenu>
                         </UncontrolledDropdown>
+                        <NavItem>
+                            <NavLink href="/interview">Entrevista</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/skill">Skill</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/teste">Teste</NavLink>
+                        </NavItem>
                     </Nav>
                     <NavbarText>Simple Text</NavbarText>
                 </Collapse>

@@ -53,175 +53,34 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div>
+        <Row xs="2">
+            <Col>
 
-            <Row>
-                <Col md={12}>
-
-                    <Card
-                        className="my-2"
-                        color="secondary"
-                        outline
-                        style={{
-                            width: '100%'
-                        }}
-                    >
-                        <CardHeader>
-                            Oportunidades em aberto
-                        </CardHeader>
-                        <CardBody>
-                            <CardText>
-                                {jobopportunities.length === 0 ? <Spinner
-                                    color="primary"
-                                    size="sm"
-                                >
-                                    Loading...
-                                </Spinner> : (
-
-                                    <div>
-
-                                        <Table
-                                            bordered
-                                            hover
-                                            responsive
-                                            size="sm"
-                                            striped
-                                        >
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Nome da oportunidade
-                                                    </th>
-                                                    <th>
-                                                        Level
-                                                    </th>
-                                                    <th>
-                                                        Abertura
-                                                    </th>
-                                                    <th>
-                                                        Fechamento
-                                                    </th>
-                                                    <th>
-
-                                                    </th>
-                                                </tr>
-                                            </thead >
-                                            <tbody>
-                                                {jobopportunities.map((opportunity) => (
-                                                    <tr key={opportunity.id}>
-                                                        <th>
-                                                            {opportunity.title}
-                                                        </th>
-                                                        <th>
-                                                            {opportunity.level}
-                                                        </th>
-                                                        <th>
-                                                            {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}
-                                                        </th>
-                                                        <th>
-                                                            {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
-                                                        </th>
-                                                        <th className='d-inline-flex align-items-center'>
-                                                            <Button color='danger' outline size="sm"><BsFillTrash3Fill />Deletar</Button>
-                                                            <Button color='success' outline size="sm"><BsPlusCircleFill />Entrevista</Button>
-                                                            <Button color='danger' outline size="sm"><BsFileTextFill />Relatório</Button>
-                                                           
-                                                        </th>
-                                                    </tr>
-                                                ))
-                                                }
-                                            </tbody >
-                                        </Table >
-
-                                        <Table
-                                            bordered
-                                            hover
-                                            responsive
-                                            size="sm"
-                                            striped
-                                        >
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Descrição
-                                                    </th>
-                                                    <th>
-                                                        Nível
-                                                    </th>
-                                                    <th>
-                                                        Dt Abertura
-                                                    </th>
-                                                    <th>
-                                                        Dt Prev Fec
-                                                    </th>
-                                                    <th>
-                                                        Options
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>
-                                                        Estagiário Contábil Fiscal
-                                                    </td>
-                                                    <td>
-                                                        No experience
-                                                    </td>
-                                                    <td>
-                                                        2023-04-25                                                    </td>
-                                                    <td>
-                                                        2023-05-05
-                                                    </td>
-                                                    <td>
-                                                        <Button color='danger' outline size="sm"><BsFillTrash3Fill />Deletar</Button>
-                                                        <Button color='success' outline size="sm"><BsPlusCircleFill />Entrevista</Button>
-                                                        <Button color='danger' outline size="sm"><BsFileTextFill />Relatório</Button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </Table>
-
-
-                                    </div >
-                                )}
-                            </CardText >
-                        </CardBody >
-                    </Card >
-                </Col >
-                {/*
-                <Col>
-                    <Card
-                        className="my-2"
-                        color="danger"
-                        outline
-                        style={{
-                            width: '100%'
-                        }}
-                    >
-                        <CardHeader>
-                            Relação de Skills
-                        </CardHeader>
-                        <CardBody>
-                            <CardText>
-                                {skills.length === 0 ? <Spinner
-                                    color="light"
-                                    size="sm"
-                                >
-                                    Loading...
-                                </Spinner> : (
-                                    skills.map((skill) => (
-                                        <div className='skill' key={skill.id}>
-
-                                            <div>{skill.name}</div>
-                                        </div>
-                                    ))
-                                )}
-
-
-                            </CardText >
-                        </CardBody >
-                    </Card >
+                <Card
+                    className="my-2"
+                    color="danger"
+                    outline
+                    style={{
+                        width: '100%'
+                    }}
+                >
+                    <CardHeader>
+                        Relação de Skills
+                    </CardHeader>
+                    <CardBody>
+                        <CardText>
+                            {Skills.length === 0 ? (
+                                <div>Carregando...</div>
+                            ) : (
+                                Skills.map((skill) => (
+                                    <div className='skill' key={skill.id}>
+                                        <span>{skill.name}</span>
+                                    </div>
+                                ))
+                            )}
+                        </CardText>
+                    </CardBody>
+                </Card>
 
                 </Col >
                 <Col>

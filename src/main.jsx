@@ -8,15 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 
 import Home from "./routes/home.jsx";
-import NewJobOpportunity from "./routes/NewJobOpportunity.jsx";
 import Dashboard from './routes/dashboard.jsx';
 import CreateSkill from './routes/skill/createSkill.jsx';
 import CreateInterview from './routes/interview/createInterview.jsx';
 import CreateJobOpportunity from './routes/jobopportunity/createJobOpportunity.jsx';
-import AddJobOpportunitySkill from './routes/jobopportunitySkill/addJobOpportunitySkill.jsx';
-import Teste from './routes/teste.jsx';
+import FactorJobOpportunitySkill from './routes/jobopportunitySkill/factorJobOpportunitySkill.jsx';
 import DashboardJobOpportunity from './routes/jobopportunity/dashboardJobOpportunity.jsx';
-
+import Teste from './routes/teste.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,10 +25,6 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/newjobopportunity",
-        element: <NewJobOpportunity></NewJobOpportunity>,
-      },
-      {
         path: "/dashboard",
         element: <Dashboard></Dashboard>,
       },
@@ -39,7 +33,7 @@ const router = createBrowserRouter([
         element: <CreateSkill></CreateSkill>,
       },
       {
-        path: "/interview",
+        path: "/interview/:idJobOpportunity",
         element: <CreateInterview></CreateInterview>,
       },
       {
@@ -48,15 +42,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/jobopportunityskill/:id",
-        element: <AddJobOpportunitySkill></AddJobOpportunitySkill>,
-      },
-      {
-        path: "/teste",
-        element: <Teste></Teste>,
+        element: <FactorJobOpportunitySkill></FactorJobOpportunitySkill>,
       },
       {
         path: "/jobopportunity/dashboard",
         element: <DashboardJobOpportunity></DashboardJobOpportunity>,
+      },
+      {
+        path: "/teste/:idJobOpportunity",
+        element: <Teste></Teste>,
       },
     ],
   },

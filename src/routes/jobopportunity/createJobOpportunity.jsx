@@ -35,7 +35,7 @@ const schema = yup.object().shape({
     ),
     departments: yup.string().required('Selecione o departamento.'),
     useId: yup.string().required('UserId é obrigatório.'),
-    cSelected: yup.array().required('Campo obrigatório').min(3, 'Selecione no mínimno três habilidades.'),
+    // cSelected: yup.array().required('Campo obrigatório').min(3, 'Selecione no mínimno três habilidades.'),
 });
 
 const createJobOpportunity = () => {
@@ -83,15 +83,37 @@ const createJobOpportunity = () => {
          */
         schema.validate(formData, { abortEarly: false })
             .then(async validData => {
-                const name = validData.name;
-                const type = validData.type;
+                console.log(validData);
+                const { title, level, openingDate, expectedDate, useId } = validData;
+                const departmentId = validData.departments;
+
+                // Variavel que irá receber o ID do novo registro
+                let idNewJobOpportunity;
+
                 setErrors({});
 
-                await fetch.post("/skill", {
-                    name, type,
-                }).then(() => { alert("Skill incluída com sucesso") });
+                await fetch.post("/jobopportunity", {
+                    title, level, openingDate, expectedDate, useId, departmentId
+                }).then(async (response) => {
 
-                navigate("/dashboard");
+                    if (response.request.statusText === "OK") {
+                        alert("Oportunidade de emprego cadastrada com sucesso!");
+                        for (let i = 0; i < cSelected.length; i++) {
+                            console.log(cSelected[i]);
+
+                            const skillId = cSelected[i];
+                            await fetch.post("/jobopportunity_skill/" + response.data.id, {
+                                skillId
+                            }).then(() => { console.log("Cadastrada: Skill> " + skillId + "Opportunity> " + response.data.id); })
+                        }
+                        idNewJobOpportunity = response.data.id;
+                        console.log(`Novo Id> ${idNewJobOpportunity}`);
+                    } else {
+                        console.log("Erro ao cadastrar oportunidade de emprego");
+                    }
+                });
+
+                navigate("/jobopportunityskill/" + idNewJobOpportunity);
             })
             .catch(error => {
                 const errorObj = error.inner.reduce((acc, curr) => {
@@ -236,7 +258,7 @@ const createJobOpportunity = () => {
                 </Col>
             </FormGroup>
 
-            
+
             {/* LEVEL */}
             <FormGroup row>
                 <Label for="level" lg={2}>

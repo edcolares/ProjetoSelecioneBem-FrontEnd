@@ -1,12 +1,17 @@
 import React from 'react';
-import { Col, Row, FormGroup, Container, Card, CardBody, CardHeader, CardTitle, CardText } from 'reactstrap';
+import { Alert, Col, Row, FormGroup, Container, Card, CardBody, CardHeader, CardTitle, CardText } from 'reactstrap';
 import Teste from '../teste';
+import PieChartTop10Skill from './PieChartTop10Skill.jsx'
+import TableOpenJobOpportunity from './tableOpenJobOpportunity.jsx'
 
 
 const dashboardJobOpportunity = () => {
     return (
         <Container>
             <Row>
+                <Col lg={12}>
+                    <TableOpenJobOpportunity></TableOpenJobOpportunity>
+                </Col>
                 <Col lg={6}>
                     <Card
                         className="my-0"
@@ -18,9 +23,9 @@ const dashboardJobOpportunity = () => {
                         <CardHeader tag="h5">
                             Top 10 skills mais utilizadas
                         </CardHeader>
-                        <CardBody className='p-0 my-0'>
+                        <CardBody className='p-2 my-0'>
                             <CardText>
-                                <Teste></Teste>
+                                <PieChartTop10Skill></PieChartTop10Skill>
                             </CardText>
                         </CardBody>
                     </Card>
@@ -34,11 +39,13 @@ const dashboardJobOpportunity = () => {
                             width: '100%'
                         }}>
                         <CardHeader tag="h5">
-                            Top 10 skills mais utilizadas
+                            Gráfico 2
                         </CardHeader>
                         <CardBody className='p-0 my-0'>
                             <CardText>
-                                <Teste></Teste>
+                                <Alert variant="primary">
+                                    Gráfico 2
+                                </Alert>
                             </CardText>
                         </CardBody>
                     </Card>

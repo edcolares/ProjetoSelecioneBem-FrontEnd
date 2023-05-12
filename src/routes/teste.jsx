@@ -1,239 +1,127 @@
-import React, { useState, useRef } from 'react';
-import { Button, Form, FormGroup, Label, Input, Col, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
 import fetch from '../axios/config';
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Button, Form, FormGroup, Label, Input, Col, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
 
+const getJobOpportunityById = () => {
 
-const CandidateForm = () => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  /**
+   * Busca a oportunidade conforme ID
+   */
+  const { idJobOpportunity } = useParams();
+  const [jobOpportunity, setJobOpportunity] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [department, setDepartment] = useState([]);
+  const [totalScore, setTotalScore] = useState(0);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const getJobOpportunityById = async () => {
     try {
-      console.log("Valor do campo email: ", email)
-      const response = await fetch.get(`/candidate/${email}`);
-      console.log('Resposta da API' + JSON.stringify(response));
-      setName(response.data.name);
+      const response = await fetch.get(`/jobopportunity/${idJobOpportunity}`);
+      const data = response.data;
+      setJobOpportunity(data);
+      setSkills(data.jobopportunitySkills);
+      setDepartment(data.department);
+
     } catch (error) {
-      setName('');
+      console.log(error)
     }
-  };
+  }
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSave = async () => {
-    try {
-      await fetch.post('/candidate', { name, email });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-
-  // ultima inclusoes
-
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
-  const [observation, setObservation] = useState('');
-
-  const intervalRef = useRef(null);
-
-  const startTimer = () => {
-    setStartTime(new Date());
-    setIsRunning(true);
-    intervalRef.current = setInterval(() => {
-      setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
-    }, 1000);
-  };
-
-  const stopTimer = () => {
-    clearInterval(intervalRef.current);
-    setEndTime(new Date());
-    setIsRunning(false);
-    sendInterviewData();
-  };
-
-  const handleObservationChange = (event) => {
-    setObservation(event.target.value);
-  };
-
-  const sendInterviewData = () => {
-    const data = {
-      start_time: startTime,
-      end_time: endTime,
-      elapsed_time: elapsedTime,
-      observation: observation,
-    };
-    fetch.post('sua-api.com/entrevista', data).then((response) => {
-      console.log(response);
+  const changeWeightingFactor = (id, score) => {
+    const updSkillList = skills.map(skill => {
+      if (skill.id === id) {
+        const result = skill.weightingFactor * score
+        return { ...skill, score: score, totalScoreBySkill: result };
+      }
+      return skill;
     });
-  };
+    setSkills(updSkillList);
+    sumScoresFunction();
+    // const sumScores = skills.reduce((acumulador, item) => (item.score * item.weightingFactor) + acumulador, 0);
+    // console.log(sumScores);
+    // console.log(totalScore);
+    // setTotalScore(sumScores);
 
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''
-      }${seconds}`;
-  };
+  }
+
+  const sumScoresFunction = () => {
+    let total = 0;
+    for (let i = 0; i < skills.length; i++) {
+      total = total + skills[i].totalScoreBySkill;
+    }
+    setTotalScore(total);
+    console.log("Valor de total: ", total);
+    console.log("Valor de state: ", totalScore);
+  }
+
+
+
+  useEffect(() => {
+    getJobOpportunityById();
+
+
+  }, []);
+
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <div>
+      <Form>
+        <FormGroup>
+          <Label>
+            <div className='titulo'>
+              <h4>
+                Entrevista
+              </h4>
+            </div>
+            <div className='subtitulo'>
+              <h6 className='fw-light'>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi dolores, minima dolorem tempora pariatur itaque ipsa quos, dignissimos optio, fuga omnis quaerat quod vero. Voluptas id cumque obcaecati nesciunt ex.
+              </h6>
+            </div>
+          </Label>
+        </FormGroup>
+      </Form>
 
-      <FormGroup>
-        <Label>
-          <div className='titulo'>
-            <h4>
-              Entrevista
-            </h4>
-          </div>
-          <div className='subtitulo'>
-            <h6 className='fw-light'>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi dolores, minima dolorem tempora pariatur itaque ipsa quos, dignissimos optio, fuga omnis quaerat quod vero. Voluptas id cumque obcaecati nesciunt ex.
-            </h6>
-          </div>
-        </Label>
-      </FormGroup>
-
-
-      <Card
-        className="my-2"
-        color="light"
-        style={{
-          width: '100%'
-        }}
-      >
-        <CardHeader tag={'h5'}>
-          Defina o candidato
-        </CardHeader>
-        <CardBody>
-          <CardText>
-            <FormGroup row>
-              <Col lg={2}>
-                <Label for="email">E-mail do candidato</Label>
-              </Col>
-              <Col lg={10}>
-                <Input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Informe o e-mail do candidato"
-                  value={email}
-                  onBlur={handleSubmit}
-                  onChange={handleEmailChange}
-                />
-              </Col>
-              {/* <Col lg={2}>
-                <Button color="primary" type="submit">
-                  Verificar Candidato
-                </Button>
-              </Col> */}
-            </FormGroup>
-
-
-            {name ? (
-              <FormGroup row>
-                <Col lg={2}>
-                  <Label for="name">Nome do candidato</Label>
-                </Col>
-                <Col lg={10}>
-                  <Input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={name}
-                    onChange={handleNameChange}
-                  />
-                </Col>
-              </FormGroup>
-            ) : (
-              <>
-                <FormGroup row>
-                  <Col lg={2}>
-                    <Label for="name">Nome</Label>
-                  </Col>
-                  <Col lg={10}>
-                    <Input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Informe o nome do candidato"
-                      value={name}
-                      onChange={handleNameChange}
-                    />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup row switch>
-                  <Col lg={2}>
-
-                  </Col>
-                  <Col lg={10}>
-                    <Input
-                      type="switch"
-                      role="switch"
-                    />
-                    <Label check>Candidato chegou atrasado!</Label>
-                  </Col>
-                </FormGroup>
-
-              </>
-            )}
-
-            <FormGroup check row>
-              <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
-                {!name && (
-                  <Button color="success" onClick={handleSave}>
-                    Salvar Candidato
-                  </Button>
-                )}
-              </Col>
-            </FormGroup>
-
-          </CardText>
-        </CardBody>
-      </Card>
-
-
-
-
-
-
-
-      {/* codigo novo */}
-
-
+      {/* <p>Id: {jobOpportunity.id}</p>
+      <p>Title: {jobOpportunity.title}</p>
+      <p>Level: {jobOpportunity.level}</p>
+      <p>OpeningDate: {jobOpportunity.openingDate}</p>
+      <p>ExpectedDate: {jobOpportunity.expectedDate}</p>
+      <p>ClosingDate: {jobOpportunity.closingDate}</p>
+      <p>------------------------------------------------------------------------------------------</p>
+      <p>Departamento: {JSON.stringify(department)} </p>
+      <p>Departamento ID: {department.id}
+      </p> */}
+      <p>------------------------------------------------------------------------------------------</p>
+      <p>JobOpportuntySkills: {JSON.stringify(skills)} </p>
+      <p>Pontuação do candidato: {totalScore} </p>
+      <p>------------------------------------------------------------------------------------------</p>
       <div>
-        <Button color="primary" onClick={startTimer} disabled={isRunning}>
-          Iniciar entrevista
-        </Button>
+        {
+          skills.map((skill) => (
+            <div key={skill.id}>
+              <p>Id de Skills: {skill.id} - {skill.skill.name}</p>
+              <p></p>
+              <p>weightingFactor: {skill.weightingFactor}</p>
+              <input
+                type="range"
+                min={1}
+                max={10}
+                step={1}
+                // value={peso.weightingFactor}
+                onChange={e => changeWeightingFactor(skill.id, e.target.value)}
+                name='skill.id'
+              />
+              <p>Nota: {skill.score}</p>
+              <p>Pontuação total da Skill: {skill.totalScoreBySkill}</p>
 
-        <h2>{formatTime(elapsedTime)}</h2>
-
-        <Input
-          type="textarea"
-          name="observation"
-          id="observation"
-          placeholder="Observações sobre a entrevista"
-          onChange={handleObservationChange}
-          value={observation}
-        />
-
-
-        <Button color="danger" onClick={stopTimer} disabled={!isRunning}>
-          Terminar entrevista
-        </Button>
+              <p>--------------------------------</p>
+            </div>
+          ))
+        }
       </div>
+    </div >
+  )
+}
 
-    </Form>
-  );
-};
-
-export default CandidateForm;
+export default getJobOpportunityById

@@ -1,116 +1,241 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useRef } from 'react';
+import { Button, Form, FormGroup, Label, Input, Col, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
 import fetch from '../../axios/config';
-import {
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    Col,
-    Button,
-    Collapse,
-    Alert,
-} from 'reactstrap';
-
-const createInterview = () => {
-
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggle = () => setIsOpen(!isOpen);
-
-    const navigate = new useNavigate();
-
-    const [startDate, setStartDate] = new useState();
-    const [finishDate, setFinishDate] = new useState();
-    const [delay, setDelay] = new useState();
-    const [duration, setDuration] = new useState();
-    const [totalScore, setTotalScore] = new useState();
-    const [note, setNote] = new useState();
-    const [candidateId, setCandidateId] = new useState();
-    const [useId, setUseId] = new useState();
-    const [jobopportunityId, setJobOpportunityId] = new useState();
 
 
-    const createInterview = async (e) => {
+const CandidateForm = () => {
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            console.log("Valor do campo email: ", email)
+            const response = await fetch.get(`/candidate/${email}`);
+            console.log('Resposta da API' + JSON.stringify(response));
+            setName(response.data.name);
+        } catch (error) {
+            setName('');
+        }
+    };
 
-        await fetch.post("/interview", {
-            startDate, finishDate, delay, duration, totalScore, note, candidateId, useId, jobopportunityId
-        }).then(() => { alert("Entrevista cadastrada com sucesso!") });
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    };
 
-        navigate("/dashboard");
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+
+    const handleSave = async () => {
+        try {
+            await fetch.post('/candidate', { name, email });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
+    // ultima inclusoes
+
+    const [startTime, setStartTime] = useState(null);
+    const [endTime, setEndTime] = useState(null);
+    const [elapsedTime, setElapsedTime] = useState(0);
+    const [isRunning, setIsRunning] = useState(false);
+    const [observation, setObservation] = useState('');
+
+    const intervalRef = useRef(null);
+
+    const startTimer = () => {
+        setStartTime(new Date());
+        setIsRunning(true);
+        intervalRef.current = setInterval(() => {
+            setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
+        }, 1000);
+    };
+
+    const stopTimer = () => {
+        clearInterval(intervalRef.current);
+        setEndTime(new Date());
+        setIsRunning(false);
+        sendInterviewData();
+    };
+
+    const handleObservationChange = (event) => {
+        setObservation(event.target.value);
+    };
+
+    const sendInterviewData = () => {
+        const data = {
+            start_time: startTime,
+            end_time: endTime,
+            elapsed_time: elapsedTime,
+            observation: observation,
+        };
+        fetch.post('sua-api.com/entrevista', data).then((response) => {
+            console.log(response);
+        });
+    };
+
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''
+            }${seconds}`;
     };
 
     return (
-        <div></div>
-        // <Form color='light' rounded shadow-lg onSubmit={(e) => createInterview(e)}>
+        <Form onSubmit={handleSubmit}>
+
+            <FormGroup>
+                <Label>
+                    <div className='titulo'>
+                        <h4>
+                            Entrevista
+                        </h4>
+                    </div>
+                    <div className='subtitulo'>
+                        <h6 className='fw-light'>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi dolores, minima dolorem tempora pariatur itaque ipsa quos, dignissimos optio, fuga omnis quaerat quod vero. Voluptas id cumque obcaecati nesciunt ex.
+                        </h6>
+                    </div>
+                </Label>
+            </FormGroup>
 
 
-        //     <Button
-        //         color="primary"
-        //         onClick={toggle}
-        //         style={{
-        //             marginBottom: '1rem'
-        //         }}
-        //     >
-        //         Toggle
-        //     </Button>
-        //     <Collapse horizontal isOpen={isOpen}>
-        //         <Alert
-        //             style={{
-        //                 width: '500px'
-        //             }}
-        //         >
-        //             Anim pariatur cliche reprehenderit, enim eiulgod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-        //         </Alert>
-        //     </Collapse>
+            <Card
+                className="card my-2"
+                color="light"
+                style={{
+                    width: '100%'
+                }}
+            >
+                <CardHeader tag={'h5'}>
+                    Defina o candidato
+                </CardHeader>
+                <CardBody>
+                    <CardText>
+                        <FormGroup row>
+                            <Col lg={2}>
+                                <Label for="email">E-mail do candidato</Label>
+                            </Col>
+                            <Col lg={10}>
+                                <Input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Informe o e-mail do candidato"
+                                    value={email}
+                                    onBlur={handleSubmit}
+                                    onChange={handleEmailChange}
+                                />
+                            </Col>
+                            {/* <Col lg={2}>
+                <Button color="primary" type="submit">
+                  Verificar Candidato
+                </Button>
+              </Col> */}
+                        </FormGroup>
 
 
-        //     <FormGroup id="form-group-id">
-        //         <Label>
-        //             <div><h4>Entrevista</h4></div>
-        //         </Label>
-        //     </FormGroup>
+                        {name ? (
+                            <FormGroup row>
+                                <Col lg={2}>
+                                    <Label for="name">Nome do candidato</Label>
+                                </Col>
+                                <Col lg={10}>
+                                    <Input
+                                        type="text"
+                                        name="name"
+                                        id="name"
+                                        value={name}
+                                        onChange={handleNameChange}
+                                    />
+                                </Col>
+                            </FormGroup>
+                        ) : (
+                            <>
+                                <FormGroup row>
+                                    <Col lg={2}>
+                                        <Label for="name">Nome</Label>
+                                    </Col>
+                                    <Col lg={10}>
+                                        <Input
+                                            type="text"
+                                            name="name"
+                                            id="name"
+                                            placeholder="Informe o nome do candidato"
+                                            value={name}
+                                            onChange={handleNameChange}
+                                        />
+                                    </Col>
+                                </FormGroup>
 
-        //     <FormGroup row>
-        //         <Label for="startDate" lg={2}>
-        //             Hora de início
-        //         </Label>
-        //         <Col lg={4}>
-        //             <Input id="startDate" name="startDate" placeholder="Início da entrevista" type="datetime-local"
-        //                 onChange={(e) => setStartDate(e.target.value)} />
-        //         </Col>
-        //         <Label for="duration" lg={2}>
-        //             Duração
-        //         </Label>
-        //         <Col lg={4}>
-        //             <Input id="duration" name="duration" placeholder="Início da entrevista" type="time"
-        //                 onChange={(e) => setDuration(e.target.value)} />
-        //         </Col>
-        //     </FormGroup>
+                                <FormGroup row switch>
+                                    <Col lg={2}>
 
-        //     <FormGroup row>
-        //         <Label for="note" lg={2}>
-        //             Tipo
-        //         </Label>
-        //         <Col lg={10}>
-        //             <Input id="note" name="note" placeholder="Observações" type="textarea"
-        //                 onChange={(e) => setNote(e.target.value)} />
-        //         </Col>
-        //     </FormGroup>
+                                    </Col>
+                                    <Col lg={10}>
+                                        <Input
+                                            type="switch"
+                                            role="switch"
+                                        />
+                                        <Label check>Candidato chegou atrasado!</Label>
+                                    </Col>
+                                </FormGroup>
 
-        //     <FormGroup check row >
-        //         <Col lg={{
-        //             offset: 2,
-        //             size: 10
-        //         }}>
-        //             <Button>
-        //                 Submit
-        //             </Button>
-        //         </Col>
-        //     </FormGroup>
-        // </Form>
-    )
-}
+                            </>
+                        )}
 
-export default createInterview
+                        <FormGroup check row>
+                            <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
+                                {!name && (
+
+                                    <Button className="button-77" role="button" onClick={handleSave}>
+                                        Salvar Candidato
+                                    </Button>
+
+                                )}
+                            </Col>
+                        </FormGroup>
+
+                    </CardText>
+                </CardBody>
+            </Card>
+
+
+
+
+
+
+
+            {/* codigo novo */}
+
+
+            <div>
+                <Button color="primary" onClick={startTimer} disabled={isRunning}>
+                    Iniciar entrevista
+                </Button>
+
+                <h2>{formatTime(elapsedTime)}</h2>
+
+                <Input
+                    type="textarea"
+                    name="observation"
+                    id="observation"
+                    placeholder="Observações sobre a entrevista"
+                    onChange={handleObservationChange}
+                    value={observation}
+                />
+
+
+                <Button color="danger" onClick={stopTimer} disabled={!isRunning}>
+                    Terminar entrevista
+                </Button>
+            </div>
+
+        </Form>
+    );
+};
+
+export default CandidateForm;
