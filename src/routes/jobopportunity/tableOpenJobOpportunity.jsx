@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import fetch from '../../axios/config';
 import { format } from 'date-fns';
-import AlertComponent from '../AlertComponent';
+import AlertComponent from '../../components/AlertComponent';
 import '../../css/style.css'
 import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill } from 'react-icons/bs'
 
@@ -11,7 +11,6 @@ import {
   Col,
   Card,
   CardHeader,
-  CardTitle,
   CardBody,
   CardText,
   Row,
@@ -57,6 +56,7 @@ const Dashboard = () => {
         console.error(error);
         setAlertColor('danger');
         setAlertMessage('Erro ao excluir a oportunidade de emprego. Por favor, tente novamente.');
+        setShowAlert(true);
       });
   }
 
@@ -76,120 +76,120 @@ const Dashboard = () => {
   let i = 0
 
   return (
-      <Row>
-        <Col md={12}>
-          {showAlert && (
-            <AlertComponent color={alertColor} message={alertMessage} />
-          )}
-        </Col>
-        <Col md={12}>
+    <Row>
+      <Col md={12}>
+        {showAlert && (
+          <AlertComponent color={alertColor} message={alertMessage} />
+        )}
+      </Col>
+      <Col md={12}>
 
-          <Card
-            className="my-2"
-            color="danger"
-            outline
-            style={{
-              width: '100%'
-            }}
-          >
-            <CardHeader color='danger'>
-              Oportunidades em aberto
-            </CardHeader>
-            <CardBody>
-              <CardText>
-                {jobopportunities.length === 0 ? <Spinner color="danger" >
-                  Loading...
-                </Spinner> : (
+        <Card
+          className="my-0"
+          color="secondary"
+          outline
+          style={{
+            width: '100%'
+          }}
+        >
+          <CardHeader color='danger' tag="h5">
+            Oportunidades em aberto
+          </CardHeader>
+          <CardBody>
+            <CardText>
+              {jobopportunities.length === 0 ? <Spinner color="danger" >
+                Loading...
+              </Spinner> : (
 
-                  <div>
+                <div>
 
-                    <Table
-                      bordered
-                      hover
-                      responsive
-                      size="sm"
-                      striped
-                    >
-                      <thead>
-                        <tr>
-                          <th class="table-secondary">
-                            Nome da oportunidade
-                          </th>
-                          <th class="table-secondary">
-                            Level
-                          </th>
-                          <th class="table-secondary">
-                            Abertura
-                          </th>
-                          <th class="table-secondary">
-                            Fechamento
-                          </th>
-                          <th class="table-secondary">
+                  <Table
+                    bordered
+                    hover
+                    responsive
+                    size="sm"
+                    striped
+                  >
+                    <thead>
+                      <tr>
+                        <th class="table-secondary">
+                          Descrição da oportunidade
+                        </th>
+                        <th class="table-secondary">
+                          Level
+                        </th>
+                        <th class="table-secondary">
+                          Abertura
+                        </th>
+                        <th class="table-secondary">
+                          Previsão
+                        </th>
+                        <th class="table-secondary">
 
-                          </th>
+                        </th>
 
+                      </tr>
+                    </thead >
+                    <tbody>
+
+                      {jobopportunities.map((opportunity) => (
+                        <tr key={opportunity.id} className='align-middle'>
+                          {/* className={Number(i++) % 2 === 0 ? 'align-middle text-secondary' : 'align-middle text-success'}> */}
+
+                          <td className='align-middle'>
+                            {opportunity.title}
+                          </td>
+                          <td className='align-middle'>
+                            {opportunity.level}
+                          </td>
+                          <td className='align-middle'>
+                            {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}
+                          </td>
+                          <td className='align-middle'>
+                            {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
+                          </td>
+                          <td className='d-flex align-middle'>
+                            {/* Button excluir entrevista */}
+                            <Button
+                              color='danger opacity-100'
+                              className='p-1 my-0 mx-0 opacity-75 rounded'
+                              size="sm"
+                              onClick={() => deleteJobOpportunity(opportunity.id)}
+                            >
+                              <BsFillTrash3Fill />
+                            </Button>
+                            {/* Button nova entrevista */}
+                            <Button
+                              color='success opacity-100'
+                              className='p-1 my-0 mx-1 opacity-75 bordered'
+                              size="sm"
+                              onClick={() => newInterviewByJobOpportunity(opportunity.id)}
+                            >
+                              <BsPlusCircleFill />
+                            </Button>
+                            {/* Button relatório */}
+                            <Button
+                              color='secondary opacity-100'
+                              className='p-1 my-0 mx-0 opacity-75 bordered'
+                              size="sm"
+                              onClick={() => relatorioOfJobOpportunity(opportunity.id)}
+                            >
+                              <BsFileTextFill />
+                            </Button>
+
+                          </td>
                         </tr>
-                      </thead >
-                      <tbody>
-
-                        {jobopportunities.map((opportunity) => (
-                          <tr key={opportunity.id} className='align-middle'>
-                            {/* className={Number(i++) % 2 === 0 ? 'align-middle text-secondary' : 'align-middle text-success'}> */}
-
-                            <td className='align-middle'>
-                              {opportunity.title}
-                            </td>
-                            <td className='align-middle'>
-                              {opportunity.level}
-                            </td>
-                            <td className='align-middle'>
-                              {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}
-                            </td>
-                            <td className='align-middle'>
-                              {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
-                            </td>
-                            <td className='d-flex align-middle'>
-                              {/* Button excluir entrevista */}
-                              <Button
-                                color='danger opacity-80'
-                                className='p-1 my-0 mx-0 opacity-75 rounded'
-                                size="sm"
-                                onClick={() => deleteJobOpportunity(opportunity.id)}
-                              >
-                                <BsFillTrash3Fill />
-                              </Button>
-                              {/* Button nova entrevista */}
-                              <Button
-                                color='success opacity-80'
-                                className='p-1 my-0 mx-1 opacity-75 bordered'
-                                size="sm"
-                                onClick={() => newInterviewByJobOpportunity(opportunity.id)}
-                              >
-                                <BsPlusCircleFill />
-                              </Button>
-                              {/* Button relatório */}
-                              <Button
-                                color='secondary opacity-80'
-                                className='p-1 my-0 mx-0 opacity-75 bordered'
-                                size="sm"
-                                onClick={() => relatorioOfJobOpportunity(opportunity.id)}
-                              >
-                                <BsFileTextFill />
-                              </Button>
-
-                            </td>
-                          </tr>
-                        ))
-                        }
-                      </tbody >
-                    </Table >
-                  </div >
-                )}
-              </CardText >
-            </CardBody >
-          </Card >
-        </Col >
-      </Row>
+                      ))
+                      }
+                    </tbody >
+                  </Table >
+                </div >
+              )}
+            </CardText >
+          </CardBody >
+        </Card >
+      </Col >
+    </Row>
   )
 }
 

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FaUser } from 'react-icons/fa';
+
 
 import {
     Collapse,
@@ -70,7 +72,11 @@ function navbar(args) {
                             <NavLink href="/teste">Teste</NavLink>
                         </NavItem>
                     </Nav>
-                    <NavbarText>Simple Text</NavbarText>
+                    <NavbarText>
+                        <FaUser className='mx-2'/>
+                        User Name
+                        
+                    </NavbarText>
                 </Collapse>
             </Navbar>
         </div>

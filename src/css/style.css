@@ -58,16 +58,18 @@ select {
 }
 
 button[name="cSelected"] {
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;}
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
 
 /* Cor para a NAVBAR */
 .navbar {
     background: linear-gradient(45deg, #3853f0, #111d61);
 }
-/* 
+
 .card {
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-} */
+}
+
 /* 
 .accordion {
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
@@ -76,3 +78,115 @@ button[name="cSelected"] {
 /* table {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 } */
+
+.btn-amarelo {
+    background: rgb(255, 255, 0);
+    border    : none;
+    color     : #212529;
+}
+
+.btn-laranja {
+    background: rgb(255, 140, 0);
+    border    : none;
+    color     : #212529;
+}
+
+.btn-vermelho {
+    background: rgb(255, 0, 0);
+    border    : none;
+    color     : #212529;
+}
+
+
+/* Color Theme Swatches in Hex */
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-1-hex {
+    color: #02050D;
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-2-hex {
+    color: #364559;
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-3-hex {
+    color: #73A2BF;
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-4-hex {
+    color: #DFEBF2;
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-5-hex {
+    color: #A67E76;
+}
+
+/* Color Theme Swatches in RGBA */
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-1-rgba {
+    color: rgba(2, 4, 12, 1);
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-2-rgba {
+    color: rgba(53, 69, 89, 1);
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-3-rgba {
+    color: rgba(114, 161, 191, 1);
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-4-rgba {
+    color: rgba(222, 234, 242, 1);
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-5-rgba {
+    color: rgba(165, 126, 117, 1);
+}
+
+/* Color Theme Swatches in HSLA */
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-1-hsla {
+    color: hsla(225, 70, 2, 1);
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-2-hsla {
+    color: hsla(213, 25, 27, 1);
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-3-hsla {
+    color: hsla(202, 37, 60, 1);
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-4-hsla {
+    color: hsla(202, 43, 91, 1);
+}
+
+.HR-Human-resources-management-peoples-relation-organisation-structure-on-virtual-screen,
+-team-building,
+-telecommuting-5-hsla {
+    color: hsla(11, 21, 55, 1);
+}

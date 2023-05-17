@@ -1,6 +1,4 @@
-import React from 'react';
-import { Alert, Col, Row, FormGroup, Container, Card, CardBody, CardHeader, CardTitle, CardText } from 'reactstrap';
-import Teste from '../teste';
+import { Alert, Col, Row, Container, Card, CardBody, CardHeader, CardText } from 'reactstrap';
 import PieChartTop10Skill from './PieChartTop10Skill.jsx'
 import TableOpenJobOpportunity from './tableOpenJobOpportunity.jsx'
 
@@ -12,7 +10,7 @@ const dashboardJobOpportunity = () => {
                 <Col lg={12}>
                     <TableOpenJobOpportunity></TableOpenJobOpportunity>
                 </Col>
-                <Col lg={6}>
+                <Col lg={6} className='my-3'>
                     <Card
                         className="my-0"
                         color="secondary"
@@ -30,7 +28,7 @@ const dashboardJobOpportunity = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col lg={6}>
+                <Col lg={6} className='my-3'>
                     <Card
                         className="my-0"
                         color="secondary"

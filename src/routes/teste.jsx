@@ -1,277 +1,198 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import fetch from '../axios/config';
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { format } from 'date-fns';
-import AlertComponent from './AlertComponent';
-import '../css/style.css'
-import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill } from 'react-icons/bs'
+import { Badge, ListGroup, ListGroupItem, Button, Form, FormGroup, Label, Input, Col, Card, CardBody, CardHeader, CardText, CardTitle, Row, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
+import { IoInformationCircleOutline } from 'react-icons/io5';
 
-import {
-  Col,
-  Card,
-  CardHeader,
-  CardTitle,
-  CardBody,
-  CardText,
-  Row,
-  Spinner,
-  Table,
-  Button,
-} from 'reactstrap';
 
-const Dashboard = () => {
-
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertColor, setAlertColor] = useState('');
-  const [alertMessage, setAlertMessage] = useState('');
-
-  const navigate = new useNavigate();
-
-  const [skills, setSkills] = useState([]);
-  const getSkills = async () => {
-    try {
-      const response = await fetch.get("/skill");
-      const data = response.data;
-      setSkills(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+const getJobOpportunityById = () => {
 
   /**
-   * Busca todas as oportunidades com data de fechamento em aberto
+   * Busca a oportunidade conforme ID
    */
-  const [jobopportunities, setJobOpportunities] = useState([]);
-  const getJobOpportunityByClosingDateOpen = async () => {
+  const { idJobOpportunity } = useParams();
+  const [jobOpportunity, setJobOpportunity] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [department, setDepartment] = useState([]);
+  const [totalScore, setTotalScore] = useState(0);
+
+  const getJobOpportunityById = async () => {
     try {
-      const idUser = 5;
-      const response = await fetch.get(`/jobopportunity/find/${idUser}`);
+      const response = await fetch.get(`/jobopportunity/${idJobOpportunity}`);
       const data = response.data;
-      setJobOpportunities(data);
+      setJobOpportunity(data);
+      setSkills(data.jobopportunitySkills);
+      setDepartment(data.department);
+
     } catch (error) {
       console.log(error)
     }
   }
 
-  const deleteJobOpportunity = async (idJobOpportunity) => {
-    const response = await fetch.delete(`/jobopportunity/${idJobOpportunity}`)
-      .then(response => {
-        setJobOpportunities(prevOpportunities =>
-          prevOpportunities.filter(opportunity => opportunity.id !== idJobOpportunity)
-        );
-        setAlertColor('success');
-        setAlertMessage('Oportunidade de emprego excluída com sucesso!');
-        setShowAlert(true);
-      })
-      .catch(error => {
-        console.error(error);
-        setAlertColor('danger');
-        setAlertMessage('Erro ao excluir a oportunidade de emprego. Por favor, tente novamente.');
-      });
+  const changeWeightingFactor = (id, score) => {
+    const updSkillList = skills.map(skill => {
+      if (skill.id === id) {
+        const result = skill.weightingFactor * score
+        return { ...skill, score: score, totalScoreBySkill: result };
+      }
+      return skill;
+    });
+    setSkills(updSkillList);
+    sumScoresFunction();
+    // const sumScores = skills.reduce((acumulador, item) => (item.score * item.weightingFactor) + acumulador, 0);
+    // console.log(sumScores);
+    // console.log(totalScore);
+    // setTotalScore(sumScores);
+
   }
 
-  const newInterviewByJobOpportunity = async (idJobOpportunity) => {
-    alert('Nova entrevista para a oportunidade id=' + idJobOpportunity);
-    navigate(`/interview/${idJobOpportunity}`);
+  const sumScoresFunction = () => {
+    let total = 0;
+    for (let i = 0; i < skills.length; i++) {
+      total = total + skills[i].totalScoreBySkill;
+    }
+    setTotalScore(total);
+    console.log("Valor de total: ", total);
+    console.log("Valor de state: ", totalScore);
   }
 
-  const relatorioOfJobOpportunity = async (idJobOpportunity) => {
-    alert('Relatório para a oportunidade de id=' + idJobOpportunity)
-  }
+  //Toggle the visibility of content across your project with Collapse.
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    getSkills();
-    getJobOpportunityByClosingDateOpen();
+    getJobOpportunityById();
+
+
   }, []);
 
-  let i = 0
 
   return (
-    <div>
+    <Row>
+      <Col lg='12'>
+        <Form>
+          <FormGroup>
+            <Label>
+              <div className='titulo'>
+                <h4>
+                  Entrevista
+                </h4>
+              </div>
+              <div className='subtitulo'>
+                <h6 className='fw-light'>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi dolores, minima dolorem tempora pariatur itaque ipsa quos, dignissimos optio, fuga omnis quaerat quod vero. Voluptas id cumque obcaecati nesciunt ex.
+                </h6>
+              </div>
+            </Label>
+          </FormGroup>
+        </Form>
+      </Col>
+      <Col lg='12'>
 
-      <Row>
-        <Col md={12}>
-          {showAlert && (
-            <AlertComponent color={alertColor} message={alertMessage} />
-          )}
-        </Col>
-        <Col md={12}>
+        <Card
+          className="d-flex align-items-stretch  my-2"
+          style={{
+            width: '100%'
+          }}
+        >
+          <CardHeader className={'d-flex text-uppercase'} tag={'h5'} >
 
-          <Card
-            className="my-2"
-            color="danger"
-            outline
-            style={{
-              width: '100%'
-            }}
-          >
-            <CardHeader color='danger'>
-              Oportunidades em aberto
-            </CardHeader>
-            <CardBody>
-              <CardText>
-                {jobopportunities.length === 0 ? <Spinner color="danger" >
-                  Loading...
-                </Spinner> : (
+            (CÓDIGO DA VAGA) - {jobOpportunity.title}
 
-                  <div>
+            <Button
+              id="PopoverFocus"
+              type="button"
+              color='black'
+              size='sm'
+              className=''
+            >
+              <IoInformationCircleOutline />
+            </Button>
 
-                    <Table
-                      bordered
-                      hover
-                      responsive
-                      size="sm"
-                      striped
-                    >
-                      <thead>
-                        <tr>
-                          <th class="table-secondary">
-                            Nome da oportunidade
-                          </th>
-                          <th class="table-secondary">
-                            Level
-                          </th>
-                          <th class="table-secondary">
-                            Abertura
-                          </th>
-                          <th class="table-secondary">
-                            Fechamento
-                          </th>
-                          <th class="table-secondary">
+            <UncontrolledPopover
+              placement="bottom-end"
+              target="PopoverFocus"
+              trigger="focus"
+            >
+              <PopoverHeader>
+                Informações da oportunidade
+              </PopoverHeader>
+              <PopoverBody className='p-2'>
 
-                          </th>
+                <p className='lh-1'>Departamento: {department.name}</p>
+                <p className='lh-1'>Nível: {jobOpportunity.level}</p>
+                <p className='lh-1'>Gerente: {department.manager}</p>
+                <p className='lh-1'>Abertura: {jobOpportunity.openingDate}</p>
+                <p className='lh-1'>Conclusão: {jobOpportunity.expectedDate}</p>
+                {/* {format(new Date(jobOpportunity.openingDate), 'dd/MM/yyyy')} */}
 
-                        </tr>
-                      </thead >
-                      <tbody>
+              </PopoverBody>
+            </UncontrolledPopover>
 
-                        {jobopportunities.map((opportunity) => (
-                          <tr key={opportunity.id} className='align-middle'>
-                            {/* className={Number(i++) % 2 === 0 ? 'align-middle text-secondary' : 'align-middle text-success'}> */}
+          </CardHeader>
 
-                            <td className='align-middle'>
-                              {opportunity.title}
-                            </td>
-                            <td className='align-middle'>
-                              {opportunity.level}
-                            </td>
-                            <td className='align-middle'>
-                              {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}
-                            </td>
-                            <td className='align-middle'>
-                              {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
-                            </td>
-                            <td className='d-flex align-middle'>
-                              {/* Button excluir entrevista */}
-                              <Button
-                                color='danger opacity-80'
-                                className='p-1 my-0 mx-0 opacity-75 rounded'
-                                size="sm"
-                                onClick={() => deleteJobOpportunity(opportunity.id)}
-                              >
-                                <BsFillTrash3Fill />
-                              </Button>
-                              {/* Button nova entrevista */}
-                              <Button
-                                color='success opacity-80'
-                                className='p-1 my-0 mx-1 opacity-75 bordered'
-                                size="sm"
-                                onClick={() => newInterviewByJobOpportunity(opportunity.id)}
-                              >
-                                <BsPlusCircleFill />
-                              </Button>
-                              {/* Button relatório */}
-                              <Button
-                                color='secondary opacity-80'
-                                className='p-1 my-0 mx-0 opacity-75 bordered'
-                                size="sm"
-                                onClick={() => relatorioOfJobOpportunity(opportunity.id)}
-                              >
-                                <BsFileTextFill />
-                              </Button>
+          <CardBody>
+            {/* <p>Id: {jobOpportunity.id}</p>
+            <p>Descrição: {jobOpportunity.title}</p>
+            <p>Departamento ID: {department.id}
+            </p>
+            <p>------------------------------------------------------------------------------------------</p>*/}
+            <p>JobOpportuntySkills: {JSON.stringify(skills)} </p>
+            <p>Pontuação do candidato: {totalScore} </p>
+            <p>------------------------------------------------------------------------------------------</p>
+          </CardBody>
+        </Card>
+      </Col>
 
-                            </td>
-                          </tr>
-                        ))
-                        }
-                      </tbody >
-                    </Table >
-                  </div >
-                )}
-              </CardText >
-            </CardBody >
-          </Card >
-        </Col >
-
-        <Col>
-          <Card
-            className="my-2"
-            color="danger"
-            outline
-            style={{
-              width: '100%'
-            }}
-          >
-            <CardHeader>
-              Relação de Skills
-            </CardHeader>
-            <CardBody>
-              <CardText>
-                {skills.length === 0 ? <Spinner
-                  color="light"
-                  size="sm"
-                >
-                  Loading...
-                </Spinner> : (
-                  skills.map((skill) => (
-                    <div className='skill' key={skill.id}>
-
-                      <div>{skill.name}</div>
-                    </div>
-                  ))
-                )}
+      <Col lg={12}>
 
 
-              </CardText >
-            </CardBody >
-          </Card >
+        <div>
+          {skills.map(skill => (
+            <div key={skill.id} className='list-item'>
+              <h5 className="d-flex justify-content-between" >
+                <span>
+                  {JSON.stringify(skill.skill.name).replace(/"/g, '') + ' '}
 
-        </Col >
-        <Col>
-          <Card
-            className="my-2"
-            color="danger"
-            inverse
-            style={{
-              width: '100%'
-            }}
-          >
-            <CardHeader>
-              Oportunidades fora do prazo
-            </CardHeader>
-            <CardBody>
-              <CardTitle tag="h5">
-                Atrasadas
-              </CardTitle>
-              <CardText>
-                Aqui iremos colocar um lista com todas as oportunidades que estão com prazo
-                de término superadas, mas ainda estão em aberto. A partir daqui o profissional poderá
-                clicar na oportunidade que será encaminhado para a tela com todos os dados da
-                oportunidade de emprego.
-              </CardText>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col className="bg-light border">
-          Column
-        </Col>
-        <Col className="bg-light border">
-          oLÁ MUNDO
-        </Col>
-      </Row>
-    </div >
+                  <Badge
+                    color='primary'
+                    className='align-self-center'>
+                    {/* {skill.skill.type}
+                       - Peso:  */}
+                    {skill.weightingFactor}
+                  </Badge>
+
+                </span>
+                {/* <span className="bg-secondary rounded px-2 text-light">{skill.weightingFactor}</span> */}
+                <Button className={
+                  Number(skill.score) >= 8 ? 'btn-amarelo' :
+                    Number(skill.score) <= 4 ? 'btn-vermelho' :
+                      'btn-laranja'} >
+                  {!skill.score ? changeWeightingFactor(skill.id, '0') : skill.score}
+                </Button>
+              </h5>
+              <Input
+                type="range"
+                min={1}
+                max={10}
+                step={1}
+                value={skill.score}
+                style={{
+                  width: '100%'
+                }}
+                // value={peso.weightingFactor}
+                onChange={e => changeWeightingFactor(skill.id, e.target.value)}
+                name='skill.id'
+              />
+            </div>
+          ))}
+        </div>
+
+
+      </Col>
+    </ Row >
   )
 }
 
-export default Dashboard
+export default getJobOpportunityById

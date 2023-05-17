@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 
 import Home from "./routes/home.jsx";
 import Dashboard from './routes/dashboard.jsx';
-import DashboardSkill from './routes/skill/dashboardSkill.jsx';
+import AppSkills from './routes/skill/AppSkills.jsx';
 import CreateInterview from './routes/interview/createInterview.jsx';
 import CreateJobOpportunity from './routes/jobopportunity/createJobOpportunity.jsx';
 import FactorJobOpportunitySkill from './routes/jobopportunitySkill/factorJobOpportunitySkill.jsx';
@@ -22,35 +22,35 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <Home />,
       },
       {
         path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        element: <Dashboard />,
       },
       {
         path: "/skill",
-        element: <DashboardSkill></DashboardSkill>,
+        element: <AppSkills />,
       },
       {
         path: "/interview/:idJobOpportunity",
-        element: <CreateInterview></CreateInterview>,
+        element: <CreateInterview />,
       },
       {
         path: "/jobopportunity",
-        element: <CreateJobOpportunity></CreateJobOpportunity>,
+        element: <CreateJobOpportunity />,
       },
       {
         path: "/jobopportunityskill/:id",
-        element: <FactorJobOpportunitySkill></FactorJobOpportunitySkill>,
+        element: <FactorJobOpportunitySkill />,
       },
       {
         path: "/jobopportunity/dashboard",
-        element: <DashboardJobOpportunity></DashboardJobOpportunity>,
+        element: <DashboardJobOpportunity />,
       },
       {
-        path: "/teste",
-        element: <Teste></Teste>,
+        path: "/teste/:idJobOpportunity",
+        element: <Teste />,
       },
     ],
   },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Alert } from 'reactstrap';
 
 const AlertComponent = ({ color, message }) => {
@@ -7,7 +7,7 @@ const AlertComponent = ({ color, message }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setVisible(false);
-        }, 5000);
+        }, 10000);
 
         return () => {
             clearTimeout(timer);

@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup';
@@ -12,7 +13,6 @@ import {
     Button,
     FormFeedback,
 } from 'reactstrap';
-import { useEffect } from 'react';
 
 /**
  * Esquema de VALIDAÇÃO do FORMULÁRIO
@@ -22,7 +22,7 @@ const schema = yup.object().shape({
     type: yup.string().required('Campo type é obrigatório'),
 });
 
-const createSkill = () => {
+const CreateSkill = ({ addSkill }) => {
     const navigate = new useNavigate()
 
     /* Variavel que recebe os campos do formulário */
@@ -35,9 +35,9 @@ const createSkill = () => {
      * Vai adotar a abordagem de `refs` = useRef  do React
      */
     const [refresh, setRefresh] = useState(false);
-    const refreshComponent = () => {
-        setRefresh((prevRefresh) => !prevRefresh);
-    };
+    // const refreshComponent = () => {
+    //     setRefresh((prevRefresh) => !prevRefresh);
+    // };
 
     /**
      * Função responsável por atualizar o state da variável com o valor
@@ -83,10 +83,21 @@ const createSkill = () => {
 
                 await fetch.post("/skill", {
                     name, type,
-                }).then(() => { alert("Skill incluída com sucesso") });
+                }).then((response) => {
+                    // alert("Skill incluída com sucesso")
+                    if (response.request.status === 200) {
+                        console.log(response.data.id);
+                        const id = response.data.id;
+                        addSkill(id, name, type);
+                        setFormData(prevState => ({ ...prevState, ['name']: '' }));
+                        setFormData(prevState => ({ ...prevState, ['type']: '' }));
 
-                refreshComponent(true);
-
+                        setAlertColor('success');
+                        setAlertMessage('Oportunidade de emprego excluída com sucesso!');
+                        setShowAlert(true);
+                    }
+                });
+                setRefresh(!refresh)
             })
             .catch(error => {
                 const errorObj = error.inner.reduce((acc, curr) => {
@@ -96,10 +107,6 @@ const createSkill = () => {
                 setErrors(errorObj);
             });
     }
-
-    useEffect(() => {
-        console.log('Roda na renderização');
-    }, [formData]);
 
     return (
         <Form color='light' onSubmit={handleSubmit}>
@@ -121,6 +128,7 @@ const createSkill = () => {
                         name="name"
                         placeholder="Preencha o nome da habilidade"
                         type="text"
+                        value={formData.name}
                         invalid={!!errors.name}
                         onChange={handleChange}
                     />
@@ -138,6 +146,7 @@ const createSkill = () => {
                         id="type"
                         name="type"
                         type="select"
+                        value={formData.type}
                         onChange={handleChange}
                         invalid={!!errors.type}
                     >
@@ -166,4 +175,4 @@ const createSkill = () => {
     )
 }
 
-export default createSkill
+export default CreateSkill

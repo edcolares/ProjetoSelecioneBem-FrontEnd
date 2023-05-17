@@ -1,23 +1,10 @@
-import React, { useState } from 'react';
-import { Accordion, AccordionBody, AccordionHeader, AccordionItem, Badge, Card, CardBody, CardHeader, Collapse, ListGroup, ListGroupItem } from 'reactstrap';
+import { useState } from 'react';
+import { Accordion, AccordionBody, AccordionHeader, AccordionItem, Badge, Button, ListGroup, ListGroupItem } from 'reactstrap';
+import { BsFillTrash3Fill } from 'react-icons/bs';
 
-export default function SkillsAccordion({ skills }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  // const toggleAccordion = () => {
-  //   setIsOpen(!isOpen);
-  // };
-
-  //   const [open, setOpen] = useState();
-  // const toggle = (type) => {
-  //     if (open === type) {
-  //         setOpen();
-  //     } else {
-  //         setOpen(type);
-  //     }
-  // };
-
+export default function SkillsAccordion({ skills, removeSkill }) {
   const [open, setOpen] = useState('');
+
   const toggle = (id) => {
     if (open === id) {
       setOpen();
@@ -48,7 +35,15 @@ export default function SkillsAccordion({ skills }) {
           <AccordionBody accordionId={type}>
             <ListGroup>
               {skills.map((skill, index) => (
-                <ListGroupItem key={index}>{skill.name}</ListGroupItem>
+                <ListGroupItem key={index} className='d-flex justify-content-between align-items-center'>
+                  {skill.name}
+                  <Button size='sm' className='bg-danger' style={{
+                    border: 'none'
+                  }} onClick={() => removeSkill(skill.id)}>
+                    <BsFillTrash3Fill />
+                  </Button>
+
+                </ListGroupItem>
               ))}
             </ListGroup>
           </AccordionBody>
