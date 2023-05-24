@@ -61,12 +61,11 @@ const Dashboard = () => {
   }
 
   const newInterviewByJobOpportunity = async (idJobOpportunity) => {
-    alert('Nova entrevista para a oportunidade id=' + idJobOpportunity);
     navigate(`/interview/${idJobOpportunity}`);
   }
 
-  const relatorioOfJobOpportunity = async (idJobOpportunity) => {
-    alert('Relatório para a oportunidade de id=' + idJobOpportunity)
+  const reportJobOpportunity = async (idJobOpportunity) => {
+    navigate(`/jobopportunity/report/${idJobOpportunity}`);
   }
 
   useEffect(() => {
@@ -116,16 +115,13 @@ const Dashboard = () => {
                           Descrição da oportunidade
                         </th>
                         <th class="table-secondary">
-                          Level
-                        </th>
-                        <th class="table-secondary">
                           Abertura
                         </th>
                         <th class="table-secondary">
                           Previsão
                         </th>
                         <th class="table-secondary">
-
+                          Ações
                         </th>
 
                       </tr>
@@ -137,10 +133,7 @@ const Dashboard = () => {
                           {/* className={Number(i++) % 2 === 0 ? 'align-middle text-secondary' : 'align-middle text-success'}> */}
 
                           <td className='align-middle'>
-                            {opportunity.title}
-                          </td>
-                          <td className='align-middle'>
-                            {opportunity.level}
+                            {opportunity.title} - {opportunity.level}
                           </td>
                           <td className='align-middle'>
                             {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}
@@ -172,7 +165,7 @@ const Dashboard = () => {
                               color='secondary opacity-100'
                               className='p-1 my-0 mx-0 opacity-75 bordered'
                               size="sm"
-                              onClick={() => relatorioOfJobOpportunity(opportunity.id)}
+                              onClick={() => reportJobOpportunity(opportunity.id)}
                             >
                               <BsFileTextFill />
                             </Button>

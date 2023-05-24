@@ -1,29 +1,13 @@
-import fetch from '../axios/config';
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState } from 'react'
 import { Badge, Button, Input, Col, Card, CardBody, CardHeader, Row } from 'reactstrap';
 
 
-const getJobOpportunityById = () => {
+const Rating = ({ skills, setSkills }) => {
 
   /**
    * Busca a oportunidade conforme ID
    */
-  const { idJobOpportunity } = useParams();
-  const [skills, setSkills] = useState([]);
   const [totalScore, setTotalScore] = useState(0);
-
-  const getJobOpportunityById = async () => {
-    try {
-      const response = await fetch.get(`/jobopportunity/${idJobOpportunity}`);
-      const data = response.data;
-      setSkills(data.jobopportunitySkills);
-      setDepartment(data.department);
-
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const changeWeightingFactor = (id, score) => {
     const updSkillList = skills.map(skill => {
@@ -40,26 +24,25 @@ const getJobOpportunityById = () => {
   const sumScoresFunction = () => {
     let total = 0;
     for (let i = 0; i < skills.length; i++) {
-      total = total + skills[i].totalScoreBySkill;
+      total += skills[i].totalScoreBySkill;
     }
-    setTotalScore(total);
-    console.log("Valor de total: ", total);
-    console.log("Valor de state: ", totalScore);
+
+    // setTotalScore(total);
+    // console.log("Valor de total: ", total);
+    // console.log("Valor de state: ", totalScore);
   }
 
   //Toggle the visibility of content across your project with Collapse.
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
-  useEffect(() => {
-    getJobOpportunityById();
-
-
-  }, []);
-
+  // console.log('VALOR DE SKILLS: ', skills);
 
   return (
     <Row>
+      {/* <div>VALOR DE TOTAL SCORE: {totalScore}</div>
+
+      {JSON.stringify(skills)} */}
       <Col lg='12'>
         <Card
           className="d-flex align-items-stretch  my-2"
@@ -117,4 +100,4 @@ const getJobOpportunityById = () => {
   )
 }
 
-export default getJobOpportunityById
+export default Rating

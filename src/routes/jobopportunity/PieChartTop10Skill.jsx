@@ -5,6 +5,7 @@ import { Chart } from 'react-google-charts'
 const teste = () => {
 
     const [skills, setSkills] = useState([]);
+    
     const getTop10Skills = async () => {
         try {
             const response = await fetch.get(`/jobopportunity_skill`);

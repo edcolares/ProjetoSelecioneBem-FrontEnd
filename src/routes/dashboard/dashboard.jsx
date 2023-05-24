@@ -1,16 +1,28 @@
-import { Alert, Col, Row, Container, Card, CardBody, CardHeader, CardText } from 'reactstrap';
-import PieChartTop10Skill from './PieChartTop10Skill.jsx'
-import TableOpenJobOpportunity from './tableOpenJobOpportunity.jsx'
+import React from 'react';
+import { useState, useEffect } from 'react';
+import fetch from '../../axios/config';
+import Charts2 from './charts2.jsx'
+import PieChartTop10Skill from '../jobopportunity/PieChartTop10Skill'
+import ChartsFilterControl from './chartsFilterControl';
+
+import {
+    Row,
+    Card,
+    CardBody,
+    CardHeader,
+    CardText,
+    Col,
+    Container,
+} from 'reactstrap';
+
+const Dashboard = () => {
 
 
-const dashboardJobOpportunity = () => {
     return (
         <Container>
             <Row>
-                <Col lg={12}>
-                    <TableOpenJobOpportunity></TableOpenJobOpportunity>
-                </Col>
-                <Col lg={6} className='my-3'>
+
+                <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
                         color="secondary"
@@ -28,7 +40,7 @@ const dashboardJobOpportunity = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col lg={6} className='my-3'>
+                <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
                         color="secondary"
@@ -41,7 +53,25 @@ const dashboardJobOpportunity = () => {
                         </CardHeader>
                         <CardBody className='p-0 my-0'>
                             <CardText>
-                                Teste
+                                <Charts2 />
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col md={6} className='my-3'>
+                    <Card
+                        className="my-0"
+                        color="secondary"
+                        outline
+                        style={{
+                            width: '100%'
+                        }}>
+                        <CardHeader tag="h5">
+                            Gráfico 3
+                        </CardHeader>
+                        <CardBody className='p-0 my-0'>
+                            <CardText>
+                                <ChartsFilterControl />
                             </CardText>
                         </CardBody>
                     </Card>
@@ -51,4 +81,4 @@ const dashboardJobOpportunity = () => {
     )
 }
 
-export default dashboardJobOpportunity
+export default Dashboard

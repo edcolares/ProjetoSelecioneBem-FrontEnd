@@ -18,7 +18,7 @@ body {
 
 /* Inseri uma linha abaixo do componente */
 .list-divider {
-    border-bottom : 2px solid #c2c2c2;
+    border-bottom : 1px solid #c2c2c2;
     padding-bottom: 20px;
 }
 
@@ -66,9 +66,9 @@ button[name="cSelected"] {
     background: linear-gradient(45deg, #3853f0, #111d61);
 }
 
-.card {
+/* .card {
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-}
+} */
 
 /* 
 .accordion {
@@ -96,6 +96,16 @@ button[name="cSelected"] {
     border    : none;
     color     : #212529;
 }
+
+/* .formDestaque {
+    background-color          : #5187ce;
+    padding                   : 1rem;
+    margin-bottom             : 0.5rem;
+    border-top-left-radius    : 5px;
+    border-top-right-radius   : 5px;
+    border-bottom-left-radius : 5px;
+    border-bottom-right-radius: 5px;
+} */
 
 
 /* Color Theme Swatches in Hex */

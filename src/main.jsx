@@ -8,12 +8,13 @@ import '../src/css/style.css';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 
 import Home from "./routes/home.jsx";
-import Dashboard from './routes/dashboard.jsx';
+import Dashboard from './routes/dashboard/dashboard.jsx';
 import AppSkills from './routes/skill/AppSkills.jsx';
 import CreateInterview from './routes/interview/createInterview.jsx';
 import CreateJobOpportunity from './routes/jobopportunity/createJobOpportunity.jsx';
 import FactorJobOpportunitySkill from './routes/jobopportunitySkill/factorJobOpportunitySkill.jsx';
 import DashboardJobOpportunity from './routes/jobopportunity/dashboardJobOpportunity.jsx';
+import ReportJobOpportunity from './routes/jobopportunity/reportJobOpportunity.jsx'
 import Teste from './routes/teste.jsx';
 
 const router = createBrowserRouter([
@@ -41,12 +42,16 @@ const router = createBrowserRouter([
         element: <CreateJobOpportunity />,
       },
       {
-        path: "/jobopportunityskill/:id",
-        element: <FactorJobOpportunitySkill />,
-      },
-      {
         path: "/jobopportunity/dashboard",
         element: <DashboardJobOpportunity />,
+      },
+      {
+        path: "/jobopportunity/report/:idJobOpportunity",
+        element: <ReportJobOpportunity />,
+      },
+      {
+        path: "/jobopportunityskill/:id",
+        element: <FactorJobOpportunitySkill />,
       },
       {
         path: "/teste/:idJobOpportunity",
