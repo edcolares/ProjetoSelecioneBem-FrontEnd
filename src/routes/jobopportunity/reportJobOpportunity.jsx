@@ -60,9 +60,9 @@ const reportJobOpportunity = () => {
                 RELATÓRIO DA OPORTUNIDADE
             </h3>
 
-            <Card className='my-4' color='secondary' outline>
+            <Card className='my-2' color='secondary' outline>
                 <CardBody className='p-0'>
-                    <CardHeader tag={'h5'} className='text-uppercase fw-bold'>
+                    <CardHeader tag={'h5'} className='p-2 m-0 text-uppercase fw-bold'>
                         <FaCog className='me-1' /> (Código da Vaga) - {opportunity.title}
                     </CardHeader>
                     <CardText tag={'h6'} className='mx-3 my-1'>
@@ -82,27 +82,29 @@ const reportJobOpportunity = () => {
 
             <Card className='my-4' color='secondary' outline>
                 <CardBody className='p-0'>
-                    <CardHeader tag={'h5'} className='text-uppercase fw-bold'>
+                <CardHeader tag={'h5'} className='p-2 m-0 text-uppercase fw-bold'>
                         {/* <FaPuzzlePiece /> */}
                         <MdStar className='me-1' />Skills avaliadas e seus pesos
                     </CardHeader>
                 </CardBody>
-                <CardText tag={'h6'} className='m-2 d-flex flex-wrap gap-2'>
+                <CardText tag={'h6'} className='m-2 d-flex flex-wrap gap-2 ps-3 pe-3'>
                     {jobopportunitySkills.map(jobopportunitySkill => (
-                        <ListGroup horizontal className='d-flex flex-wrap flex-fill justify-content-between'>
-                            <ListGroupItem
-                                className="d-flex flex-fill justify-content-between align-items-center"
+                        <ListGroup horizontal className='d-flex flex-wrap'>
+                            <div
+                                className="d-flex flex-wrap align-items-center border border-secondary-subtle rounded-2 p-1"
                                 key={jobopportunitySkill.id}
-                                color={colorBadgeSkills(jobopportunitySkill.skill.type)}
+
                             >
-                                <div>
-                                    {jobopportunitySkill.skill.name} -
-                                    {jobopportunitySkill.skill.type}
+                                <div className='m-0 p-0'>
+                                    {jobopportunitySkill.skill.name}
+                                    {/* {jobopportunitySkill.skill.type} */}
                                 </div>
-                                <Badge className='ms-2 p-1'>
+                                <Badge className='align-items-center ms-2'
+                                    color={colorBadgeSkills(jobopportunitySkill.skill.type)}
+                                >
                                     {jobopportunitySkill.weightingFactor}
                                 </Badge>
-                            </ListGroupItem>
+                            </div>
 
                         </ListGroup>
                     ))}
@@ -112,7 +114,7 @@ const reportJobOpportunity = () => {
             <ListGroup
                 className='my-4 mb-2' tag={'h5'}>
                 <ListGroupItem
-                    className='text-uppercase fw-bold'
+                    className='p-2 m-0 text-uppercase fw-bold'
                     color="primary">
                     <AiOutlineUnorderedList className='me-1' />Entrevistas
                 </ListGroupItem>
@@ -120,13 +122,13 @@ const reportJobOpportunity = () => {
 
             <ListGroup className='mb-2 m-0'>
                 {interviews.map((interview, index) => (
+
                     <ListGroupItem
                         key={interview.id}
                     // color={index % 2 === 0 ? 'success' : 'warning'}
                     >
-                        <ListGroupItemHeading
-                            tag={'h5'}
-                            className='align-items-center list-divider'
+                        <div
+                            className='align-items-center list-divider p-2'
                         >
                             <div className='d-flex justify-content-between text-uppercase fw-bolder'>
                                 <div>
@@ -141,29 +143,36 @@ const reportJobOpportunity = () => {
                                         {format(new Date(interview.startDate), 'dd/MM/yyyy')}
                                     </Badge>
                                 </div>
-                                <Badge
-                                    className='mx-2'
+                                <h6
+                                    className='m-0 p-0 bg-success rounded-2 p-1 text-bg-danger fw-bold'
                                     color='success'>
                                     {interview.totalScore}
-                                </Badge>
+                                </h6>
                             </div>
-                        </ListGroupItemHeading>
-                        <ListGroupItemText className='d-flex flex-wrap ms-auto'>
+                        </div>
+                        <ListGroupItemText className='d-flex flex-wrap gap-2 p-2'>
                             {interview.ratings.map(rating => (
-                                <Col key={rating.id} xs={12} sm={6} md={4} lg={3} xxl={3} className='p-1'>
-                                    <div
-                                        className='d-flex justify-content-between align-items-center border border-secondary-subtle fs-6 p-1'
-                                        block>
+                                <div
+                                    className="d-flex flex-wrap align-items-center border border-secondary-subtle rounded-2 p-1"
+                                    key={rating.id}
+
+                                >
+                                    <div className='m-0 p-0'>
                                         {rating.skill.name}
                                         <Badge
                                             // color={colorBadgeSkills(skill.type)}
-                                            className='d-flex align-items-center'>
+                                            className='align-items-center ms-2'>
                                             {rating.score}
                                         </Badge>
                                     </div>
-                                </Col>
+                                </div>
                             ))}
+                            
                         </ListGroupItemText>
+                        <div className='d-flex border border-secondary-subtle rounded-2 p-1 bg-light'>
+                                <div className='d-flex flex-column fw-bolder'>Observação: </div>
+                                {interview.note}
+                            </div>
                     </ListGroupItem>
                 ))}
             </ListGroup>
