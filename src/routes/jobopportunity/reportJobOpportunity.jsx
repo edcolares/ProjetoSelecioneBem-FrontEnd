@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { AiOutlineFileText, AiOutlineUnorderedList } from 'react-icons/ai';
 import { FaCog, FaRegGrinStars } from 'react-icons/fa';
 import { MdStar } from 'react-icons/md';
+import ReportPage from './ReportPage';
 
 import {
     Row,
@@ -13,14 +14,9 @@ import {
     CardHeader,
     CardText,
     Col,
-    Button,
-    Toast,
-    ToastHeader,
-    ToastBody,
     Badge,
     ListGroup,
     ListGroupItem,
-    ListGroupItemHeading,
     ListGroupItemText,
 } from 'reactstrap';
 import { colorBadgeSkills } from '../codeUtils';
@@ -55,11 +51,13 @@ const reportJobOpportunity = () => {
 
     return (
         <div>
-            <h3 className=''>
-                <AiOutlineFileText className='mx-2' />
-                RELATÓRIO DA OPORTUNIDADE
-            </h3>
-
+            <div className='d-flex justify-content-between'>
+                <h3>
+                    <AiOutlineFileText className='mx-2' />
+                    RELATÓRIO DA OPORTUNIDADE
+                </h3>
+                <ReportPage />
+            </div>
             <Card className='my-2' color='secondary' outline>
                 <CardBody className='p-0'>
                     <CardHeader tag={'h5'} className='p-2 m-0 text-uppercase fw-bold'>
@@ -82,7 +80,7 @@ const reportJobOpportunity = () => {
 
             <Card className='my-4' color='secondary' outline>
                 <CardBody className='p-0'>
-                <CardHeader tag={'h5'} className='p-2 m-0 text-uppercase fw-bold'>
+                    <CardHeader tag={'h5'} className='p-2 m-0 text-uppercase fw-bold'>
                         {/* <FaPuzzlePiece /> */}
                         <MdStar className='me-1' />Skills avaliadas e seus pesos
                     </CardHeader>
@@ -167,12 +165,12 @@ const reportJobOpportunity = () => {
                                     </div>
                                 </div>
                             ))}
-                            
+
                         </ListGroupItemText>
                         <div className='d-flex border border-secondary-subtle rounded-2 p-1 bg-light'>
-                                <div className='d-flex flex-column fw-bolder'>Observação: </div>
-                                {interview.note}
-                            </div>
+                            <div className='d-flex flex-column fw-bolder'>Observação: </div>
+                            {interview.note}
+                        </div>
                     </ListGroupItem>
                 ))}
             </ListGroup>
