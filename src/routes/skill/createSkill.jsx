@@ -154,11 +154,11 @@ const CreateSkill = ({ addSkill }) => {
                         <option key={"Hard"} value={"Hard Skill"}>Hard Skill</option>
                         <option key={"Soft"} value={"Soft Skill"}>Soft Skill</option>
                         <option key={"Cognitive"} value={"Cognitive Skill"}>Cognitive Skill</option>
-                        <option key={"Communication"} value={"Communication Skills"}>Communication Skills</option>
+                        {/* <option key={"Communication"} value={"Communication Skills"}>Communication Skills</option>
                         <option key={"Interpersonal"} value={"Interpersonal Skills"}>Interpersonal Skills</option>
                         <option key={"Time Management"} value={"Time Management Skills"}>Time Management Skills</option>
                         <option key={"Decision-Making"} value={"Decision-Making Skills"}>Decision-Making Skills</option>
-                        <option key={"Leadership"} value={"Leadership Skills"}>Leadership Skills</option>
+                        <option key={"Leadership"} value={"Leadership Skills"}>Leadership Skills</option> */}
                     </Input>
                     {errors.type && <FormFeedback>{errors.type}</FormFeedback>}
                 </Col>

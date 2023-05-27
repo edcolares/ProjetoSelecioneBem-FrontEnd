@@ -3,15 +3,12 @@ import React, { useState, useEffect } from 'react'
 import { Chart } from "react-google-charts";
 
 export const data = [
-  ["Area", "Nível", "Qtde Entrevista"],
-  ["Desenvolvimento", "Senior", 12],
-  ["Qualidade de Software", "Senior", 20],
-  ["BI", "Senior", 22],
-  ["BI", "Pleno", 3],
-  ["Desenvolvimento", "Junior", 42],
-  ["BI", "Junior", 32],
-  ["Qualidade de Software", "Junior", 32],
-  ["Desenvolvimento", "Pleno", 32],
+  ["name", "nivel", "qtde_oportunidades"],
+  ["Ciência de Dados", "Pleno", 2],
+  ["Desenvolvimento", "Senior", 5],
+  ["Infraestrutura", "Senior", 3],
+  ["Gestão de Produtos", "Pleno", 1],
+  ["Garantia de Qualidade", "Senior", 2]
 ];
 
 export const options = {
