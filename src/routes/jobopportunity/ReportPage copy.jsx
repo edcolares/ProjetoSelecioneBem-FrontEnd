@@ -130,7 +130,7 @@ const reportJobOpportunity = () => {
                 {
                     style: 'table',
                     table: {
-                        widths: ['34%', '12%', '36%', '13%'],
+                        widths: ['45%', '35%', '20%'],
                         // heights: 40,
                         headerRows: 1,
                         body: [
@@ -138,25 +138,12 @@ const reportJobOpportunity = () => {
                             [
                                 { text: 'CANDIDATO', bold: true, italics: true },
                                 { text: 'DATA', bold: true, italics: true },
-                                { text: 'PONTUAÇÃO DAS SKILLS', bold: true, italics: true, alignment: 'center' },
                                 { text: 'PONTUAÇÃO', bold: true, italics: true, alignment: 'center' }
                             ],
                             // Linhas de dados
                             ...interviews.map((interview) => [
                                 { text: interview.candidate.name, style: 'candidate' },
                                 { text: format(new Date(interview.startDate), 'dd/MM/yyyy'), style: 'candidate' },
-                                {
-                                    table: {
-                                        widths: ['92%', '8%'],
-                                        headerRows: 1,
-                                        body:
-                                            interview.ratings.map((rating) => [
-                                                { text: rating.skill.name },
-                                                { text: rating.score, alignment: 'center' }
-                                            ]),
-                                    },
-                                    layout: 'noBorders'
-                                },
                                 { text: interview.totalScore, style: 'score' }
                             ],
                             ),
@@ -189,7 +176,7 @@ const reportJobOpportunity = () => {
                     margin: [0, 0, 0, 0],
                 },
                 score: {
-                    fontSize: 20,
+                    fontSize: 14,
                     bold: true,
                     margin: [0, 0, 0, 0],
                     color: 'green',
@@ -221,7 +208,7 @@ const reportJobOpportunity = () => {
                 onClick={generatePDF}
                 color='danger'
                 size="sm"
-            >  <AiFillFilePdf />Completo</Button>
+            >  <AiFillFilePdf /> Resumido</Button>
         </div>
     );
 };

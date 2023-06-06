@@ -17,6 +17,7 @@ import DashboardJobOpportunity from './routes/jobopportunity/dashboardJobOpportu
 import ReportJobOpportunity from './routes/jobopportunity/reportJobOpportunity.jsx'
 import ReportPage from './routes/jobopportunity/ReportPage.jsx';
 import Teste from './routes/teste.jsx';
+import DashboardTeste from './routes/dashboard/dashboardTeste.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/teste",
+        element: <DashboardTeste />,
       },
       {
         path: "/skill",

@@ -4,6 +4,9 @@ import fetch from '../../axios/config';
 import Charts2 from './charts2.jsx'
 import PieChartTop10Skill from '../jobopportunity/PieChartTop10Skill'
 import ChartsFilterControl from './chartsFilterControl';
+import ChartDepartmentStatistics from './departmentWithOpportunityOpenCloseStatistics';
+import ChartDepartment from './DepartmentStatistics.jsx';
+import InfoJobOpportunities from './infoJobOpportunities';
 
 import {
     Row,
@@ -20,6 +23,8 @@ const Dashboard = () => {
 
     return (
         <Container>
+
+            <InfoJobOpportunities />
             <Row>
 
                 <Col md={6} className='my-3'>
@@ -66,12 +71,51 @@ const Dashboard = () => {
                         style={{
                             width: '100%'
                         }}>
-                        <CardHeader tag="h5">
-                            Gráfico 3
+                        <CardHeader tag="h5" className='text-uppercase
+                        '>
+                            Oportunidades por nivel departamento
                         </CardHeader>
                         <CardBody className='p-0 my-0'>
                             <CardText>
                                 <ChartsFilterControl />
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col md={6} className='my-3'>
+                    <Card
+                        className="my-0"
+                        color="secondary"
+                        outline
+                        style={{
+                            width: '100%'
+                        }}>
+                        <CardHeader tag="h5" className='text-uppercase
+                        '>
+                            Oportunidades por nivel departamento
+                        </CardHeader>
+                        <CardBody className='p-0 my-0'>
+                            <CardText>
+                                <ChartDepartmentStatistics />
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col md={6} className='my-3'>
+                    <Card
+                        className="my-0"
+                        color="secondary"
+                        outline
+                        style={{
+                            width: '100%'
+                        }}>
+                        <CardHeader tag="h5" className='text-uppercase
+                        '>
+                            Oportunidades por nivel departamento
+                        </CardHeader>
+                        <CardBody className='p-0 my-0'>
+                            <CardText>
+                                <ChartDepartment />
                             </CardText>
                         </CardBody>
                     </Card>

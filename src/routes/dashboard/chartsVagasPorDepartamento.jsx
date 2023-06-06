@@ -8,13 +8,13 @@ export const options = {
   pieSliceText: "label",
 };
 
-export function ChartsFilterControl() {
+export function ChartsVagasPorDepartamento() {
 
-  const [departments, setDepartments] = useState([]);
+  const [jobOpportunities, setJobOpportunities] = useState([]);
 
-  const departmentStatistics = async () => {
+  const vagasPorDepartamentos = async () => {
     try {
-      const response = await fetch.get(`/department/statistics`);
+      const response = await fetch.get(`/jobopportunity/statistics/vacancybyopportunity`);
       const data = response.data;
       console.log("Valor de Data: ", data);
       setDepartments(data)
@@ -24,16 +24,16 @@ export function ChartsFilterControl() {
   }
 
   let data = [
-    ["Departamento", "Nível", "Total Oportunidades"],
+    ["Departamento", "Mês", "Ano", "Vagas"],
   ];
 
-  for (let i = 0; i < departments.length; i++) {
-    const department = departments[i];
-    data.push([String(department.name), String(department.nivel), Number(department.qtde_oportunidades)])
+  for (let i = 0; i < jobOpportunities.length; i++) {
+    const jobOpportunity = jobOpportunities[i];
+    data.push([String(jobOpportunity.name_department), Number(jobOpportunity.month), Number(jobOpportunity.year), Number(jobOpportunity.vacancy_open)])
   }
 
   useEffect(() => {
-    departmentStatistics();
+    vagasPorDepartamentos();
   }, []);
 
 
@@ -73,4 +73,4 @@ export function ChartsFilterControl() {
 }
 
 
-export default ChartsFilterControl
+export default ChartsVagasPorDepartamento

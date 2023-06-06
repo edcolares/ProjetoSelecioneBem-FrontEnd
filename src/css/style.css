@@ -1,6 +1,13 @@
 body {
-    font-family   : Blinker, MUSEOMODERNO, ABeeZee, Roboto, Comme, COMFORTAA;
-    /* font-family: poppins; */
+    /* font-family: 'ABeeZee', sans-serif; */
+    /* font-family: 'Blinker', sans-serif; */
+    /* font-family: 'Comme', sans-serif; */
+    font-family: 'Inter', sans-serif;
+    /* font-family: 'Josefin Sans', sans-serif; */
+    /* font-family: 'MuseoModerno', cursive; */
+    /* font-family: 'Oxygen', sans-serif; */
+    /* font-family: 'Poppins', sans-serif; */
+
 }
 
 .titulo {

@@ -6,6 +6,7 @@ import { AiOutlineFileText, AiOutlineUnorderedList } from 'react-icons/ai';
 import { FaCog, FaRegGrinStars } from 'react-icons/fa';
 import { MdStar } from 'react-icons/md';
 import ReportPage from './ReportPage';
+import ReportPage2 from './ReportPage copy';
 
 import {
     Row,
@@ -57,6 +58,7 @@ const reportJobOpportunity = () => {
                     RELATÓRIO DA OPORTUNIDADE
                 </h3>
                 <ReportPage />
+                <ReportPage2 />
             </div>
             <Card className='my-2' color='secondary' outline>
                 <CardBody className='p-0'>
