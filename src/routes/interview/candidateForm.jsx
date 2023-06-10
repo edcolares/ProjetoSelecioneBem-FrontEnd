@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, FormGroup, Label, Input, Col, Row, InputGroup, FormFeedback } from 'reactstrap';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdCheck } from 'react-icons/md';
 import * as yup from 'yup';

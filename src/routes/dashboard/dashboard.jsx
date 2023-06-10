@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import Charts2 from './charts2.jsx'
 import PieChartTop10Skill from '../jobopportunity/PieChartTop10Skill'
 import ChartsFilterControl from './chartsFilterControl';

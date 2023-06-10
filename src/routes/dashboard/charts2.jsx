@@ -1,4 +1,4 @@
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import React, { useState, useEffect } from 'react'
 import { Chart } from "react-google-charts";
 

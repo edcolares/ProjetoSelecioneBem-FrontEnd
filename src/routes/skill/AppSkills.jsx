@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import { Card, CardHeader, CardBody, CardText, Col, Row } from 'reactstrap';
 
 import SkillsAccordion from './SkillsAccordion'

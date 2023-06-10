@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import { format } from 'date-fns';
 import { AiOutlineFileText, AiOutlineUnorderedList } from 'react-icons/ai';
 import { FaCog, FaRegGrinStars } from 'react-icons/fa';

@@ -1,5 +1,5 @@
 import React from 'react'
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import React, { useState, useEffect } from 'react'
 
 const getJobOpportunityById = () => {

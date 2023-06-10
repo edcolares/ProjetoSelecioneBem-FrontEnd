@@ -1,19 +1,24 @@
 import Navbar from "./components/navbar";
 import { Outlet } from 'react-router-dom';
 import { Container } from 'reactstrap'
+import { AuthProvider } from './context/AuthProvider';
 
 function App() {
 
   return (
     <div className='App'>
 
-      <Navbar></Navbar>
+      <AuthProvider>
 
-      <Container className="my-3 px-4 py-4 bg-white rounded shadow-sm">
+        <Navbar></Navbar>
 
-        <Outlet></Outlet>
+        <Container className="my-3 px-4 py-4 bg-white rounded shadow-sm">
 
-      </Container>
+          <Outlet></Outlet>
+
+        </Container>
+
+      </AuthProvider>
 
     </div>
 

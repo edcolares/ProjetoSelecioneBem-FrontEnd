@@ -2,7 +2,7 @@ body {
     /* font-family: 'ABeeZee', sans-serif; */
     /* font-family: 'Blinker', sans-serif; */
     /* font-family: 'Comme', sans-serif; */
-    font-family: 'Inter', sans-serif;
+    font-family   : 'Inter', sans-serif;
     /* font-family: 'Josefin Sans', sans-serif; */
     /* font-family: 'MuseoModerno', cursive; */
     /* font-family: 'Oxygen', sans-serif; */
@@ -27,6 +27,16 @@ body {
 .list-divider {
     border-bottom : 1px solid #c2c2c2;
     padding-bottom: 20px;
+}
+
+.icon-logout {
+    width : 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.icon-logout :hover {
+    opacity         : 0.7;
 }
 
 .list-item {
@@ -87,13 +97,13 @@ button[name="cSelected"] {
 } */
 
 .btn-amarelo {
-    background: rgb(255, 255, 0);
+    background: rgb(17, 167, 30);
     border    : none;
     color     : #212529;
 }
 
 .btn-laranja {
-    background: rgb(255, 140, 0);
+    background: rgb(247, 255, 15);
     border    : none;
     color     : #212529;
 }

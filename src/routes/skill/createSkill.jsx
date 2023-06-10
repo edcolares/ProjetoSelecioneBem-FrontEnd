@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 
 import {
     Form,

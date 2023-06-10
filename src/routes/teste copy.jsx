@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import fetch from '../axios/config';
+import fetch from '../services/config';
 import { format } from 'date-fns';
 import AlertComponent from './AlertComponent';
 import '../css/style.css'

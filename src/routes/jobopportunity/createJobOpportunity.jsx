@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import '../../css/style.css';
 import { colorBadgeSkills } from '../codeUtils.jsx';
+import { useAuth } from '../../context/AuthProvider/useAuth';
+
 import {
     Form,
     FormGroup,
@@ -45,6 +47,8 @@ const createJobOpportunity = () => {
     /* Variavel que recebe os campos do formulário */
     const [formData, setFormData] = useState({});
     const [errors, setErrors] = useState({});
+    const auth = useAuth();
+
 
     console.log(formData);
     /**
@@ -75,6 +79,8 @@ const createJobOpportunity = () => {
       */
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        setFormData(prevState => ({ ...prevState, ['useId']: auth.id }));
 
         /**
          * Faz a validação do SCHEMA
@@ -223,21 +229,6 @@ const createJobOpportunity = () => {
                     <div className='titulo'><h4>Oportunidade de emprego</h4></div>
                     <div className='subtitulo'><h6 className='fw-light'>Preencha as informações pertinentes a oportunidade de emprego</h6></div>
                 </Label>
-            </FormGroup>
-
-            {/* ID */}
-            <FormGroup>
-                <Col lg={10}>
-                    <Input
-                        id="useId"
-                        name="useId"
-                        placeholder="Id"
-                        type="text"
-                        invalid={!!errors.useId}
-                        onChange={handleChange}
-                    />
-                    {errors.useId && <FormFeedback>{errors.useId}</FormFeedback>}
-                </Col>
             </FormGroup>
 
             {/* TITLE */}

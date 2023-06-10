@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import { Button, Col, CardBody, Form, FormGroup, Label, Input, Card, CardHeader } from 'reactstrap';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import JobOpportunity from './jobOpportunity';
 import Rating from './rating';
 import CandidateForm from './candidateForm';

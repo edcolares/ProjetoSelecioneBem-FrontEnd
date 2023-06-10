@@ -1,4 +1,4 @@
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Badge, Col, Form, FormGroup, Input, Label, Alert } from 'reactstrap';

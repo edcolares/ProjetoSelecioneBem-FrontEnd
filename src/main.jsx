@@ -5,7 +5,7 @@ import App from './App.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/css/style.css';
 
-import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Home from "./routes/home.jsx";
 import Dashboard from './routes/dashboard/dashboard.jsx';
@@ -19,53 +19,102 @@ import ReportPage from './routes/jobopportunity/ReportPage.jsx';
 import Teste from './routes/teste.jsx';
 import DashboardTeste from './routes/dashboard/dashboardTeste.jsx';
 
+//Novas
+import LoginScreen from './components/Login';
+import SignUpScreen from './components/SignUp/index';
+import { ProtectLayout } from './components/Protectedlayout';
+
+
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
         path: "/",
-        element: <Home />,
+        element:
+          <ProtectLayout>
+            < Home />
+          </ProtectLayout>
       },
       {
         path: "/report/:idJobOpportunity",
-        element: <ReportPage />,
+        element:
+          <ProtectLayout>
+            <ReportPage />
+          </ProtectLayout>
       },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element:
+          <ProtectLayout>
+            < Dashboard />
+          </ProtectLayout>
       },
       {
         path: "/dashboard/teste",
-        element: <DashboardTeste />,
+        element:
+          <ProtectLayout>
+            < DashboardTeste />
+          </ProtectLayout>
       },
       {
         path: "/skill",
-        element: <AppSkills />,
+        element:
+          <ProtectLayout>
+            < AppSkills />
+          </ProtectLayout>
       },
       {
         path: "/interview/:idJobOpportunity",
-        element: <CreateInterview />,
+        element:
+          <ProtectLayout>
+            < CreateInterview />
+          </ProtectLayout>
       },
       {
         path: "/jobopportunity",
-        element: <CreateJobOpportunity />,
+        element:
+          <ProtectLayout>
+            < CreateJobOpportunity />
+          </ProtectLayout>
       },
       {
         path: "/jobopportunity/dashboard",
-        element: <DashboardJobOpportunity />,
+        element:
+          <ProtectLayout>
+            < DashboardJobOpportunity />
+          </ProtectLayout>
       },
       {
         path: "/jobopportunity/report/:idJobOpportunity",
-        element: <ReportJobOpportunity />,
+        element:
+          <ProtectLayout>
+            < ReportJobOpportunity />
+          </ProtectLayout>
       },
       {
         path: "/jobopportunityskill/:id",
-        element: <FactorJobOpportunitySkill />,
+        element:
+          <ProtectLayout>
+            < FactorJobOpportunitySkill />
+          </ProtectLayout>
       },
       {
         path: "/teste/:idJobOpportunity",
-        element: <Teste />,
+        element:
+          <ProtectLayout>
+            < Teste />
+          </ProtectLayout>
+      },
+      {
+        path: "/signup",
+        element:
+          <SignUpScreen />
+      },
+      {
+        path: "/login",
+        element:
+          <LoginScreen />
       },
     ],
   },

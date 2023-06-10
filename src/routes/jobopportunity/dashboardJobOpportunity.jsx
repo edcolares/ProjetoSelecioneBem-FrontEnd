@@ -1,14 +1,17 @@
-import { Alert, Col, Row, Container, Card, CardBody, CardHeader, CardText } from 'reactstrap';
+import { Col, Row, Container, Card, CardBody, CardHeader, CardText } from 'reactstrap';
 import PieChartTop10Skill from './PieChartTop10Skill.jsx'
 import TableOpenJobOpportunity from './tableOpenJobOpportunity.jsx'
+import { useAuth } from '../../context/AuthProvider/useAuth';
 
+export default function dashboardJobOpportunity() {
 
-const dashboardJobOpportunity = () => {
+    const auth = useAuth();
+
     return (
         <Container>
             <Row>
                 <Col lg={12}>
-                    <TableOpenJobOpportunity></TableOpenJobOpportunity>
+                    <TableOpenJobOpportunity idUser={Number(auth.id)}></TableOpenJobOpportunity>
                 </Col>
                 <Col lg={6} className='my-3'>
                     <Card
@@ -50,5 +53,3 @@ const dashboardJobOpportunity = () => {
         </Container>
     )
 }
-
-export default dashboardJobOpportunity

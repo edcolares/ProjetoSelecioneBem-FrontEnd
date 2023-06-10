@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import { AiFillFilePdf } from 'react-icons/ai';
 import { Button } from 'reactstrap';
 

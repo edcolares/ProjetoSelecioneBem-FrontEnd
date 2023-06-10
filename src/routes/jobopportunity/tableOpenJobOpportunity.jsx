@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import fetch from '../../axios/config';
+import fetch from '../../services/config';
 import { format } from 'date-fns';
 import AlertComponent from '../../components/AlertComponent';
 import '../../css/style.css'
@@ -19,21 +19,22 @@ import {
   Button,
 } from 'reactstrap';
 
-const Dashboard = () => {
+const Dashboard = ({ idUser }) => {
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertColor, setAlertColor] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
+  const [jobopportunities, setJobOpportunities] = useState([]);
+
 
   const navigate = new useNavigate();
 
   /**
    * Busca todas as oportunidades com data de fechamento em aberto
    */
-  const [jobopportunities, setJobOpportunities] = useState([]);
+
   const getJobOpportunityByClosingDateOpen = async () => {
     try {
-      const idUser = 5;
       const response = await fetch.get(`/jobopportunity/find/${idUser}`);
       const data = response.data;
       setJobOpportunities(data);
@@ -81,6 +82,7 @@ const Dashboard = () => {
           <AlertComponent color={alertColor} message={alertMessage} />
         )}
       </Col>
+
       <Col md={12}>
 
         <Card
@@ -91,8 +93,9 @@ const Dashboard = () => {
             width: '100%'
           }}
         >
-          <CardHeader color='danger' tag="h5">
+          <CardHeader color='danger' tag="h5" className='d-flex justify-content-between'>
             Oportunidades em aberto
+            <Button color='success' size='sm' onClick={(e) => navigate('/jobopportunity')}><BsPlusCircleFill className='me-2' />Nova Oportunidade</Button>
           </CardHeader>
           <CardBody>
             <CardText>
