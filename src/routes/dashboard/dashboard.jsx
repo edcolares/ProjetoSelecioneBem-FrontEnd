@@ -72,7 +72,7 @@ const Dashboard = () => {
                             width: '100%'
                         }}>
                         <CardHeader tag="h5">
-                            Oportunidades por nivel departamento
+                            Oportunidades por departamento
                         </CardHeader>
                         <CardBody className='p-0 my-0'>
                             <CardText>

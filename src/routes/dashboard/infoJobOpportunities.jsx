@@ -1,7 +1,10 @@
 import fetch from '../../services/config';
 import React, { useState, useEffect } from 'react'
 import { Chart } from "react-google-charts";
+import { useAuth } from '../../context/AuthProvider/useAuth';
+
 import {
+  Alert,
   Card,
   CardBody,
   CardHeader,
@@ -67,10 +70,12 @@ export function InfoJobOpportunities() {
 
   const [jobOpportunities, setJobOpportunities] = useState([]);
   const [jobOpportunitiesGlobal, setJobOpportunitiesGlobal] = useState([]);
+  const auth = useAuth();
 
   const getJobOpportunities = async () => {
     try {
-      const response = await fetch.get(`/jobopportunity/statistics/allopportunities`);
+      const idUser = auth.id;
+      const response = await fetch.get(`/jobopportunity/statistics/allOpportunitiesByUser/${idUser}`);
       const data = response.data;
       setJobOpportunities(data)
     } catch (error) {
@@ -89,7 +94,7 @@ export function InfoJobOpportunities() {
     dataJobOpportunities.push(["Fechadas", Number(jobOpportunity.closed_opportunities)])
   }
 
-  //POPULA O ARRAY DE OPORTUNIDADES FECHADAS (ATRASADAS E NO PRAZO)
+  //POPULA O ARRAY DE OPORTUNIDADES FECHADAS (ATRASADAS E NO PRAZO) - 3º GRÁFICO
   let dataClosedJobOpportunities = [
     ["Status", "Qtde"],
   ];
@@ -144,8 +149,15 @@ export function InfoJobOpportunities() {
         jobOpportunities.map((info) => (
           <Row>
 
+            <Col sm={12}>
+              {/* <Alert color='success'>Total de oportunidades abertas:  {info.oportunidadeAbertasDentroPrazo} </Alert>
+              <Alert color='danger'>Total de oportunidades em atraso: {info.oportunidadeAbertasEmAtraso}</Alert> */}
+              <Alert color='success'>Total de oportunidades abertas dentro do prazo para fechamento:  <span className='fw-bold'>{info.oportunidadeAbertasDentroPrazo}</span> </Alert>
+              <Alert color='danger'>Total de oportunidades abertas em atraso: <span className='fw-bold'>{info.oportunidadeAbertasEmAtraso}</span></Alert>
+            </Col>
+
             {/* Primeira COLUNA */}
-            <Col xs="4">
+            <Col lg="4" md="12" className='mb-3'>
               <Card
                 color='white'
               >
@@ -172,7 +184,7 @@ export function InfoJobOpportunities() {
             </Col>
 
             {/* Segunda COLUNA */}
-            <Col xs="4">
+            <Col lg="4" md="12" className='mb-3'>
               <Card
                 color='white'
               >
@@ -195,7 +207,7 @@ export function InfoJobOpportunities() {
             </Col>
 
             {/* Terceira COLUNA */}
-            <Col xs="4">
+            <Col lg="4" md="12" className='mb-3'>
               <Card
                 color='white'
               >

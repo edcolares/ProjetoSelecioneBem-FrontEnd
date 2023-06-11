@@ -264,11 +264,11 @@ const createJobOpportunity = () => {
                         onChange={handleChange}
                     >
                         <option key={"default"} value="">-- Selecione o nível de experiência</option>
-                        <option key={"Entry level"} value={"Entry level"}>Entry level</option>
+                        {/* <option key={"Entry level"} value={"Entry level"}>Entry level</option> */}
                         <option key={"Júnior"} value={"Júnior"}>Júnior</option>
                         <option key={"Pleno"} value={"Pleno"}>Pleno</option>
                         <option key={"Senior"} value={"Senior"}>Senior</option>
-                        <option key={"LíderTécnico"} value={"Líder Técnico"}>Líder Técnico</option>
+                        {/* <option key={"LíderTécnico"} value={"Líder Técnico"}>Líder Técnico</option> */}
                     </Input>
                     {errors.level && <FormFeedback>{errors.level}</FormFeedback>}
                 </Col>
