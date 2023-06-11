@@ -15,7 +15,6 @@ import CreateJobOpportunity from './routes/jobopportunity/createJobOpportunity.j
 import FactorJobOpportunitySkill from './routes/jobopportunitySkill/factorJobOpportunitySkill.jsx';
 import DashboardJobOpportunity from './routes/jobopportunity/dashboardJobOpportunity.jsx';
 import ReportJobOpportunity from './routes/jobopportunity/reportJobOpportunity.jsx'
-import ReportPage from './routes/jobopportunity/ReportPage.jsx';
 import Teste from './routes/teste.jsx';
 import DashboardTeste from './routes/dashboard/dashboardTeste.jsx';
 
@@ -36,13 +35,7 @@ const router = createBrowserRouter([
             < Home />
           </ProtectLayout>
       },
-      {
-        path: "/report/:idJobOpportunity",
-        element:
-          <ProtectLayout>
-            <ReportPage />
-          </ProtectLayout>
-      },
+
       {
         path: "/dashboard",
         element:

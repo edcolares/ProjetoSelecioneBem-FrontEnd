@@ -224,7 +224,7 @@ const createJobOpportunity = () => {
 
         <Form color='light' onSubmit={handleSubmit}>
 
-            <FormGroup>
+            <FormGroup row className='p-0 m-0'>
                 <Label>
                     <div className='titulo'><h4>Oportunidade de emprego</h4></div>
                     <div className='subtitulo'><h6 className='fw-light'>Preencha as informações pertinentes a oportunidade de emprego</h6></div>
@@ -232,7 +232,7 @@ const createJobOpportunity = () => {
             </FormGroup>
 
             {/* TITLE */}
-            <FormGroup row>
+            <FormGroup row className='p-0 m-0'>
                 <Label for="title" lg={2}>
                     Descrição/Título
                 </Label>
@@ -251,7 +251,7 @@ const createJobOpportunity = () => {
 
 
             {/* LEVEL */}
-            <FormGroup row>
+            <FormGroup row className='p-0 m-0'>
                 <Label for="level" lg={2}>
                     Nível/Level
                 </Label>
@@ -275,7 +275,7 @@ const createJobOpportunity = () => {
             </FormGroup>
 
             {/* DEPARTMENT */}
-            <FormGroup row>
+            <FormGroup row className='p-0 m-0'>
                 <Label for="departments" lg={2} >
                     Departamento
                 </Label>
@@ -304,7 +304,7 @@ const createJobOpportunity = () => {
             </FormGroup>
 
             {/* OPENING DATE */}
-            <FormGroup row>
+            <FormGroup row className='p-0 m-0'>
                 <Label for='openingDate' lg={2}>
                     Data de abertura
                 </Label>
@@ -323,7 +323,7 @@ const createJobOpportunity = () => {
             </FormGroup>
 
             {/* EXPECTED DATE */}
-            <FormGroup row>
+            <FormGroup row className='p-0 m-0'>
                 <Label for='expectedDate' lg={2}>
                     Expectativa fechar
                 </Label>
@@ -339,53 +339,49 @@ const createJobOpportunity = () => {
                 </Col>
             </FormGroup>
 
-            {/* *************SELEÇÃO DAS SKILLS************* */}
 
-            <FormGroup>
-                <Label></Label>
-            </FormGroup>
-            <FormGroup>
+            <hr className='my-5 mx-3' />
+
+
+            {/* *************SELEÇÃO DAS SKILLS************* */}
+            <FormGroup row className='p-0 m-0'>
                 <Label>
                     <div className='titulo'><h4>Seleção de Skills</h4></div>
                     <div className='subtitulo'><h6 className='fw-light'>Selecione todas as skills relacionadas a oportunidade de emprego</h6></div>
                 </Label>
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup row className='p-0 m-0'>
 
                 <Col lg={12} >
                     {/* Para alinhar o componente Col ao centro, usar className='mx-auto' */}
                     <Card
                         className="my-2"
-                        color={!!errors.cSelected ? 'danger' : 'secondary'}
+                        color={!!errors.cSelected ? 'danger' : 'light'}
                         invalid={!!errors.cSelected}
-                        outline
                         style={{
                             width: '100%'
                         }}>
                         <CardHeader>
                             <FormGroup row className='my-3 d-flex align-items-baseline'>
-                                <Col lg={2} md={3} xl={3}>
+                                {/* <Col lg={2} md={3} xl={3}>
                                     <Label className='d-flex justify-content-center'>
                                         Agilize sua busca
                                     </Label>
-                                </Col>
-                                <Col lg={10} md={9} xl={9}>
+                                </Col> */}
+                                <Col lg={12} md={12} xl={12}>
                                     <Input
                                         id='search'
                                         name='search'
-                                        placeholder='Filtro'
+                                        placeholder='Pesquisa'
                                         type='search'
-                                        style={{
-                                            width: '100%'
-                                        }}
                                         onChange={e => setQuery(e.target.value)}
                                     >
                                     </Input>
                                 </Col>
                             </FormGroup>
                         </CardHeader>
-                        <CardBody>
+                        <CardBody className='bg-white'>
                             <CardText className='d-flex flex-fill flex-wrap'>
                                 {Skills.length === 0 ? <div>Carregando...</div> : (
                                     Skills.filter(skill => skill.name.toLowerCase().includes(query) || skill.type.toLowerCase().includes(query)
@@ -418,9 +414,9 @@ const createJobOpportunity = () => {
                     {/* {errors.cSelected && <div>{errors.cSelected}</div>} */}
                 </Col>
             </FormGroup>
-            <FormGroup check row>
-                <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
-                    <Button color='success' type='submit' size='lg'>
+            <FormGroup check row className='p-0 m-0'>
+                <Col lg={12} className='d-flex justify-content-end'>
+                    <Button color='success' block type='submit'>
                         Próximo passo
                     </Button>
                 </Col>

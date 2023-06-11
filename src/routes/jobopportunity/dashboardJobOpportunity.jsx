@@ -22,7 +22,7 @@ export default function dashboardJobOpportunity() {
                             width: '100%'
                         }}>
                         <CardHeader tag="h5">
-                            Top 10 skills mais utilizadas
+                            Top 10 Competências
                         </CardHeader>
                         <CardBody className='p-2 my-0'>
                             <CardText>

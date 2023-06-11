@@ -3,7 +3,7 @@ import { FaUser } from 'react-icons/fa';
 import { useAuth } from '../context/AuthProvider/useAuth';
 import { IoLogOut } from 'react-icons/io5';
 import SelecioneBem2 from '../assets/SelecioneBem2.svg';
-    
+
 import {
     Collapse,
     Navbar,
@@ -32,8 +32,9 @@ function navbar(args) {
     };
 
     return (
+
         <div>
-            <Navbar dark expand='md' container="md">
+            <Navbar dark expand='lg' container="lg">
                 <NavbarBrand href="/dashboard">
                     <img
                         src={SelecioneBem2}
@@ -51,10 +52,17 @@ function navbar(args) {
                         <Nav className="me-auto" navbar>
 
                             <NavItem>
-                                <NavLink href="/jobopportunity/dashboard">
-                                Oportunidades
+                                <NavLink href="/dashboard">
+                                    Dashboard
                                 </NavLink>
                             </NavItem>
+
+                            <NavItem>
+                                <NavLink href="/jobopportunity/dashboard">
+                                    Oportunidades
+                                </NavLink>
+                            </NavItem>
+
                             {/* <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
                                     Oportunidades
@@ -76,7 +84,7 @@ function navbar(args) {
                                 <NavLink href="/interview">Entrevista</NavLink>
                             </NavItem> */}
                             <NavItem>
-                                <NavLink href="/skill">Skill</NavLink>
+                                <NavLink href="/skill">Competências</NavLink>
                             </NavItem>
                             {/* <NavItem>
                                 <NavLink href="/teste">Teste</NavLink>
@@ -86,14 +94,14 @@ function navbar(args) {
                             <FaUser className='mx-2' />
                             Olá, {auth.name}!
 
-                                <IoLogOut className='mx-2 icon-logout' onClick={handleLogout} />
-                            
+                            <IoLogOut className='mx-2 icon-logout' onClick={handleLogout} />
+
                         </NavbarText>
                     </Collapse>
                 )}
             </Navbar>
         </div>
-    );
+    )
 }
 
 export default navbar;

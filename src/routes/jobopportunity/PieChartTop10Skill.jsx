@@ -29,7 +29,7 @@ const teste = () => {
 
 
     const options = {
-        title: "Top 10 Skills",
+        // title: "As 10 mais utilizadas",
         legend: true, //Remove a legenda do canot superior direito
         pieSliceText: "%", // "label" "value" aparece o titulo
         chartArea: { width: "100%" },

@@ -1,9 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
 import { LoginRequest, getUserLocalStorage, setUserLocalStorage } from "./util";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+
+    const navigate = new useNavigate();
+
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -29,6 +33,9 @@ export const AuthProvider = ({ children }) => {
     function logout() {
         setUser(null);
         setUserLocalStorage(null);
+        localStorage.removeItem('u');
+        navigate("/login");
+        // return <App  />;
     }
 
     return (

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Alert, Container, Row, Col, Form, FormGroup, Label, Input, Button, Card } from 'reactstrap';
 import { useAuth } from '../../context/AuthProvider/useAuth';
 import { useNavigate } from 'react-router-dom';
-
+const [reload, setReload] = useState(false);
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    
-    
+
+
     const auth = useAuth();
     const navigate = useNavigate();
 
@@ -18,7 +18,12 @@ const LoginScreen = () => {
 
         try {
             await auth.authenticate(email, password);
-            navigate('/');
+            navigate('/dashboard');
+            setReload(true);
+
+            // window.location.reload();
+
+            // return <App />
         } catch (error) {
             setErrorMessage('E-mail ou senha inválidos');
         }

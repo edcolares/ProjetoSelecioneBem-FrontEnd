@@ -36,7 +36,7 @@ const Dashboard = () => {
                             width: '100%'
                         }}>
                         <CardHeader tag="h5">
-                            Top 10 skills mais utilizadas
+                            Top 10 Competências
                         </CardHeader>
                         <CardBody className='p-2 my-0'>
                             <CardText>
@@ -71,8 +71,7 @@ const Dashboard = () => {
                         style={{
                             width: '100%'
                         }}>
-                        <CardHeader tag="h5" className='text-uppercase
-                        '>
+                        <CardHeader tag="h5">
                             Oportunidades por nivel departamento
                         </CardHeader>
                         <CardBody className='p-0 my-0'>

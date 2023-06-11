@@ -111,14 +111,14 @@ const CreateSkill = ({ addSkill }) => {
     return (
         <Form color='light' onSubmit={handleSubmit}>
 
-            <FormGroup>
+            {/* <FormGroup>
                 <Label>
                     <div className='titulo'><h4>Cadastro de nova habilidade</h4></div>
                     <div className='subtitulo'><h6 className='fw-light'>Inclua uma nova habilidade para utilizar nas oportunidades e entrevistas.</h6></div>
                 </Label>
-            </FormGroup>
+            </FormGroup> */}
 
-            <FormGroup row>
+            <FormGroup row className='mt-2 m-0 p-0'>
                 <Label for="name" sm={2}>
                     Nome
                 </Label>
@@ -126,7 +126,7 @@ const CreateSkill = ({ addSkill }) => {
                     <Input
                         id="name"
                         name="name"
-                        placeholder="Preencha o nome da habilidade"
+                        placeholder="Preencha o nome da competência"
                         type="text"
                         value={formData.name}
                         invalid={!!errors.name}
@@ -137,7 +137,7 @@ const CreateSkill = ({ addSkill }) => {
                 </Col>
             </FormGroup>
 
-            <FormGroup row>
+            <FormGroup row className='m-0 p-0'>
                 <Label for="type" sm={2}>
                     Tipo
                 </Label>
@@ -150,7 +150,7 @@ const CreateSkill = ({ addSkill }) => {
                         onChange={handleChange}
                         invalid={!!errors.type}
                     >
-                        <option key={"default"} value="">-- Defina o tipo da classe da habilidade</option>
+                        <option key={"default"} value="">-- Selecione o tipo de competência</option>
                         <option key={"Hard"} value={"Hard Skill"}>Hard Skill</option>
                         <option key={"Soft"} value={"Soft Skill"}>Soft Skill</option>
                         <option key={"Cognitive"} value={"Cognitive Skill"}>Cognitive Skill</option>
@@ -164,9 +164,9 @@ const CreateSkill = ({ addSkill }) => {
                 </Col>
             </FormGroup>
 
-            <FormGroup check row>
-                <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
-                    <Button color='success' type='submit' size='md'>
+            <FormGroup check row className='m-0 p-0'>
+                <Col lg={12} className='d-flex justify-content-end'>
+                    <Button color='success' block type='submit'>
                         Concluir Cadastro
                     </Button>
                 </Col>

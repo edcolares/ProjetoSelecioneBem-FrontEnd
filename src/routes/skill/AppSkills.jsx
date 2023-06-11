@@ -74,7 +74,7 @@ const AppSkills = () => {
           }}
         >
           <CardHeader tag={'h4'}>
-            Insira uma nova Skill
+            Insira uma nova Competência
           </CardHeader>
           <CardBody className='d-flex justify-content-center'>
             <CardText
@@ -98,7 +98,7 @@ const AppSkills = () => {
             width: '100%'
           }}>
           <CardHeader tag={'h4'} >
-            Relação de Skills
+            Relação de Competências
           </CardHeader>
 
           <CardBody>

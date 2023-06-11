@@ -87,7 +87,7 @@ const reportJobOpportunity = () => {
                         headerRows: 1,
                         body: [
                             // Linha de cabeçalho
-                            [{ text: 'RELAÇÃO DE SKILLS E SEUS PESOS', style: 'subheader' }],
+                            [{ text: 'RELAÇÃO DE COMPETÊNCIAS E SEUS PESOS', style: 'subheader' }],
                         ],
                     },
                     layout: 'headerLineOnly'
@@ -100,7 +100,7 @@ const reportJobOpportunity = () => {
                         headerRows: 1,
                         body: [
                             // Linha de cabeçalho colSpan: 2, 
-                            [{ text: 'Skill', bold: true, italics: true }, { text: 'Tipo', bold: true, italics: true }, { text: 'Peso', bold: true, italics: true }],
+                            [{ text: 'Competência', bold: true, italics: true }, { text: 'Tipo', bold: true, italics: true }, { text: 'Peso', bold: true, italics: true }],
                             // Linhas de dados
                             ...jobopportunitySkills.map((jobopportunitySkill) =>
                                 [{ text: jobopportunitySkill.skill.name },
@@ -206,7 +206,7 @@ const reportJobOpportunity = () => {
         <div>
             <Button
                 onClick={generatePDF}
-                color='danger'
+                color='secondary'
                 size="sm"
             >  <AiFillFilePdf /> Resumido</Button>
         </div>

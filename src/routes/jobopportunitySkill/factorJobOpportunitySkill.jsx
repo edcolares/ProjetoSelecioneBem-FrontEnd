@@ -68,11 +68,11 @@ const factorJobOpportunitySkill = () => {
                     </div>
                     <div className='subtitulo'>
                         <h6 className='fw-light'>
-                            A escolha cuidadosa dos pesos para cada habilidade deve ser feita
-                            com base nas necessidades e prioridades da empresa e da vaga em questão,
+                            A escolha cuidadosa dos pesos para cada competência deve ser feita
+                            com base nas necessidades e prioridades da empresa e da oportunidade em questão,
                             levando em conta o perfil do candidato ideal. Dessa forma, o
                             ranqueamento dos candidatos poderá refletir com maior precisão as
-                            habilidades e competências mais importantes para a vaga, auxiliando
+                            competências mais importantes para a oportunidade, auxiliando
                             o recrutador na escolha do candidato mais adequado.
                         </h6>
                     </div>

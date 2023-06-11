@@ -5,8 +5,8 @@ import { format } from 'date-fns';
 import { AiOutlineFileText, AiOutlineUnorderedList } from 'react-icons/ai';
 import { FaCog, FaRegGrinStars } from 'react-icons/fa';
 import { MdStar } from 'react-icons/md';
-import ReportPage from './ReportPage';
-import ReportPage2 from './ReportPage copy';
+import ReportPageFull from './ReportPageFull';
+import ReportPageLight from './ReportPageLight';
 
 import {
     Row,
@@ -57,8 +57,8 @@ const reportJobOpportunity = () => {
                     <AiOutlineFileText className='mx-2' />
                     RELATÓRIO DA OPORTUNIDADE
                 </h3>
-                <ReportPage />
-                <ReportPage2 />
+                <ReportPageFull />
+                <ReportPageLight />
             </div>
             <Card className='my-2' color='secondary' outline>
                 <CardBody className='p-0'>
@@ -84,7 +84,7 @@ const reportJobOpportunity = () => {
                 <CardBody className='p-0'>
                     <CardHeader tag={'h5'} className='p-2 m-0 text-uppercase fw-bold'>
                         {/* <FaPuzzlePiece /> */}
-                        <MdStar className='me-1' />Skills avaliadas e seus pesos
+                        <MdStar className='me-1' />Comppetências avaliadas e seus pesos
                     </CardHeader>
                 </CardBody>
                 <CardText tag={'h6'} className='m-2 d-flex flex-wrap gap-2 ps-3 pe-3'>

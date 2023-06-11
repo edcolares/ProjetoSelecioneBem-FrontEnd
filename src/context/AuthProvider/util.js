@@ -5,6 +5,7 @@ export function setUserLocalStorage(user) {
 }
 
 export function getUserLocalStorage() {
+
     const json = localStorage.getItem('u');
 
     if (!json) {
@@ -17,9 +18,9 @@ export function getUserLocalStorage() {
 }
 
 export async function LoginRequest(email, password) {
+
     try {
         const request = await fetch.post('login', { email, password });
-
         return request.data;
     } catch (error) {
         return null;
