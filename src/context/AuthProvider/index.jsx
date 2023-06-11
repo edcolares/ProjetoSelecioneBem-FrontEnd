@@ -34,8 +34,6 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         setUserLocalStorage(null);
         localStorage.removeItem('u');
-        navigate("/login");
-        // return <App  />;
     }
 
     return (

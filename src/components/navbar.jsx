@@ -3,6 +3,7 @@ import { FaUser } from 'react-icons/fa';
 import { useAuth } from '../context/AuthProvider/useAuth';
 import { IoLogOut } from 'react-icons/io5';
 import SelecioneBem2 from '../assets/SelecioneBem2.svg';
+import { useNavigate } from 'react-router-dom';
 
 import {
     Collapse,
@@ -26,9 +27,13 @@ function navbar(args) {
     const toggle = () => setIsOpen(!isOpen);
 
     const auth = useAuth();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         auth.logout(); // Chama a função logout do objeto useAuth
+        navigate("/login");
+        window.location.reload();
+
     };
 
     return (
