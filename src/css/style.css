@@ -30,8 +30,17 @@ body {
 }
 
 .bg-primary-subtle {
-    background-color: #111d612c;
+    background-color: rgba(56, 84, 240, 0.120);
 }
+
+.bg-danger-subtle {
+    background-color: rgb(255, 241, 241);
+}
+
+.bg-success-subtle {
+    background-color: rgba(25, 135, 84, 0.120);
+}
+
 
 .icon-logout {
     width : 28px;
