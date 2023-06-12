@@ -7,6 +7,9 @@ import ChartsFilterControl from './chartsFilterControl';
 import ChartDepartmentStatistics from './departmentWithOpportunityOpenCloseStatistics';
 import ChartDepartment from './DepartmentStatistics.jsx';
 import InfoJobOpportunities from './infoJobOpportunities';
+import { useAuth } from '../../context/AuthProvider/useAuth';
+import JobOpportunitiesMonthByUser from './dashboardTeste';
+import TableOpenJobOpportunity from '../jobopportunity/tableOpenJobOpportunity.jsx'
 
 import {
     Row,
@@ -20,12 +23,54 @@ import {
 
 const Dashboard = () => {
 
+    const auth = useAuth();
 
     return (
         <Container>
 
-            <InfoJobOpportunities />
             <Row>
+                {/* <Col md={12}>
+                    <TableOpenJobOpportunity idUser={Number(auth.id)}/>
+                </Col> */}
+            <InfoJobOpportunities />
+                <Col md={6} className='my-3'>
+                    <Card
+                        className="my-0"
+                        color="secondary"
+                        outline
+                        style={{
+                            width: '100%'
+                        }}>
+                        <CardHeader tag="h5">
+                            Oportunidade por mês
+                        </CardHeader>
+                        <CardBody className='p-0 my-0'>
+                            <CardText>
+                                <JobOpportunitiesMonthByUser />
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Col>
+
+                <Col md={6} className='my-3'>
+                    <Card
+                        className="my-0"
+                        color="secondary"
+                        outline
+                        style={{
+                            width: '100%'
+                        }}>
+                        <CardHeader tag="h5">
+                            Oportunidades por departamento
+                        </CardHeader>
+                        <CardBody className='p-0 my-0'>
+                            <CardText>
+                                <ChartsFilterControl />
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Col>
+
 
                 <Col md={6} className='my-3'>
                     <Card
@@ -45,6 +90,8 @@ const Dashboard = () => {
                         </CardBody>
                     </Card>
                 </Col>
+
+
                 <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
@@ -63,24 +110,8 @@ const Dashboard = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md={6} className='my-3'>
-                    <Card
-                        className="my-0"
-                        color="secondary"
-                        outline
-                        style={{
-                            width: '100%'
-                        }}>
-                        <CardHeader tag="h5">
-                            Oportunidades por departamento
-                        </CardHeader>
-                        <CardBody className='p-0 my-0'>
-                            <CardText>
-                                <ChartsFilterControl />
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
+
+
                 <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
@@ -100,25 +131,7 @@ const Dashboard = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md={6} className='my-3'>
-                    <Card
-                        className="my-0"
-                        color="secondary"
-                        outline
-                        style={{
-                            width: '100%'
-                        }}>
-                        <CardHeader tag="h5" className='text-uppercase
-                        '>
-                            Oportunidades por nivel departamento
-                        </CardHeader>
-                        <CardBody className='p-0 my-0'>
-                            <CardText>
-                                <ChartDepartment />
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
+
             </Row>
         </Container>
     )

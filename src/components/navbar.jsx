@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useAuth } from '../context/AuthProvider/useAuth';
 import { IoLogOut } from 'react-icons/io5';
-import SelecioneBem2 from '../assets/SelecioneBem2.svg';
+import SelecioneBem2 from '../assets/3.svg';
 import { useNavigate } from 'react-router-dom';
 
 import {

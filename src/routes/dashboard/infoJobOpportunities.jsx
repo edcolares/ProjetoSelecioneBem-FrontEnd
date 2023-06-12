@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthProvider/useAuth';
 
 import {
   Alert,
+  Badge,
   Card,
   CardBody,
   CardHeader,
@@ -19,14 +20,14 @@ export const optionsGreen = {
   pieHole: 0.4,
   fontName: 'Inter',
   pieStartAngle: 0,
-  fontSize: 12,
+  fontSize: 10,
   chartArea: {
     width: '100%',
     height: '75%',
   },
   //tooltip: { trigger: "none" },
   slices: {
-    0: { color: "#53b002" },
+    0: { color: "#53b002", offset: 0.1 },
     1: { color: "#175703" },
   },
 };
@@ -37,7 +38,7 @@ export const optionsClosed = {
   pieHole: 0.4,
   fontName: 'Inter',
   pieStartAngle: 0,
-  fontSize: 12,
+  fontSize: 10,
   chartArea: {
     width: '100%',
     height: '75%',
@@ -54,7 +55,7 @@ export const optionsGlobal = {
   pieHole: 0.4,
   fontName: 'Inter',
   pieStartAngle: 0,
-  fontSize: 12,
+  fontSize: 10,
   chartArea: {
     width: '100%',
     height: '75%',
@@ -152,8 +153,8 @@ export function InfoJobOpportunities() {
             <Col sm={12}>
               {/* <Alert color='success'>Total de oportunidades abertas:  {info.oportunidadeAbertasDentroPrazo} </Alert>
               <Alert color='danger'>Total de oportunidades em atraso: {info.oportunidadeAbertasEmAtraso}</Alert> */}
-              <Alert color='success'>Total de oportunidades abertas dentro do prazo para fechamento:  <span className='fw-bold'>{info.oportunidadeAbertasDentroPrazo}</span> </Alert>
-              <Alert color='danger'>Total de oportunidades abertas em atraso: <span className='fw-bold'>{info.oportunidadeAbertasEmAtraso}</span></Alert>
+              {/* <Alert color='success'>Total de oportunidades abertas dentro do prazo para fechamento:  <span className='fw-bold'>{info.oportunidadeAbertasDentroPrazo}</span> </Alert> */}
+              <Alert color='danger' className='d-flex justify-content-between'><span>Total de oportunidades abertas em atraso: <span className='fw-bold'>{info.oportunidadeAbertasEmAtraso}</span> </span><Badge color='danger' className='d-flex align-items-center'>Veja agora!</Badge></Alert>
             </Col>
 
             {/* Primeira COLUNA */}

@@ -206,7 +206,7 @@ const reportJobOpportunity = () => {
         <div>
             <Button
                 onClick={generatePDF}
-                color='secondary'
+                color='light'
                 size="sm"
             >  <AiFillFilePdf /> Resumido</Button>
         </div>

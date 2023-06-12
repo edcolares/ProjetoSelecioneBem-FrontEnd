@@ -2,6 +2,7 @@ import { Col, Row, Container, Card, CardBody, CardHeader, CardText } from 'react
 import PieChartTop10Skill from './PieChartTop10Skill.jsx'
 import TableOpenJobOpportunity from './tableOpenJobOpportunity.jsx'
 import { useAuth } from '../../context/AuthProvider/useAuth';
+import AllJobOpportunityByUser from './tableAllJobOpportunity.jsx';
 
 export default function dashboardJobOpportunity() {
 
@@ -13,7 +14,7 @@ export default function dashboardJobOpportunity() {
                 <Col lg={12}>
                     <TableOpenJobOpportunity idUser={Number(auth.id)}></TableOpenJobOpportunity>
                 </Col>
-                <Col lg={6} className='my-3'>
+                <Col lg={12} className='my-3'>
                     <Card
                         className="my-0"
                         color="secondary"
@@ -22,29 +23,11 @@ export default function dashboardJobOpportunity() {
                             width: '100%'
                         }}>
                         <CardHeader tag="h5">
-                            Top 10 Competências
+                            Título
                         </CardHeader>
                         <CardBody className='p-2 my-0'>
                             <CardText>
-                                <PieChartTop10Skill></PieChartTop10Skill>
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col lg={6} className='my-3'>
-                    <Card
-                        className="my-0"
-                        color="secondary"
-                        outline
-                        style={{
-                            width: '100%'
-                        }}>
-                        <CardHeader tag="h5">
-                            Gráfico 2
-                        </CardHeader>
-                        <CardBody className='p-0 my-0'>
-                            <CardText>
-                                Teste
+                                <AllJobOpportunityByUser idUser={Number(auth.id)}/>
                             </CardText>
                         </CardBody>
                     </Card>

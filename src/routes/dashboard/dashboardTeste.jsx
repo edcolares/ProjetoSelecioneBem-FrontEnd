@@ -1,27 +1,42 @@
 import fetch from '../../services/config';
 import React, { useState, useEffect } from 'react'
 import { Chart } from "react-google-charts";
+import { useAuth } from '../../context/AuthProvider/useAuth';
+import '../../css/style.css'
 
 export const options = {
-    legend: "label",
-    chartArea: { left: 200, top: 50, right: 0, bottom: 50 },
-    pieSliceText: "label",
+    legend: 'bottom',
+    chartArea: { left: 150, top: 25, right: 25, bottom: 75 },
+    pieSliceText: "none",
+    fontName: 'Inter',
+    fontSize: 10,
+    colors: ['#2196F3', '#4CAF50'],
+    chartArea: {
+        width: '85%',
+        height: '70%',
+    },
+    // hAxis: {
+    //     title: 'Ano',
+    // },
+    vAxis: {
+        title: 'Quantidade',
+    },
 };
 
 export const month = (mes) => {
     const months = [
-        { name: "Janeiro", number: 1 },
-        { name: "Fevereiro", number: 2 },
-        { name: "Março", number: 3 },
-        { name: "Abril", number: 4 },
-        { name: "Maio", number: 5 },
-        { name: "Junho", number: 6 },
-        { name: "Julho", number: 7 },
-        { name: "Agosto", number: 8 },
-        { name: "Setembro", number: 9 },
-        { name: "Outubro", number: 10 },
-        { name: "Novembro", number: 11 },
-        { name: "Dezembro", number: 12 }
+        { name: "Jan", number: 1 },
+        { name: "Fev", number: 2 },
+        { name: "Mar", number: 3 },
+        { name: "Abr", number: 4 },
+        { name: "Mai", number: 5 },
+        { name: "Jun", number: 6 },
+        { name: "Jul", number: 7 },
+        { name: "Ago", number: 8 },
+        { name: "Set", number: 9 },
+        { name: "Out", number: 10 },
+        { name: "Nov", number: 11 },
+        { name: "Dez", number: 12 }
     ];
 
     const selectedMonth = months.find((month) => month.number === Number(mes));
@@ -30,13 +45,15 @@ export const month = (mes) => {
 
 
 
-export function ChartsVagasPorDepartamento() {
+export function JobOpportunitiesMonthByUser() {
 
     const [jobOpportunities, setJobOpportunities] = useState([]);
+    const auth = useAuth();
+    const useId = auth.id;
 
-    const vagasPorDepartamentos = async () => {
+    const getJobOpportunitiesMonthByUser = async () => {
         try {
-            const response = await fetch.get(`/jobopportunity/statistics/vacancybyopportunity`);
+            const response = await fetch.get(`/jobopportunity/statistics/getJobOpportunitiesMonthByUser/${useId}`);
             const data = response.data;
             console.log("Valor de Data: ", data);
             setJobOpportunities(data)
@@ -46,90 +63,34 @@ export function ChartsVagasPorDepartamento() {
     }
 
     let data = [
-        ["Departamento", "Mês", "Ano", "Vagas"],
+        ["Período", "Abertas", "Fechadas"],
     ];
 
     for (let i = 0; i < jobOpportunities.length; i++) {
         const jobOpportunity = jobOpportunities[i];
-        data.push([String(jobOpportunity.name_department), month(Number(jobOpportunity.month)), Number(jobOpportunity.year), Number(jobOpportunity.vacancy_open)])
-    }
-
-    const handleChartReady = (chartWrapper) => {
-        const chart = chartWrapper.getChart();
-
-        // Definir um valor no carregamento do gráfico
-        chart.setSelection('selectedValue', 'Março');
+        // data.push([new Date(Number(jobOpportunity.year), Number(jobOpportunity.month), 1), Number(jobOpportunity.open_opportunities), Number(jobOpportunity.closed_opportunities)])
+        data.push([month(Number(jobOpportunity.month)) + "/" + Number(jobOpportunity.year), Number(jobOpportunity.open_opportunities), Number(jobOpportunity.closed_opportunities)])
     }
 
     useEffect(() => {
-        vagasPorDepartamentos();
+        getJobOpportunitiesMonthByUser();
     }, []);
 
 
     return (
-        <Chart
-            chartType="BarChart"
-            width="100%"
-            height="100%"
-            data={data}
-            options={options}
-            chartWrapperParams={{ view: { columns: [0, 3] } }}
-            chartPackages={["corechart", "controls"]}
-            // chartEvents={[
-            //     {
-            //         eventName: 'ready',
-            //         callback: handleChartReady,
-            //     },
-            // ]}
-            controls={[
-                {
-                    controlEvents: [
-                        {
-                            eventName: "statechange",
-                            callback: ({ chartWrapper, controlWrapper }) => {
-                                console.log("State changed to", controlWrapper?.getState());
-                            },
-                        },
-                    ],
-                    controlType: "CategoryFilter",
-                    controlID: "month-filter",
-                    options: {
-                        filterColumnIndex: 1,
-                        ui: {
-                            labelStacking: "horizontal",
-                            controlID: "month-filter",
-                            label: "Selecione o mês",
-                            allowTyping: false,
-                            allowMultiple: false,
-                        },
-                    },
-                },
-                {
-                    controlEvents: [
-                        {
-                            eventName: "statechange",
-                            callback: ({ chartWrapper, controlWrapper }) => {
-                                console.log("State changed to", controlWrapper?.getState());
-                            },
-                        },
-                    ],
-                    controlType: "CategoryFilter",
-                    controlID: "year-filter",
-                    options: {
-                        filterColumnIndex: 2,
-                        ui: {
-                            labelStacking: "horizontal",
-                            label: "",
-                            allowTyping: false,
-                            allowMultiple: false,
-                        },
-                    },
-
-                },
-            ]}
-        />
+        <div>
+            <Chart
+                chartType="ColumnChart"
+                width={'100%'}
+                height={'300px'}
+                loader={<div>Carregando gráfico...</div>}
+                data={data}
+                options={options}
+                rootProps={{ 'data-testid': '1' }}
+            />
+        </div>
     );
 }
 
 
-export default ChartsVagasPorDepartamento
+export default JobOpportunitiesMonthByUser

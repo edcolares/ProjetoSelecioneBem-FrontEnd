@@ -19,7 +19,7 @@ import {
   Button,
 } from 'reactstrap';
 
-const Dashboard = ({ idUser }) => {
+const AllJobOpportunityByUser = ({ idUser }) => {
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertColor, setAlertColor] = useState('');
@@ -33,9 +33,9 @@ const Dashboard = ({ idUser }) => {
    * Busca todas as oportunidades com data de fechamento em aberto
    */
 
-  const getJobOpportunityByClosingDateOpen = async () => {
+  const getAllJobOpportunityBy = async () => {
     try {
-      const response = await fetch.get(`/jobopportunity/find/${idUser}`);
+      const response = await fetch.get(`/jobopportunity/user/${idUser}`);
       const data = response.data;
       setJobOpportunities(data);
     } catch (error) {
@@ -70,7 +70,7 @@ const Dashboard = ({ idUser }) => {
   }
 
   useEffect(() => {
-    getJobOpportunityByClosingDateOpen();
+    getAllJobOpportunityBy();
   }, []);
 
   let i = 0
@@ -188,7 +188,7 @@ const Dashboard = ({ idUser }) => {
                             </Button>
                             {/* Button relatório */}
                             <Button
-                              color='primary opacity-100'
+                              color='secondary opacity-100'
                               className='p-1 my-0 mx-0 opacity-100 rounded'
                               size="sm"
                               outline
@@ -197,7 +197,7 @@ const Dashboard = ({ idUser }) => {
                               }}
                               onClick={() => reportJobOpportunity(opportunity.id)}
                             >
-                              <BsFileTextFill /> Detalhes
+                              <BsFileTextFill /> Relatório
                             </Button>
 
                           </td>
@@ -216,4 +216,4 @@ const Dashboard = ({ idUser }) => {
   )
 }
 
-export default Dashboard
+export default AllJobOpportunityByUser
