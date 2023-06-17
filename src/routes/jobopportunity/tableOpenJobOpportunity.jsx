@@ -7,6 +7,7 @@ import AlertComponent from '../../components/AlertComponent';
 import '../../css/style.css'
 import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill, BsBuilding } from 'react-icons/bs'
 import { FaCalendarAlt, FaClock } from 'react-icons/fa';
+import TotalInterviewByJobOpportunity from './getTotalInterviewByJobOpportunity';
 
 import {
   Col,
@@ -34,11 +35,37 @@ const Dashboard = ({ idUser }) => {
    * Busca todas as oportunidades com data de fechamento em aberto
    */
 
-  const getJobOpportunityByClosingDateOpen = async () => {
+  const getJobOpportunityWithoutClosingDate = async () => {
     try {
       const response = await fetch.get(`/jobopportunity/find/${idUser}`);
       const data = response.data;
       setJobOpportunities(data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const setJobOpportunityClosed = async (idJobOpportunity) => {
+    try {
+      const closingDate = new Date();
+      const useId = idUser;
+
+      window.alert(idJobOpportunity)
+
+      const requestBody = {
+        closingDate,
+        useId
+      }
+      const response = await fetch.put(`/jobopportunity/${idJobOpportunity}`, {
+        requestBody
+      }).then(response => {
+        setJobOpportunities(prevOpportunities =>
+          prevOpportunities.filter(opportunity => opportunity.id !== idJobOpportunity)
+        );
+        const data = response.data;
+        console.log(data);
+      })
+      
     } catch (error) {
       console.log(error)
     }
@@ -85,7 +112,7 @@ const Dashboard = ({ idUser }) => {
   }
 
   useEffect(() => {
-    getJobOpportunityByClosingDateOpen();
+    getJobOpportunityWithoutClosingDate();
   }, []);
 
   let i = 0
@@ -135,13 +162,15 @@ const Dashboard = ({ idUser }) => {
                             <div className='d-flex justify-content-center align-items-center gap-2 mb-2'><BsBuilding /> {opportunity.department.name}</div>
                             <div className='d-flex justify-content-center align-items-center gap-2'><FaCalendarAlt /> {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}</div>
                             <div className='d-flex justify-content-center align-items-center gap-2 mb-1'><FaClock />{format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}</div>
-                            <div className='d-flex justify-content-center align-items-center mb-3'>Entrevistas: <Badge color='success' pill>?</Badge></div>
+                            <div className='d-flex justify-content-center align-items-center gap-2 mb-3'>Entrevistas: <TotalInterviewByJobOpportunity idJobOpportunity={opportunity.id} /></div>
 
 
                             <div className='d-flex justify-content-center m-2'>
                               <Button color='success' size='sm' block style={{
                                 fontSize: '12px'
-                              }}>
+                              }}
+                                onClick={() => setJobOpportunityClosed(opportunity.id)}
+                              >
                                 Finalizar
                               </Button>
                             </div>

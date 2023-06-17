@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         setUserLocalStorage(payload);
     }
 
-    function logout() {
+    async function logout() {
         setUser(null);
         setUserLocalStorage(null);
         localStorage.removeItem('u');

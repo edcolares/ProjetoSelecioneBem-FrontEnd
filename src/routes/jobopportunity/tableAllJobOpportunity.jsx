@@ -5,7 +5,9 @@ import fetch from '../../services/config';
 import { format } from 'date-fns';
 import AlertComponent from '../../components/AlertComponent';
 import '../../css/style.css'
-import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill } from 'react-icons/bs'
+import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill, BsFillCaretDownFill, BsFillCaretUpFill } from 'react-icons/bs'
+import TotalInterviewByJobOpportunity from './getTotalInterviewByJobOpportunity';
+
 
 import {
   Col,
@@ -17,6 +19,9 @@ import {
   Spinner,
   Table,
   Button,
+  Input,
+  FormGroup,
+  Label,
 } from 'reactstrap';
 
 const AllJobOpportunityByUser = ({ idUser }) => {
@@ -25,14 +30,27 @@ const AllJobOpportunityByUser = ({ idUser }) => {
   const [alertColor, setAlertColor] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [jobopportunities, setJobOpportunities] = useState([]);
-
-
   const navigate = new useNavigate();
+
+
+  // Controle de ordenação das três primeiras colunas
+  const [sortColumn, setSortColumn] = useState('');
+  const [sortOrder, setSortOrder] = useState('');
+
+  // Função para controle da ordenação conforme o nome da coluna passada
+  const handleSort = (column) => {
+    if (sortColumn === column) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(column);
+      setSortOrder('asc');
+    }
+  };
+
 
   /**
    * Busca todas as oportunidades com data de fechamento em aberto
    */
-
   const getAllJobOpportunityBy = async () => {
     try {
       const response = await fetch.get(`/jobopportunity/user/${idUser}`);
@@ -75,6 +93,15 @@ const AllJobOpportunityByUser = ({ idUser }) => {
 
   let i = 0
 
+
+  /**
+     * Código para executar o FILTER dentro de SKILLS
+     */
+  const [query, setQuery] = useState("");
+  console.log(query);
+  console.log(jobopportunities.filter(opportunity => opportunity.title.toLowerCase().includes(query)));
+
+
   return (
     <Row>
       <Col md={12}>
@@ -92,9 +119,8 @@ const AllJobOpportunityByUser = ({ idUser }) => {
             width: '100%'
           }}
         >
-          <CardHeader color='danger' tag="h5" className='d-flex justify-content-between'>
+          <CardHeader color='danger' className='d-flex justify-content-between'>
             Oportunidades em aberto
-            <Button color='success' size='sm' onClick={(e) => navigate('/jobopportunity')}><BsPlusCircleFill className='me-2' />Nova Oportunidade</Button>
           </CardHeader>
           <CardBody>
             <CardText className='m-0 p-0'>
@@ -103,34 +129,106 @@ const AllJobOpportunityByUser = ({ idUser }) => {
               </Spinner> : (
 
                 <div>
+                  <Col md={12}>
+                    <Card className='mb-2'>
+                      <CardBody className='d-flex gap-4'>
+                        <Col md={6}>
+                          <FormGroup>
+                            <Label>
+                              Pesquisa global
+                            </Label>
 
+                            <Input
+                              id='search'
+                              name='search'
+                              placeholder='Pesquisa'
+                              type='search'
+                              onChange={e => setQuery(e.target.value)}
+                            >
+
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col md={6} className='flex-fill justify-content-between'>
+                          <FormGroup className='gap-2'>
+                            <Label>
+                              Pesquisa período
+                            </Label>
+                            <FormGroup className='d-flex gap-2'>
+                              <Input
+                                id='searchDataInicial'
+                                name='searchDataInicial'
+                                placeholder='Pesquisa'
+                                type='date'
+                                onChange={e => setQuery(e.target.value)}
+                              >
+
+                              </Input>
+
+                              <Input
+                                id='searchDataFinal'
+                                name='searchDataFinal'
+                                placeholder='Pesquisa'
+                                type='date'
+                                onChange={e => setQuery(e.target.value)}
+                              >
+
+                              </Input>
+
+                            </FormGroup>
+                          </FormGroup>
+                        </Col>
+                      </CardBody>
+                    </Card>
+                  </Col>
                   <Table
                     // bordered
-                    hover
+                    // hover
                     responsive
                     size="sm"
-                      striped
-                      style={{
-                        width: '100%'
-                      }}
+                    style={{
+                      width: '100%',
+                      fontSize: '13px',
+
+                    }}
                   >
                     <thead>
-                      <tr>
-                        <th class="table-secondary">
+                      <tr className='text-uppercase fw-bold'>
+                        <th class="table-secondary d-flex align-items-center" onClick={() => handleSort('title')}>
                           Descrição da oportunidade
+                          {sortColumn === 'title' && (
+                            <span className="ms-1 ">
+                              {sortOrder === 'asc' ? <BsFillCaretUpFill /> : <BsFillCaretDownFill />}
+                            </span>
+                          )}
                         </th>
-                        <th class="table-secondary">
+                        <th class="table-secondary" onClick={() => handleSort('level')}>
                           Nível
-                          </th>
-                          <th class="table-secondary">
+                          {sortColumn === 'level' && (
+                            <span className="ms-1">
+                              {sortOrder === 'asc' ? <BsFillCaretUpFill /> : <BsFillCaretDownFill />}
+                            </span>
+                          )}
+                        </th>
+                        <th class="table-secondary" onClick={() => handleSort('department')}>
                           Departamento
+                          {sortColumn === 'department' && (
+                            <span className="ms-1">
+                              {sortOrder === 'asc' ? <BsFillCaretUpFill /> : <BsFillCaretDownFill />}
+                            </span>
+                          )}
+                        </th>
+                        <th class="table-secondary" onClick={() => handleSort('openingDate')}>
+                          Abertura
+                          {sortColumn === 'openingDate' && (
+                            <span className="ms-1">
+                              {sortOrder === 'asc' ? <BsFillCaretUpFill /> : <BsFillCaretDownFill />}
+                            </span>
+                          )}
                         </th>
                         <th class="table-secondary">
-                          Período
+                          Fechamento
                         </th>
-                        {/* <th class="table-secondary">
-                          Previsão
-                        </th> */}
                         <th class="table-secondary">
                           Ações
                         </th>
@@ -139,70 +237,96 @@ const AllJobOpportunityByUser = ({ idUser }) => {
                     </thead >
                     <tbody>
 
-                      {jobopportunities.map((opportunity) => (
-                        <tr key={opportunity.id} className='align-middle'>
-                          {/* className={Number(i++) % 2 === 0 ? 'align-middle text-secondary' : 'align-middle text-success'}> */}
+                      {/* INICIO DO MAP COM FILTRO */}
+                      {jobopportunities.filter(opportunity =>
+                        opportunity.title.toLowerCase().includes(query) ||
+                        opportunity.level.toLowerCase().includes(query) ||
+                        opportunity.department.name.toLowerCase().includes(query)
+                      )
+                        .sort((a, b) => {
+                          if (sortColumn === 'title') {
+                            return sortOrder === 'asc'
+                              ? a.title.localeCompare(b.title)
+                              : b.title.localeCompare(a.title);
+                          } else if (sortColumn === 'level') {
+                            return sortOrder === 'asc'
+                              ? a.level.localeCompare(b.level)
+                              : b.level.localeCompare(a.level);
+                          } else if (sortColumn === 'department') {
+                            return sortOrder === 'asc'
+                              ? a.department.name.localeCompare(b.department.name)
+                              : b.department.name.localeCompare(a.department.name);
+                          } else if (sortColumn === 'openingDate') {
+                            return sortOrder === 'asc'
+                              ? new Date(a.openingDate.localeCompare(b.openingDate))
+                              : new Date(b.openingDate.localeCompare(a.openingDate));
+                          } else {
+                            return 0;
+                          }
+                        })
+                        .map((opportunity) => (
+                          <tr key={opportunity.id} className='align-middle'>
+                            {/* className={Number(i++) % 2 === 0 ? 'align-middle text-secondary' : 'align-middle text-success'}> */}
 
-                          <td className='align-middle'>
-                            {opportunity.title}
-                          </td>
-                          <td className='align-middle'>
-                            {opportunity.level}
-                          </td>
-                          <td className='align-middle'>
-                          {opportunity.department.name}
-                          </td>
-                          <td className='align-middle'>
-                            {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')} - 
-                            {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
-                          </td>
-                          {/* <td className='align-middle'>
-                            {format(new Date(opportunity.expectedDate), 'dd/MM/yyyy')}
-                          </td> */}
-                          <td className='d-flex align-middle'>
-                            {/* Button excluir entrevista */}
-                            <Button
-                              color='danger opacity-50'
-                              className='p-1 my-0 mx-0 opacity-100 rounded'
-                              outline
-                              size="sm"
-                              style={{
-                                fontSize: '10px'
-                              }}
-                              onClick={() => deleteJobOpportunity(opportunity.id)}
-                            >
-                              <BsFillTrash3Fill /> Excluir
-                            </Button>
-                            {/* Button nova entrevista */}
-                            <Button
-                              color='success opacity-100'
-                              className='p-1 my-0 mx-1 opacity-100 rounded'
-                              size="sm"
-                              outline
-                              style={{
-                                fontSize: '10px'
-                              }}
-                              onClick={() => newInterviewByJobOpportunity(opportunity.id)}
-                            >
-                              <BsPlusCircleFill /> Entrevistar
-                            </Button>
-                            {/* Button relatório */}
-                            <Button
-                              color='secondary opacity-100'
-                              className='p-1 my-0 mx-0 opacity-100 rounded'
-                              size="sm"
-                              outline
-                              style={{
-                                fontSize: '10px'
-                              }}
-                              onClick={() => reportJobOpportunity(opportunity.id)}
-                            >
-                              <BsFileTextFill /> Relatório
-                            </Button>
+                            <td className='align-middle gap-2'>
+                              {opportunity.title} <TotalInterviewByJobOpportunity idJobOpportunity={opportunity.id} />
+                            </td>
+                            <td className='align-middle'>
+                              {opportunity.level}
+                            </td>
+                            <td className='align-middle'>
+                              {opportunity.department.name}
+                            </td>
+                            <td className='align-middle text-center'>
+                              {format(new Date(opportunity.openingDate), 'dd/MM/yyyy')}
+                            </td>
+                            <td className='align-middle text-center'>
+                              {opportunity.closingDate === null ? '' : format(new Date(opportunity.closingDate), 'dd/MM/yyyy')}
+                            </td>
+                            <td className='d-flex align-middle gap-1'>
 
-                          </td>
-                        </tr>
-                      ))
+                              {/* Button nova entrevista */}
+                              {opportunity.closingDate === null ? (
+                                <Button
+                                  className='btn-default-action p-1 my-0 mx-0'
+                                  size="sm"
+                                  style={{
+                                    fontSize: '10px'
+                                  }}
+                                  onClick={() => newInterviewByJobOpportunity(opportunity.id)}
+                                >
+                                  <BsPlusCircleFill /> Entrevistar
+                                </Button>
+                              ) : null}
+
+                              {/* Button relatório */}
+                              <Button
+                                className='btn-default-action p-1 my-0 mx-0'
+                                size="sm"
+                                style={{
+                                  fontSize: '10px'
+                                }}
+                                onClick={() => reportJobOpportunity(opportunity.id)}
+                              >
+                                <BsFileTextFill /> Detalhes
+                              </Button>
+
+                              {/* Button excluir entrevista */}
+                              {opportunity.closingDate === null ? (
+                                <Button
+                                  className='btn-default-action p-1 my-0 mx-0'
+                                  size="sm"
+                                  style={{
+                                    fontSize: '10px'
+                                  }}
+                                  onClick={() => deleteJobOpportunity(opportunity.id)}
+                                >
+                                  <BsFillTrash3Fill /> Excluir
+                                </Button>
+                              ) : null}
+                            </td>
+                          </tr>
+                        ))
                       }
                     </tbody >
                   </Table >

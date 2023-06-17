@@ -2,14 +2,32 @@ body {
     /* font-family: 'ABeeZee', sans-serif; */
     /* font-family: 'Blinker', sans-serif; */
     /* font-family: 'Comme', sans-serif; */
-    font-family   : 'Inter', sans-serif;
     /* font-family: 'Josefin Sans', sans-serif; */
     /* font-family: 'MuseoModerno', cursive; */
     /* font-family: 'Oxygen', sans-serif; */
     /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Inter', sans-serif;
+    color      : #525252;
+}
+
+
+/* Estilizando o botão de  "mais detalhes" */
+.btn-default-action {
+    background-color: #0D6EFD;
+    /* background: linear-gradient(45deg, #3854f0, #111d61); */
+    color: #FFFFFF;
+    border: none;
 
 }
 
+.btn-default-action:hover {
+    background-color: #0b57ca;
+    /* background: linear-gradient(45deg, #3854f0a6, #111d60a6); */
+    color: #FFFFFF;
+    border: none;
+}
+
+/* FIM DO TESTE */
 .titulo {
     font-weight: bold;
 }
@@ -30,7 +48,7 @@ body {
 }
 
 .bg-primary-subtle {
-    background-color: rgba(56, 84, 240, 0.120);
+    background-color: #3854f01f;
 }
 
 .bg-danger-subtle {
@@ -49,7 +67,7 @@ body {
 }
 
 .icon-logout :hover {
-    opacity         : 0.7;
+    opacity: 0.7;
 }
 
 .list-item {
