@@ -105,7 +105,7 @@ const candidateForm = ({ isDelayed, setIsDelayed, setCandidate }) => {
                 await fetch.post(`/candidate`, {
                     email, name
                 }).then((response) => {
-                    console.log("Novo usuário cadastrado com sucesso!");
+                    // console.log("Novo usuário cadastrado com sucesso!");
                     setFormData(prevState => ({ ...prevState, ['id']: response.data.id }));
                     // console.log(formData);
                     setIsDisabled(true)

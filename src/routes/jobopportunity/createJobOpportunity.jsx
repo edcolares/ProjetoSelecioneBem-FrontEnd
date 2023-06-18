@@ -50,7 +50,7 @@ const createJobOpportunity = () => {
     const auth = useAuth();
 
 
-    console.log(formData);
+    // console.log(formData);
     /**
  * Função responsável por atualizar o state da variável com o valor
  * passado.
@@ -89,8 +89,8 @@ const createJobOpportunity = () => {
          */
         schema.validate(formData, { abortEarly: false })
             .then(async validData => {
-                console.log(validData);
-                const { title, level, openingDate, expectedDate, useId } = validData;
+                // console.log(validData);
+                const { jobCode, title, level, openingDate, expectedDate, useId } = validData;
                 const departmentId = validData.departments;
 
                 // Variavel que irá receber o ID do novo registro
@@ -99,21 +99,23 @@ const createJobOpportunity = () => {
                 setErrors({});
 
                 await fetch.post("/jobopportunity", {
-                    title, level, openingDate, expectedDate, useId, departmentId
+                    jobCode, title, level, openingDate, expectedDate, useId, departmentId
                 }).then(async (response) => {
 
                     if (response.request.statusText === "OK") {
-                        alert("Oportunidade de emprego cadastrada com sucesso!");
+                        // alert("Oportunidade de emprego cadastrada com sucesso!");
                         for (let i = 0; i < cSelected.length; i++) {
-                            console.log(cSelected[i]);
+                            // console.log(cSelected[i]);
 
                             const skillId = cSelected[i];
                             await fetch.post("/jobopportunity_skill/" + response.data.id, {
                                 skillId
-                            }).then(() => { console.log("Cadastrada: Skill> " + skillId + "Opportunity> " + response.data.id); })
+                            }).then(() => {
+                                // console.log("Cadastrada: Skill> " + skillId + "Opportunity> " + response.data.id);
+                            })
                         }
                         idNewJobOpportunity = response.data.id;
-                        console.log(`Novo Id> ${idNewJobOpportunity}`);
+                        // console.log(`Novo Id> ${idNewJobOpportunity}`);
                     } else {
                         console.log("Erro ao cadastrar oportunidade de emprego");
                     }
@@ -138,7 +140,7 @@ const createJobOpportunity = () => {
             const response = await fetch.get("/department");
             const data = response.data;
             setDepartments(data);
-            console.log(data);
+            // console.log(data);
         } catch (error) {
             console.log(error);
         }
@@ -172,7 +174,7 @@ const createJobOpportunity = () => {
         }
         setCSelected([...cSelected]);
     };
-    console.log(cSelected)
+    // console.log(cSelected)
 
 
     /**
@@ -229,6 +231,24 @@ const createJobOpportunity = () => {
                     <div className='titulo'><h4>Oportunidade de emprego</h4></div>
                     <div className='subtitulo'><h6 className='fw-light'>Preencha as informações pertinentes a oportunidade de emprego</h6></div>
                 </Label>
+            </FormGroup>
+
+             {/* CÓDIGO DA VAGA */}
+             <FormGroup row className='p-0 m-0'>
+                <Label for="jobCode" lg={2}>
+                    Código da Vaga
+                </Label>
+                <Col lg={10}>
+                    <Input
+                        id="jobCode"
+                        name="jobCode"
+                        placeholder="Informe o código da vaga"
+                        type="text"
+                        invalid={!!errors.jobCode}
+                        onChange={handleChange}
+                    />
+                    {errors.jobCode && <FormFeedback>{errors.jobCode}</FormFeedback>}
+                </Col>
             </FormGroup>
 
             {/* TITLE */}

@@ -39,7 +39,7 @@ export function ChartsFilterControl() {
     try {
       const response = await fetch.get(`/department/statistics`);
       const data = response.data;
-      console.log("Valor de Data: ", data);
+      // console.log("Valor de Data: ", data);
       setDepartments(data)
     } catch (error) {
       console.log(error);

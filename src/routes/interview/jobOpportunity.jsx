@@ -1,7 +1,5 @@
 import { Button, Col, PopoverHeader, PopoverBody, UncontrolledPopover } from 'reactstrap';
 import { IoInformationCircleOutline } from 'react-icons/io5';
-import { FcInfo } from "react-icons/fc";
-
 
 const jobOpportunity = ({ opportunity, department }) => {
 

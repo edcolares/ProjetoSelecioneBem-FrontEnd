@@ -43,8 +43,8 @@ const getJobOpportunityById = () => {
       total = total + skills[i].totalScoreBySkill;
     }
     setTotalScore(total);
-    console.log("Valor de total: ", total);
-    console.log("Valor de state: ", totalScore);
+    // console.log("Valor de total: ", total);
+    // console.log("Valor de state: ", totalScore);
   }
 
   //Toggle the visibility of content across your project with Collapse.

@@ -23,7 +23,7 @@ const CreateInterview = () => {
         try {
             const response = await fetch.get(`/jobopportunity/${idJobOpportunity}`);
             const data = response.data;
-            console.log(data);
+            // console.log(data);
             setJobOpportunity(data);
             setSkills(data.jobopportunitySkills);
             setDepartment(data.department);
@@ -103,7 +103,7 @@ const CreateInterview = () => {
                 fetch.post(`/rating`, {
                     score, FK_interviewId, FK_skillId
                 }).then((response) => {
-                    console.log(response.data.id);
+                    // console.log(response.data.id);
                 })
             }
 

@@ -65,7 +65,7 @@ const reportJobOpportunity = () => {
             <Card className='my-2' color='light'>
                 <CardBody className='p-0'>
                     <CardHeader className='p-2 m-0'>
-                        <FaCog className='me-1' /> (Código da Vaga) - {opportunity.title}
+                        <FaCog className='me-1' /> {opportunity.jobCode} - {opportunity.title}
                     </CardHeader>
                     <CardText className='mx-3 my-1'>
                         <Row>

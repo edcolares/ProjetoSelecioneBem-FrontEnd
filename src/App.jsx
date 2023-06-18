@@ -8,14 +8,14 @@ function App() {
 
   const user = getUserLocalStorage();
 
-  console.log(JSON.stringify(user?.token));
+  // console.log(JSON.stringify(user?.token));
 
   if (user?.token) {
 
     // console.log("Verdadeiro: ", user?.token);
     return (
 
-      <div className='App'>
+      <div className='App app'>
 
         <AuthProvider>
 

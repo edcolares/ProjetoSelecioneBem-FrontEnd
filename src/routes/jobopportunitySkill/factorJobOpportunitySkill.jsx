@@ -13,8 +13,8 @@ const factorJobOpportunitySkill = () => {
 
         for (let i = 0; i < jobOpportunitySkill.length; i++) {
 
-            console.log("Id : " + jobOpportunitySkill[i].id);
-            console.log("Factor: " + jobOpportunitySkill[i].weightingFactor);
+            // console.log("Id : " + jobOpportunitySkill[i].id);
+            // console.log("Factor: " + jobOpportunitySkill[i].weightingFactor);
 
             const id = jobOpportunitySkill[i].id;
             const weightingFactor = jobOpportunitySkill[i].weightingFactor;
@@ -43,7 +43,7 @@ const factorJobOpportunitySkill = () => {
         try {
             const response = await fetch.get(`/jobopportunity_skill/${id}`);
             const data = response.data;
-            console.log(data);
+            // console.log(data);
 
             setJobOpportunitySkill(data)
         } catch (error) {

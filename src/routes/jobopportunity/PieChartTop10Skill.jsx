@@ -10,7 +10,7 @@ const teste = () => {
         try {
             const response = await fetch.get(`/jobopportunity_skill`);
             const data = response.data;
-            console.log(data);
+            // console.log(data);
             setSkills(data)
         } catch (error) {
             console.log(error);

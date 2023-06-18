@@ -27,7 +27,7 @@ const reportJobOpportunity = () => {
             setJobOpportunitySkills(data.jobopportunitySkills);
             setDepartment(data.department);
             setInterviews(data.interviews);
-            console.log(data);
+            // console.log(data);
         } catch (error) {
             console.error(error);
         }
@@ -67,6 +67,7 @@ const reportJobOpportunity = () => {
                             // Linha de cabeçalho
                             // [{ text: 'OPORTUNIDADE DE EMPREGO', colSpan: 2, style: 'subheader' }, {}],
                             // Linhas de dados
+                            [{ text: 'Código da Vaga', bold: true }, opportunity.jobCode],
                             [{ text: 'Descrição', bold: true }, opportunity.title],
                             [{ text: 'Nível', bold: true }, opportunity.level],
                             [{ text: 'Departamento', bold: true }, `${department.name} - ${department.manager}`],

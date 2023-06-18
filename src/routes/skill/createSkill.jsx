@@ -86,7 +86,7 @@ const CreateSkill = ({ addSkill }) => {
                 }).then((response) => {
                     // alert("Skill incluída com sucesso")
                     if (response.request.status === 200) {
-                        console.log(response.data.id);
+                        // console.log(response.data.id);
                         const id = response.data.id;
                         addSkill(id, name, type);
                         setFormData(prevState => ({ ...prevState, ['name']: '' }));

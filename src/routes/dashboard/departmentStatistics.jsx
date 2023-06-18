@@ -10,7 +10,7 @@ const ChartDepartmentStatistics = () => {
         try {
             const response = await fetch.get(`/department/statistics`);
             const data = response.data;
-            console.log(data);
+            // console.log(data);
             setDepartments(data)
         } catch (error) {
             console.log(error);

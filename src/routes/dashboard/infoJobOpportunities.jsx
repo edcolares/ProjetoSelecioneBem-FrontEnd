@@ -113,7 +113,7 @@ export function InfoJobOpportunities() {
     try {
       const response = await fetch.get(`/jobopportunity/statistics/globaljobopportunities`);
       const data = response.data;
-      console.log("GLOBAL: ", data);
+      // console.log("GLOBAL: ", data);
       setJobOpportunitiesGlobal(data)
     } catch (error) {
       console.log(error);
@@ -154,7 +154,7 @@ export function InfoJobOpportunities() {
               {/* <Alert color='success'>Total de oportunidades abertas:  {info.oportunidadeAbertasDentroPrazo} </Alert>
               <Alert color='danger'>Total de oportunidades em atraso: {info.oportunidadeAbertasEmAtraso}</Alert> */}
               {/* <Alert color='success'>Total de oportunidades abertas dentro do prazo para fechamento:  <span className='fw-bold'>{info.oportunidadeAbertasDentroPrazo}</span> </Alert> */}
-              <Alert color='danger' className='d-flex justify-content-between'><span>Total de oportunidades abertas em atraso: <span className='fw-bold'>{info.oportunidadeAbertasEmAtraso}</span> </span><Badge color='danger' className='d-flex align-items-center'>Veja agora!</Badge></Alert>
+              <Alert color='danger' className='d-flex justify-content-between'><span>Total de oportunidades abertas em atraso: <span className='fw-bold'>{info.oportunidadeAbertasEmAtraso}</span> </span><Badge color='danger' className='d-flex align-items-center' href="/jobopportunity/dashboard">Veja agora!</Badge></Alert>
             </Col>
 
             {/* Primeira COLUNA */}

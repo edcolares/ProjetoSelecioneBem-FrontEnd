@@ -3,7 +3,6 @@ import { Badge } from 'reactstrap'
 import fetch from '../../services/config';
 
 const getTotalInterviewByJobOpportunity = ({ idJobOpportunity }) => {
-    console.log('Olá Mundo!');
 
     const [totalInterview, setTotalInterview] = useState('');
 
@@ -26,7 +25,7 @@ const getTotalInterviewByJobOpportunity = ({ idJobOpportunity }) => {
 
 
     return (
-        <Badge color='primary'>{totalInterview.interview_count}</Badge>
+        <Badge color='info' className='m-0 text-white px-2 rounded fw-bold'>{totalInterview.interview_count}</Badge>
     )
 }
 

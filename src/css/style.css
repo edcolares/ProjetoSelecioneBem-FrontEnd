@@ -10,6 +10,10 @@ body {
     color      : #525252;
 }
 
+.app {
+    background-color: #111d6110;
+}
+
 
 /* Estilizando o botão de  "mais detalhes" */
 .btn-default-action {
@@ -37,8 +41,8 @@ body {
     color      : #8f8f8f;
 }
 
-.primary {
-    background-color: aqua;
+.elementOrange {
+    background-color: orange;
 }
 
 /* Inseri uma linha abaixo do componente */

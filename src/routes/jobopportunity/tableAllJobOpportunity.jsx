@@ -5,7 +5,7 @@ import fetch from '../../services/config';
 import { format } from 'date-fns';
 import AlertComponent from '../../components/AlertComponent';
 import '../../css/style.css'
-import { BsFillTrash3Fill, BsPlusCircleFill, BsFileTextFill, BsFillCaretDownFill, BsFillCaretUpFill } from 'react-icons/bs'
+import { BsFileTextFill, BsFillCaretDownFill, BsFillCaretUpFill } from 'react-icons/bs'
 import TotalInterviewByJobOpportunity from './getTotalInterviewByJobOpportunity';
 
 
@@ -22,6 +22,9 @@ import {
   Input,
   FormGroup,
   Label,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
 } from 'reactstrap';
 
 const AllJobOpportunityByUser = ({ idUser }) => {
@@ -37,6 +40,24 @@ const AllJobOpportunityByUser = ({ idUser }) => {
   const [sortColumn, setSortColumn] = useState('');
   const [sortOrder, setSortOrder] = useState('');
 
+
+  // Código para controle de paginação
+  const [currentPage, setCurrentPage] = useState(1); // Controla a página atual
+  const [itemsPerPage] = useState(10); // Define o número de itens por página
+  // Controla o índice do primeiro e último item a serem exibidos na página atual
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = jobopportunities.slice(indexOfFirstItem, indexOfLastItem);
+
+
+  //Controla a navegação entre as páginas
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const pageNumbers = Math.ceil(jobopportunities.length / itemsPerPage);
+
+
   // Função para controle da ordenação conforme o nome da coluna passada
   const handleSort = (column) => {
     if (sortColumn === column) {
@@ -45,6 +66,7 @@ const AllJobOpportunityByUser = ({ idUser }) => {
       setSortColumn(column);
       setSortOrder('asc');
     }
+    setCurrentPage(1); // Reinicia a página atual para a primeira página
   };
 
 
@@ -56,6 +78,7 @@ const AllJobOpportunityByUser = ({ idUser }) => {
       const response = await fetch.get(`/jobopportunity/user/${idUser}`);
       const data = response.data;
       setJobOpportunities(data);
+      setCurrentPage(1); // Reinicia a página atual para a primeira página
     } catch (error) {
       console.log(error)
     }
@@ -98,8 +121,8 @@ const AllJobOpportunityByUser = ({ idUser }) => {
      * Código para executar o FILTER dentro de SKILLS
      */
   const [query, setQuery] = useState("");
-  console.log(query);
-  console.log(jobopportunities.filter(opportunity => opportunity.title.toLowerCase().includes(query)));
+  // console.log(query);
+  // console.log(jobopportunities.filter(opportunity => opportunity.title.toLowerCase().includes(query)));
 
 
   return (
@@ -194,7 +217,10 @@ const AllJobOpportunityByUser = ({ idUser }) => {
                   >
                     <thead>
                       <tr className='text-uppercase fw-bold'>
-                        <th class="table-secondary d-flex align-items-center" onClick={() => handleSort('title')}>
+                        <th class="table-secondary d-flex align-items-center">
+                          Cód Vaga
+                        </th>
+                        <th class="table-secondary" onClick={() => handleSort('title')}>
                           Descrição da oportunidade
                           {sortColumn === 'title' && (
                             <span className="ms-1 ">
@@ -238,11 +264,12 @@ const AllJobOpportunityByUser = ({ idUser }) => {
                     <tbody>
 
                       {/* INICIO DO MAP COM FILTRO */}
-                      {jobopportunities.filter(opportunity =>
-                        opportunity.title.toLowerCase().includes(query) ||
-                        opportunity.level.toLowerCase().includes(query) ||
-                        opportunity.department.name.toLowerCase().includes(query)
-                      )
+                      {currentItems
+                        .filter(opportunity =>
+                          opportunity.title.toLowerCase().includes(query) ||
+                          opportunity.level.toLowerCase().includes(query) ||
+                          opportunity.department.name.toLowerCase().includes(query)
+                        )
                         .sort((a, b) => {
                           if (sortColumn === 'title') {
                             return sortOrder === 'asc'
@@ -269,6 +296,9 @@ const AllJobOpportunityByUser = ({ idUser }) => {
                             {/* className={Number(i++) % 2 === 0 ? 'align-middle text-secondary' : 'align-middle text-success'}> */}
 
                             <td className='align-middle gap-2'>
+                              {opportunity.jobCode}
+                            </td>
+                            <td className='align-middle gap-2'>
                               {opportunity.title} <TotalInterviewByJobOpportunity idJobOpportunity={opportunity.id} />
                             </td>
                             <td className='align-middle'>
@@ -286,7 +316,7 @@ const AllJobOpportunityByUser = ({ idUser }) => {
                             <td className='d-flex align-middle gap-1'>
 
                               {/* Button nova entrevista */}
-                              {opportunity.closingDate === null ? (
+                              {/* {opportunity.closingDate === null ? (
                                 <Button
                                   className='btn-default-action p-1 my-0 mx-0'
                                   size="sm"
@@ -297,11 +327,11 @@ const AllJobOpportunityByUser = ({ idUser }) => {
                                 >
                                   <BsPlusCircleFill /> Entrevistar
                                 </Button>
-                              ) : null}
+                              ) : null} */}
 
                               {/* Button relatório */}
                               <Button
-                                className='btn-default-action p-1 my-0 mx-0'
+                                className='btn-default-action'
                                 size="sm"
                                 style={{
                                   fontSize: '10px'
@@ -312,7 +342,7 @@ const AllJobOpportunityByUser = ({ idUser }) => {
                               </Button>
 
                               {/* Button excluir entrevista */}
-                              {opportunity.closingDate === null ? (
+                              {/* {opportunity.closingDate === null ? (
                                 <Button
                                   className='btn-default-action p-1 my-0 mx-0'
                                   size="sm"
@@ -323,13 +353,30 @@ const AllJobOpportunityByUser = ({ idUser }) => {
                                 >
                                   <BsFillTrash3Fill /> Excluir
                                 </Button>
-                              ) : null}
+                              ) : null} */}
                             </td>
                           </tr>
                         ))
                       }
                     </tbody >
+
                   </Table >
+                  <Pagination>
+                    {Array.from({ length: pageNumbers }, (_, index) => (
+                      <PaginationItem>
+                        <PaginationLink
+                          key={index}
+                          size="sm"
+                          className={`pagination-button ${currentPage === index + 1 ? 'active' : ''}`}
+                          onClick={() => paginate(index + 1)}
+                        >
+                          {index + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+
+                  </Pagination>
+
                 </div >
               )}
             </CardText >

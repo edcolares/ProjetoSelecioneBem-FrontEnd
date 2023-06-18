@@ -14,7 +14,7 @@ const AppSkills = () => {
   const [alertMessage, setAlertMessage] = useState('');
 
   const [skills, setSkills] = useState([]);
-  console.log(skills);
+  // console.log(skills);
   const getSkills = async () => {
     try {
       const response = await fetch.get("/skill");
@@ -40,7 +40,7 @@ const AppSkills = () => {
     fetch.delete(`/skill/${id}`).then((response) => {
       alert("Skill removida com sucesso!")
       if (response.request.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
         setAlertColor('success');
         setAlertMessage('Skill excluída com sucesso!');
         setShowAlert(true);

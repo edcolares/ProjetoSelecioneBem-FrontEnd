@@ -38,7 +38,7 @@ export function ChartsVagasPorDepartamento() {
         try {
             const response = await fetch.get(`/jobopportunity/statistics/vacancybyopportunity`);
             const data = response.data;
-            console.log("Valor de Data: ", data);
+            // console.log("Valor de Data: ", data);
             setJobOpportunities(data)
         } catch (error) {
             console.log(error);

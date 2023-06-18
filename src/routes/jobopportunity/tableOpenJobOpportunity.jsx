@@ -63,9 +63,9 @@ const Dashboard = ({ idUser }) => {
           prevOpportunities.filter(opportunity => opportunity.id !== idJobOpportunity)
         );
         const data = response.data;
-        console.log(data);
+        // console.log(data);
       })
-      
+
     } catch (error) {
       console.log(error)
     }
@@ -82,7 +82,7 @@ const Dashboard = ({ idUser }) => {
         setShowAlert(true);
       })
       .catch(error => {
-        console.error(error);
+        // console.error(error);
         setAlertColor('danger');
         setAlertMessage('Erro ao excluir a oportunidade de emprego. Por favor, tente novamente.');
         setShowAlert(true);
@@ -93,12 +93,12 @@ const Dashboard = ({ idUser }) => {
     //Obtem a data atual
     const agora = new Date();
 
-    console.log(expectedDate);
+    // console.log(expectedDate);
 
     if (agora >= expectedDate) {
-      return 'bg-danger-subtle border-danger'
+      return 'border-danger border'
     } else {
-      return 'bg-success-subtle border-success'
+      return 'border-success'
     }
 
   }
@@ -166,19 +166,36 @@ const Dashboard = ({ idUser }) => {
 
 
                             <div className='d-flex justify-content-center m-2'>
-                              <Button color='success' size='sm' block style={{
-                                fontSize: '12px'
-                              }}
+                              <Button
+                                color='success'
+                                size='sm'
+                                block
                                 onClick={() => setJobOpportunityClosed(opportunity.id)}
+                                style={{
+                                  fontSize: '12px'
+                                }}
                               >
                                 Finalizar
                               </Button>
                             </div>
-                            <div className='d-flex justify-content-center m-2 '>
+                            <div className='d-flex justify-content-center m-2'>
+                              {/* Button nova entrevista */}
                               <Button
-                                color='secondary opacity-50'
-                                className='flex-fill p-1 my-0 mx-0 opacity-100 rounded'
-                                outline
+                                color='primary'
+                                size="sm"
+                                block
+                                onClick={() => newInterviewByJobOpportunity(opportunity.id)}
+                                style={{
+                                  fontSize: '12px'
+                                }}
+                              >
+                                <BsPlusCircleFill /> Entrevistar
+                              </Button>
+                            </div>
+                            <div className='d-flex justify-content-center m-2 gap-1'>
+                              <Button
+                                color='danger'
+                                className='flex-fill p-1 my-0 mx-0 rounded'
                                 size="sm"
                                 style={{
                                   fontSize: '10px'
@@ -187,26 +204,12 @@ const Dashboard = ({ idUser }) => {
                               >
                                 <BsFillTrash3Fill /> Excluir
                               </Button>
-                              {/* Button nova entrevista */}
-                              <Button
-                                color='secondary opacity-100'
-                                className='flex-fill p-1 my-0 mx-1 opacity-100 rounded'
-                                size="sm"
 
-                                outline
-                                style={{
-                                  fontSize: '10px'
-                                }}
-                                onClick={() => newInterviewByJobOpportunity(opportunity.id)}
-                              >
-                                <BsPlusCircleFill /> Entrevistar
-                              </Button>
                               {/* Button relatório */}
                               <Button
-                                color='secondary opacity-100'
-                                className='flex-fill p-1 my-0 mx-0 opacity-100 rounded'
+                                color='secondary'
+                                className='flex-fill p-1 my-0 mx-0 rounded'
                                 size="sm"
-                                outline
                                 style={{
                                   fontSize: '10px'
                                 }}
