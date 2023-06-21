@@ -1,23 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
-import { Button, Col, CardBody, Form, FormGroup, Label, Input, Card, CardHeader } from 'reactstrap';
+import { Button, Col, CardBody, Form, FormGroup, Label, Input, Card, CardHeader, ListGroup, ListGroupItem } from 'reactstrap';
 import fetch from '../../services/config';
 import JobOpportunity from './jobOpportunity';
 import Rating from './rating';
 import CandidateForm from './candidateForm';
+import { useAuth } from '../../context/AuthProvider/useAuth';
 
 const CreateInterview = () => {
 
+    const auth = useAuth();
     const { idJobOpportunity } = useParams();
     const [jobOpportunity, setJobOpportunity] = useState([]);
     const [skills, setSkills] = useState([]);
     const [department, setDepartment] = useState([]);
     const [showInterview, setShowInterview] = useState(false);
     const [ShowRating, setShowRating] = useState(false);
-    const [idUser, setIdUser] = useState();
+    const [idUser, setIdUser] = useState(auth.id);
 
     const navigate = new useNavigate();
-
 
     const getJobOpportunityById = async () => {
         try {
@@ -129,7 +130,7 @@ const CreateInterview = () => {
                 <Label>
                     <div className='titulo'>
                         <h4>
-                            Entrevista
+                            Entrevista de candidato
                         </h4>
                     </div>
                     <div className='subtitulo'>
@@ -138,7 +139,32 @@ const CreateInterview = () => {
                             recrutadores conduzam entrevistas de maneira organizada e produtiva. Não esqueça de fazer anotações relevantes
                             sobre a entrevista para tornar o processo de seleção mais eficiente e preciso.
                         </h6>
+                        <h6 className='m-4 font-12px'>
+                            Etapa 1.
+                            <h6 className='fw-light font-12px'> Selecione o e-mail para localizar o candidato, se o candidato
+                                ainda não for cadastrado, após inserir o e-mail um campo será disponibilizado para inserir o nome.
+                            </h6>
+                        </h6>
+                        <h6 className='m-4 font-12px'>
+                            Etapa 2.
+                            <h6 className='fw-light font-12px'> Para iniciar entrevista, clique no botão "Iniciar Entrevista", após o início você poderá
+                                pausar e retornar a entrevista a qualquer momento.
+                            </h6>
+                        </h6>
+                        <h6 className='m-4 font-12px'>
+                            Etapa 3.
+                            <h6 className='fw-light font-12px'> Baseado em sua avaliação, defina a pontuação para cada competência inserida para a oportunidade
+                                de emprego.
+                            </h6>
+                        </h6>
+                        <h6 className='m-4 font-12px'>
+                            Etapa 4.
+                            <h6 className='fw-light font-12px'> Insira observações sobre o momento da entrevista, ressalte informações relevante que possam auxiliar
+                                na escolha, realize comentários sobre as competências e comportamento do candidato.
+                            </h6>
+                        </h6>
                     </div>
+                    <hr />
                 </Label>
             </FormGroup>
 
@@ -146,67 +172,93 @@ const CreateInterview = () => {
 
             <JobOpportunity opportunity={jobOpportunity} department={department} />
             <Card
-                className="card my-2"
-                outline
+                className="mb-4 p-0"
                 color="light"
                 style={{
                     width: '100%'
                 }}
             >
-                <CardHeader tag={'h5'}>
-                    Selecione o candidato
+                <CardHeader tag={'h6'}>
+                    Etapa 1 - Candidato
                 </CardHeader>
                 <CardBody>
                     <CandidateForm isDelayed={isDelayed} setIsDelayed={setIsDelayed} setCandidate={setCandidate} />
                 </CardBody>
             </Card>
 
-            <div>
 
-                <Card
-                    className="card my-2"
-                    color="light"
-                    style={{
-                        width: '100%'
-                    }}
-                >
-                    <CardHeader className='d-flex justify-content-between align-items-center'>
-                        <FormGroup className='d-flex align-items-center'>
 
-                            <Input type='text' name='idUser' onChange={e => setIdUser(e.target.value)} />
+            <Card
+                className="mb-4 p-0"
+                color="light"
+                style={{
+                    width: '100%'
+                }}
+            >
+                <CardHeader
+                    tag={'h6'}>
+                    Etapa 2 - Iniciar entrevista
+                </CardHeader>
+                <CardBody
+                    className='d-flex justify-content-between p-3 m-0'>
 
-                            <Button className="d-flex align-items-center" type="button" color="success" onClick={startTimer} disabled={isRunning}>
-                                Iniciar entrevista
-                            </Button>
-                            <Button className="mx-2" type="button" color="warning" onClick={stopTimer} disabled={!isRunning}>
-                                Pausar entrevista
-                            </Button>
-                        </FormGroup>
-                        <FormGroup tag={'h2'} className='p-0'>
-                            {formatTime(elapsedTime)}
-                        </FormGroup>
-                    </CardHeader>
-                </Card>
-
-                <Rating skills={skills} setSkills={setSkills} />
-
-                <Input
-                    type="textarea"
-                    name="observation"
-                    id="observation"
-                    placeholder="Observações sobre a entrevista"
-                    onChange={handleObservationChange}
-                    value={observation}
-                />
-
-                <FormGroup check row>
-                    <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
-                        <Button color='success' size='md' onClick={(e) => sendInterviewData(e)}>
-                            Terminar entrevista
+                    <div
+                        className='d-flex align-items-center m-0 p-0 gap-2'>
+                        <Button
+                            className="d-flex align-items-center m-0"
+                            type="button"
+                            color="success"
+                            onClick={startTimer} disabled={isRunning}
+                        >
+                            Iniciar entrevista
                         </Button>
-                    </Col>
-                </FormGroup>
-            </div>
+                        <Button
+                            className="d-flex align-items-center m-0"
+                            type="button"
+                            color="warning"
+                            onClick={stopTimer} disabled={!isRunning}
+                        >
+                            Pausar entrevista
+                        </Button>
+                    </div>
+                    <FormGroup
+                        tag={'h3'}
+                        className="d-flex align-items-center m-0"
+                    >
+                        {formatTime(elapsedTime)}
+                    </FormGroup>
+                </CardBody>
+            </Card>
+
+
+            <Rating skills={skills} setSkills={setSkills} />
+
+            <Card
+                color='light'
+            >
+                <CardHeader>
+                    Etapa 4 - Observações gerais
+                </CardHeader>
+                <CardBody>
+                    <Input
+                        type="textarea"
+                        name="observation"
+                        id="observation"
+                        rows={12}
+                        placeholder="Observações sobre a entrevista"
+                        onChange={handleObservationChange}
+                        value={observation}
+                    />
+                </CardBody>
+            </Card>
+
+            <FormGroup check row>
+                <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
+                    <Button color='success' size='md' onClick={(e) => sendInterviewData(e)}>
+                        Terminar entrevista
+                    </Button>
+                </Col>
+            </FormGroup>
 
         </Form>
     );

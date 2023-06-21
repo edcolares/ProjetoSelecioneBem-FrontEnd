@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { Badge, Button, Input, Col, Card, CardBody, CardHeader, Row } from 'reactstrap';
+import {
+  Badge, Button, Input, Col, Card, CardBody, CardHeader, Row, ListGroup, ListGroupItem
+} from 'reactstrap';
 
 
 const Rating = ({ skills, setSkills }) => {
@@ -44,54 +46,56 @@ const Rating = ({ skills, setSkills }) => {
 
       {JSON.stringify(skills)} */}
       <Col lg='12'>
+
         <Card
-          className="d-flex align-items-stretch  my-2"
+          className="d-flex align-items-stretch my-1 mb-4 p-0"
+          color='light'
           style={{
             width: '100%'
           }}
         >
-          <CardHeader className={'d-flex'} tag={'h5'} >
-            Defina a nota para skill
+          <CardHeader tag={'h6'} >
+            Etapa 3 - Defina a nota para cada competência
           </CardHeader>
 
           <CardBody>
             {skills.map(skill => (
-              <div key={skill.id} className='list-item'>
-                <h5 className="d-flex justify-content-between" >
-                  <span>
-                    {JSON.stringify(skill.skill.name).replace(/"/g, '') + ' '}
+              <ListGroup key={skill.id} className='d-flex mb-2'>
+                <ListGroupItem className="d-md-flex justify-content-between align-items-center gap-2" >
+                  <Col md={7} xs={12} className='d-flex'>
+                    <span>
+                      {JSON.stringify(skill.skill.name).replace(/"/g, '') + ' '}
 
-                    <Badge
-                      color='primary'
-                      className='align-self-center'>
-                      {/* {skill.skill.type}
-                       - Peso:  */}
-                      {skill.weightingFactor}
-                    </Badge>
+                      <Badge
+                        color='info'
+                      >
+                        {skill.weightingFactor}
+                      </Badge>
+                    </span>
+                  </Col>
 
-                  </span>
-                  {/* <span className="bg-secondary rounded px-2 text-light">{skill.weightingFactor}</span> */}
-                  <Button className={
-                    Number(skill.score) >= 8 ? 'btn-amarelo' :
-                      Number(skill.score) <= 4 ? 'btn-vermelho' :
-                        'btn-laranja'} >
-                    {!skill.score ? changeWeightingFactor(skill.id, '0') : skill.score}
-                  </Button>
-                </h5>
-                <Input
-                  type="range"
-                  min={1}
-                  max={10}
-                  step={1}
-                  value={skill.score}
-                  style={{
-                    width: '100%'
-                  }}
-                  // value={peso.weightingFactor}
-                  onChange={e => changeWeightingFactor(skill.id, e.target.value)}
-                  name='skill.id'
-                />
-              </div>
+                  <Col
+                    md={5} xs={12}
+                    className='d-flex justify-content-between align-items-center gap-3'>
+                    <Input
+                      type="range"
+                      min={1}
+                      max={10}
+                      step={1}
+                      value={skill.score}
+                      onChange={e => changeWeightingFactor(skill.id, e.target.value)}
+                      name='skill.id'
+                    />
+                    <Button className={
+                      Number(skill.score) >= 8 ? 'btn-amarelo' :
+                        Number(skill.score) <= 4 ? 'btn-vermelho' :
+                          'btn-laranja'} >
+                      {!skill.score ? changeWeightingFactor(skill.id, '0') : skill.score}
+                    </Button>
+                  </Col>
+
+                </ListGroupItem>
+              </ListGroup>
             ))}
           </CardBody>
         </Card>

@@ -1,4 +1,4 @@
-import { Button, Col, PopoverHeader, PopoverBody, UncontrolledPopover } from 'reactstrap';
+import { Button, Col, PopoverHeader, PopoverBody, UncontrolledPopover, Card, CardTitle, CardBody, CardHeader } from 'reactstrap';
 import { IoInformationCircleOutline } from 'react-icons/io5';
 
 const jobOpportunity = ({ opportunity, department }) => {
@@ -6,19 +6,20 @@ const jobOpportunity = ({ opportunity, department }) => {
     return (
 
         <Col>
-            <h4>
-                (CÓDIGO DA VAGA) - {opportunity.title}
+            <h5 className='fw-bold text-uppercase'>
+                {opportunity.jobCode} - {opportunity.title}
                 <Button
                     id="PopoverFocus"
                     type="button"
-                    color='none'
+                    color='info'
                     size='sm'
-                    className='mx-2 m-0' >
-                    <IoInformationCircleOutline />
+                    className='mx-2 m-0 font-12px' >
+                    <IoInformationCircleOutline className='me-2'/>Mais detalhes
                 </Button>
-            </h4>
+            </h5>
             <UncontrolledPopover
-                placement="bottom-end"
+                placement="bottom-
+                end"
                 target="PopoverFocus"
                 trigger="focus" >
                 <PopoverHeader>
@@ -33,6 +34,7 @@ const jobOpportunity = ({ opportunity, department }) => {
                     {/* {format(new Date(jobOpportunity.openingDate), 'dd/MM/yyyy')} */}
                 </PopoverBody>
             </UncontrolledPopover>
+
         </Col>
     )
 }

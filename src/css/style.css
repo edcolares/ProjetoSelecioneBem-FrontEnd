@@ -14,6 +14,10 @@ body {
     background-color: #111d6110;
 }
 
+.font-12px {
+    font-size: 12px;
+}
+
 
 /* Estilizando o botão de  "mais detalhes" */
 .btn-default-action {
@@ -41,7 +45,7 @@ body {
     color      : #8f8f8f;
 }
 
-.elementOrange {
+.element {
     background-color: orange;
 }
 
@@ -76,7 +80,7 @@ body {
 
 .list-item {
     padding                   : 1rem;
-    background                : linear-gradient(#f0f1f3, #f0f1f3);
+    background                : linear-gradient(#f0f1f38f, #f0f1f38f);
     margin-bottom             : 0.5rem;
     border-top-left-radius    : 5px;
     border-top-right-radius   : 5px;
@@ -86,9 +90,8 @@ body {
 
 /* Define a cor de fundo do elemento range para vermelho */
 input[type="range"] {
-    background   : #f0f1f3;
-    border-radius: 10pt;
-    padding      : 0px 10px 0px 10px;
+    border-radius: 5pt;
+    padding      : 0px 5px 0px 5px;
     border       : solid 0.4px #d8d9db;
 }
 
@@ -140,13 +143,12 @@ button[name="cSelected"] {
 .btn-laranja {
     background: rgb(247, 255, 15);
     border    : none;
-    color     : #212529;
+    color     : #212529
 }
 
 .btn-vermelho {
     background: rgb(255, 0, 0);
     border    : none;
-    color     : #212529;
 }
 
 /* .formDestaque {

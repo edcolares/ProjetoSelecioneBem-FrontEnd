@@ -34,7 +34,12 @@ const LoginScreen = () => {
     };
 
     return (
-        <Container className="d-flex align-items-center justify-content-center" style={{ height: '80vh' }}>
+        <Container
+            className="d-flex align-items-center justify-content-center navbar"
+            style={
+                {
+                    height: '85vh'
+                }}>
             <Row>
                 <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                     <Form onSubmit={onFinish}>
