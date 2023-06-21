@@ -139,28 +139,12 @@ const CreateInterview = () => {
                             recrutadores conduzam entrevistas de maneira organizada e produtiva. Não esqueça de fazer anotações relevantes
                             sobre a entrevista para tornar o processo de seleção mais eficiente e preciso.
                         </h6>
-                        <h6 className='m-4 font-12px'>
-                            Etapa 1.
-                            <h6 className='fw-light font-12px'> Selecione o e-mail para localizar o candidato, se o candidato
-                                ainda não for cadastrado, após inserir o e-mail um campo será disponibilizado para inserir o nome.
-                            </h6>
-                        </h6>
-                        <h6 className='m-4 font-12px'>
-                            Etapa 2.
-                            <h6 className='fw-light font-12px'> Para iniciar entrevista, clique no botão "Iniciar Entrevista", após o início você poderá
-                                pausar e retornar a entrevista a qualquer momento.
-                            </h6>
-                        </h6>
+
+
                         <h6 className='m-4 font-12px'>
                             Etapa 3.
                             <h6 className='fw-light font-12px'> Baseado em sua avaliação, defina a pontuação para cada competência inserida para a oportunidade
                                 de emprego.
-                            </h6>
-                        </h6>
-                        <h6 className='m-4 font-12px'>
-                            Etapa 4.
-                            <h6 className='fw-light font-12px'> Insira observações sobre o momento da entrevista, ressalte informações relevante que possam auxiliar
-                                na escolha, realize comentários sobre as competências e comportamento do candidato.
                             </h6>
                         </h6>
                     </div>
@@ -178,8 +162,12 @@ const CreateInterview = () => {
                     width: '100%'
                 }}
             >
-                <CardHeader tag={'h6'}>
+                <CardHeader tag={'h6'} className='m-0'>
                     Etapa 1 - Candidato
+                    <div className='mt-1 fw-light'>
+                        Preencha o e-mail para localizar o candidato, se o candidato
+                        ainda não for cadastrado, será disponibilizado para inserir o nome e cadastrar.
+                    </div>
                 </CardHeader>
                 <CardBody>
                     <CandidateForm isDelayed={isDelayed} setIsDelayed={setIsDelayed} setCandidate={setCandidate} />
@@ -195,10 +183,15 @@ const CreateInterview = () => {
                     width: '100%'
                 }}
             >
-                <CardHeader
-                    tag={'h6'}>
+
+                <CardHeader tag={'h6'} className='m-0'>
                     Etapa 2 - Iniciar entrevista
+                    <div className='mt-1 fw-light'>
+                        Para iniciar entrevista, clique no botão "Iniciar Entrevista", após o início você poderá
+                        pausar e retornar a entrevista a qualquer momento.
+                    </div>
                 </CardHeader>
+
                 <CardBody
                     className='d-flex justify-content-between p-3 m-0'>
 
@@ -234,10 +227,18 @@ const CreateInterview = () => {
             <Rating skills={skills} setSkills={setSkills} />
 
             <Card
-                color='light'
+                className="mb-4 p-0"
+                color="light"
+                style={{
+                    width: '100%'
+                }}
             >
-                <CardHeader>
+                <CardHeader tag={'h6'} className='m-0'>
                     Etapa 4 - Observações gerais
+                    <div className='mt-1 fw-light'>
+                        Insira observações relevantes que possam auxiliar na escolha do candidato,
+                        realize comentários sobre as competências e comportamento do candidato no momento da entrevista.
+                    </div>
                 </CardHeader>
                 <CardBody>
                     <Input
