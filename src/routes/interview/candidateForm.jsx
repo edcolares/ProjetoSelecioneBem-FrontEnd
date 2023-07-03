@@ -105,9 +105,11 @@ const candidateForm = ({ isDelayed, setIsDelayed, setCandidate }) => {
                 await fetch.post(`/candidate`, {
                     email, name
                 }).then((response) => {
-                    // console.log("Novo usuário cadastrado com sucesso!");
-                    setFormData(prevState => ({ ...prevState, ['id']: response.data.id }));
-                    // console.log(formData);
+                    console.log("Novo usuário cadastrado com sucesso!");
+                    console.log(response.data.id);
+                    const idCandidate = Number(response.data.id);
+                    setFormData(prevState => ({ ...prevState, [id]: Number(idCandidate) }));
+                    console.log(formData);
                     setIsDisabled(true)
                 }).error((error) => {
                     console.error("Não foi possível realizar o cadastro do novo candidato.");

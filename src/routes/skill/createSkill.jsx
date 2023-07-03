@@ -153,7 +153,7 @@ const CreateSkill = ({ addSkill }) => {
                         <option key={"default"} value="">-- Selecione o tipo de competência</option>
                         <option key={"Hard"} value={"Hard Skill"}>Hard Skill</option>
                         <option key={"Soft"} value={"Soft Skill"}>Soft Skill</option>
-                        <option key={"Cognitive"} value={"Cognitive Skill"}>Cognitive Skill</option>
+                        {/* <option key={"Cognitive"} value={"Cognitive Skill"}>Cognitive Skill</option> */}
                         {/* <option key={"Communication"} value={"Communication Skills"}>Communication Skills</option>
                         <option key={"Interpersonal"} value={"Interpersonal Skills"}>Interpersonal Skills</option>
                         <option key={"Time Management"} value={"Time Management Skills"}>Time Management Skills</option>
@@ -166,7 +166,7 @@ const CreateSkill = ({ addSkill }) => {
 
             <FormGroup check row className='m-0 p-0'>
                 <Col lg={12} className='d-flex justify-content-end'>
-                    <Button color='success' block type='submit'>
+                    <Button color='success' type='submit'>
                         Concluir Cadastro
                     </Button>
                 </Col>

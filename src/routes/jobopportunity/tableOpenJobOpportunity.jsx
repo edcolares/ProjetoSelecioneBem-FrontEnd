@@ -50,8 +50,6 @@ const Dashboard = ({ idUser }) => {
       const closingDate = new Date();
       const useId = idUser;
 
-      window.alert(idJobOpportunity)
-
       const requestBody = {
         closingDate,
         useId
@@ -63,6 +61,10 @@ const Dashboard = ({ idUser }) => {
           prevOpportunities.filter(opportunity => opportunity.id !== idJobOpportunity)
         );
         const data = response.data;
+        //window.alert('Oportunidade de emprego finalizada com sucesso.');
+        setAlertColor('success');
+        setAlertMessage('Oportunidade de emprego finalizada com sucesso.');
+        setShowAlert(true);
         // console.log(data);
       })
 

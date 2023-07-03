@@ -56,6 +56,9 @@ const Rating = ({ skills, setSkills }) => {
         >
           <CardHeader tag={'h6'} >
             Etapa 3 - Defina a nota para cada competência
+            <div className='mt-1 fw-light'>Baseado em sua avaliação, defina a pontuação para cada competência inserida para a oportunidade
+              de emprego.
+            </div>
           </CardHeader>
 
           <CardBody>

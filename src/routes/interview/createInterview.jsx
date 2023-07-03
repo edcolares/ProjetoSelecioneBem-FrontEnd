@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
-import { Button, Col, CardBody, Form, FormGroup, Label, Input, Card, CardHeader, ListGroup, ListGroupItem } from 'reactstrap';
+import { Button, Col, CardBody, Form, FormGroup, Label, Input, Card, CardHeader } from 'reactstrap';
 import fetch from '../../services/config';
 import JobOpportunity from './jobOpportunity';
 import Rating from './rating';
@@ -43,6 +43,7 @@ const CreateInterview = () => {
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0);
+    const [isAllowFinish, setIsAllowFinish] = useState(true);
     const [isRunning, setIsRunning] = useState(false);
     const [observation, setObservation] = useState('');
     const [isDelayed, setIsDelayed] = useState(false);
@@ -53,6 +54,7 @@ const CreateInterview = () => {
     const startTimer = () => {
         setStartTime(new Date());
         setIsRunning(true);
+        setIsAllowFinish(true);
         intervalRef.current = setInterval(() => {
             setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
         }, 1000);
@@ -62,6 +64,7 @@ const CreateInterview = () => {
         clearInterval(intervalRef.current);
         setEndTime(new Date());
         setIsRunning(false);
+        setIsAllowFinish(false);
     };
 
     const handleObservationChange = (event) => {
@@ -139,14 +142,6 @@ const CreateInterview = () => {
                             recrutadores conduzam entrevistas de maneira organizada e produtiva. Não esqueça de fazer anotações relevantes
                             sobre a entrevista para tornar o processo de seleção mais eficiente e preciso.
                         </h6>
-
-
-                        <h6 className='m-4 font-12px'>
-                            Etapa 3.
-                            <h6 className='fw-light font-12px'> Baseado em sua avaliação, defina a pontuação para cada competência inserida para a oportunidade
-                                de emprego.
-                            </h6>
-                        </h6>
                     </div>
                     <hr />
                 </Label>
@@ -201,17 +196,19 @@ const CreateInterview = () => {
                             className="d-flex align-items-center m-0"
                             type="button"
                             color="success"
-                            onClick={startTimer} disabled={isRunning}
+                            onClick={startTimer}
+                            disabled={isRunning}
                         >
-                            Iniciar entrevista
+                            Iniciar
                         </Button>
                         <Button
                             className="d-flex align-items-center m-0"
                             type="button"
                             color="warning"
-                            onClick={stopTimer} disabled={!isRunning}
+                            onClick={stopTimer}
+                            disabled={!isRunning}
                         >
-                            Pausar entrevista
+                            Pausar ou Concluir
                         </Button>
                     </div>
                     <FormGroup
@@ -255,8 +252,13 @@ const CreateInterview = () => {
 
             <FormGroup check row>
                 <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
-                    <Button color='success' size='md' onClick={(e) => sendInterviewData(e)}>
-                        Terminar entrevista
+                    <Button
+                        color='success'
+                        size='md'
+                        onClick={(e) => sendInterviewData(e)}
+                        disabled={isAllowFinish}
+                    >
+                        Encerrar entrevista
                     </Button>
                 </Col>
             </FormGroup>

@@ -411,7 +411,7 @@ const createJobOpportunity = () => {
                                                 name='cSelected'
                                                 color='light'
                                                 className='p-2 d-flex justify-content-between align-items-center'
-                                                block
+                                                
                                                 onChange={handleChange}
                                                 onClick={() => onCheckboxBtnClick(skill.id)}
                                                 active={cSelected.includes(skill.id)} >
@@ -436,7 +436,7 @@ const createJobOpportunity = () => {
             </FormGroup>
             <FormGroup check row className='p-0 m-0'>
                 <Col lg={12} className='d-flex justify-content-end'>
-                    <Button color='success' block type='submit'>
+                    <Button color='success' type='submit'>
                         Próximo passo
                     </Button>
                 </Col>

@@ -18,8 +18,7 @@ const jobOpportunity = ({ opportunity, department }) => {
                 </Button>
             </h5>
             <UncontrolledPopover
-                placement="bottom-
-                end"
+                placement="bottom-end"
                 target="PopoverFocus"
                 trigger="focus" >
                 <PopoverHeader>
