@@ -30,11 +30,11 @@ export const fetch = axios.create({
 
 
     // baseURL para CONEXÃO LOCAL
-    baseURL: "http://localhost:3001",
+    // baseURL: "http://localhost:3001",
 
 
-    // baseURL PARA CONEXÃO NUVEM (CYCLIC): 
-    // baseURL: "https://api-selecionebem.cyclic.app",
+    // baseURL PARA CONEXÃO NUVEM (RENDER): 
+    baseURL: "https://api-selecionebem.onrender.com",
     // headers: {
     //     "Content-Type": "application/json; charset=UTF-8"
     // },

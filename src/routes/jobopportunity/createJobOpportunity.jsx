@@ -333,8 +333,8 @@ const createJobOpportunity = () => {
             {/* *************SELEÇÃO DAS SKILLS************* */}
             <FormGroup row className='p-0 m-0'>
                 <Label>
-                    <div className='titulo'><h4>Seleção de Skills</h4></div>
-                    <div className='subtitulo'><h6 className='fw-light'>Selecione todas as skills relacionadas a oportunidade de emprego</h6></div>
+                    <div className='titulo'><h4>Competências</h4></div>
+                    <div className='subtitulo'><h6 className='fw-light'>Selecione todas as competências relacionadas a oportunidade de emprego</h6></div>
                 </Label>
             </FormGroup>
 
