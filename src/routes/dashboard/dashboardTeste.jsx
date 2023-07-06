@@ -55,7 +55,7 @@ export function JobOpportunitiesMonthByUser() {
         try {
             const response = await fetch.get(`/jobopportunity/statistics/getJobOpportunitiesMonthByUser/${useId}`);
             const data = response.data;
-            // console.log("Valor de Data: ", data);
+            console.log("Valor de Data: ", data);
             setJobOpportunities(data)
         } catch (error) {
             console.log(error);
@@ -82,7 +82,7 @@ export function JobOpportunitiesMonthByUser() {
             <Chart
                 chartType="ColumnChart"
                 width={'100%'}
-                height={'300px'}
+                height={'400px'}
                 loader={<div>Carregando gráfico...</div>}
                 data={data}
                 options={options}

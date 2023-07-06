@@ -176,39 +176,6 @@ const createJobOpportunity = () => {
     };
     // console.log(cSelected)
 
-
-    /**
-     * Adiciona uma JOBOPPORTUNITY
-     * @param {Event} e Evento do mouse
-     */
-    // const createJobOpportunity = async (e) => {
-    //     e.preventDefault();
-    //     let idNewJobOpportunity = null;
-
-    //     await fetch.post("/jobopportunity", {
-    //         title, level, openingDate, expectedDate, useId, departmentId
-    //     }).then(async (response) => {
-
-    //         if (response.request.statusText === "OK") {
-    //             alert("Oportunidade de emprego cadastrada com sucesso!");
-    //             for (let i = 0; i < cSelected.length; i++) {
-    //                 console.log(cSelected[i]);
-
-    //                 const skillId = cSelected[i];
-    //                 await fetch.post("/jobopportunity_skill/" + response.data.id, {
-    //                     skillId
-    //                 }).then(() => { console.log("Cadastrada: Skill> " + skillId + "Opportunity> " + response.data.id); })
-    //             }
-    //             idNewJobOpportunity = response.data.id;
-    //             console.log(response.data.id);
-    //         } else {
-    //             console.log("Erro ao cadastrar oportunidade de emprego");
-    //         }
-    //     });
-
-    //     navigate("/jobopportunityskill/" + idNewJobOpportunity);
-    // };
-
     /**
      * Código para executar o FILTER dentro de SKILLS
      */
@@ -411,7 +378,7 @@ const createJobOpportunity = () => {
                                                 name='cSelected'
                                                 color='light'
                                                 className='p-2 d-flex justify-content-between align-items-center'
-                                                
+                                                block
                                                 onChange={handleChange}
                                                 onClick={() => onCheckboxBtnClick(skill.id)}
                                                 active={cSelected.includes(skill.id)} >

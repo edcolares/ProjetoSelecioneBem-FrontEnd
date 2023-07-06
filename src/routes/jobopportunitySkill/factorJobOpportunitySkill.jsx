@@ -109,7 +109,7 @@ const factorJobOpportunitySkill = () => {
                     ))}
                 </div>
                 <FormGroup check row>
-                    <Col lg={12} className='my-3 p-3 d-flex justify-content-end'>
+                    <Col lg={12} className='m-0 pt-2 d-flex justify-content-end'>
                         <Button color='success' type='submit' size='md'>
                             Concluir Cadastro
                         </Button>

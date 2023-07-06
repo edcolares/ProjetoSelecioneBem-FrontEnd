@@ -6,7 +6,7 @@ export const colorBadgeSkills = (type) => {
     switch (type) {
         case 'Soft':
         case 'Soft Skill':
-            colorBadge = 'warning';
+            colorBadge = 'primary';
             break;
 
         case 'Hard':
@@ -14,7 +14,7 @@ export const colorBadgeSkills = (type) => {
             colorBadge = 'danger';
             break;
         default:
-            colorBadge = 'primary';
+            colorBadge = 'warning';
     }
     return colorBadge;
 };

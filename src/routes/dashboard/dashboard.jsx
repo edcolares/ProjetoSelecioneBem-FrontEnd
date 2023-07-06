@@ -32,12 +32,11 @@ const Dashboard = () => {
                 {/* <Col md={12}>
                     <TableOpenJobOpportunity idUser={Number(auth.id)}/>
                 </Col> */}
-            <InfoJobOpportunities />
+                <InfoJobOpportunities />
                 <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
-                        color="secondary"
-                        outline
+                        color="light"
                         style={{
                             width: '100%'
                         }}>
@@ -55,8 +54,7 @@ const Dashboard = () => {
                 <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
-                        color="secondary"
-                        outline
+                        color="light"
                         style={{
                             width: '100%'
                         }}>
@@ -75,8 +73,7 @@ const Dashboard = () => {
                 <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
-                        color="secondary"
-                        outline
+                        color="light"
                         style={{
                             width: '100%'
                         }}>
@@ -95,8 +92,7 @@ const Dashboard = () => {
                 <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
-                        color="secondary"
-                        outline
+                        color="light"
                         style={{
                             width: '100%'
                         }}>
@@ -112,11 +108,10 @@ const Dashboard = () => {
                 </Col>
 
 
-                <Col md={6} className='my-3'>
+                {/* <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
-                        color="secondary"
-                        outline
+                        color="light"
                         style={{
                             width: '100%'
                         }}>
@@ -130,7 +125,7 @@ const Dashboard = () => {
                             </CardText>
                         </CardBody>
                     </Card>
-                </Col>
+                </Col> */}
 
             </Row>
         </Container>

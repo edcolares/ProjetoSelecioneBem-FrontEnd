@@ -20,7 +20,7 @@ function App() {
         <AuthProvider>
 
           <Navbar></Navbar>
-          <Container className="my-3 px-4 py-4 bg-white rounded shadow-sm">
+          <Container className="my-3 px-4 py-4 bg-light rounded shadow-sm">
             <Outlet></Outlet>
           </Container>
 
@@ -37,10 +37,7 @@ function App() {
 
       <div className='App'>
         <AuthProvider>
-
-          <Container className="my-3 px-4 py-4 bg-white rounded shadow-sm">
             <Outlet></Outlet>
-          </Container>
         </AuthProvider>
 
       </div>
