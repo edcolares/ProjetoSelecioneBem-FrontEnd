@@ -5,20 +5,22 @@ import { Chart } from "react-google-charts";
 
 export const options = {
   // legend: { position: "right"},
-  chartArea: { left: 20, top: 150, right: 10, bottom: 10 },
+  chartArea: { left: 20, top: 20, right: 10, bottom: 10 },
   pieSliceText: "percentual",
   fontName: 'Inter',
-  fontSize: 10,
+  fontSize: 12,
   colors: [
     '#FF6767',
-    '#D68EDB',
-    '#00BFFF',
-    '#E38F51',
     '#FF1493',
+    '#00BFFF',
+    '#63BC85', // Verde claro
+    '#FF8C00',
+
+    '#E38F51',
     '#FF69B4',
+    '#D68EDB',
     '#5FA8D3',
     '#BA55D3',
-    '#FF8C00',
     '#63BC85',
 
     '#CD4C7D', // Rosa
@@ -27,7 +29,6 @@ export const options = {
     '#5FA8D3', // Azul
     '#D68EDB', // Rosa claro
     '#FF6767', // Vermelho claro
-    '#63BC85', // Verde claro
     '#E38F51', // Laranja claro
     '#84C17D', // Verde
     '#F3B87B', // Amarelo

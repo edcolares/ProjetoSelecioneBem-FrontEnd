@@ -25,7 +25,7 @@ const Dashboard = () => {
 
             <Row>
                 <InfoJobOpportunities />
-                <Col md={6} className='my-3'>
+                <Col md={12} className='my-3'>
                     <Card
                         className="my-0"
                         color="light"
@@ -72,7 +72,7 @@ const Dashboard = () => {
                         <CardHeader tag="h5">
                             Top 10 Competências
                         </CardHeader>
-                        <CardBody className='p-2 my-0'>
+                        <CardBody className='p-0 my-0'>
                             <CardText>
                                 <PieChartTop10Skill></PieChartTop10Skill>
                             </CardText>
@@ -81,7 +81,7 @@ const Dashboard = () => {
                 </Col>
 
 
-                <Col md={6} className='my-3'>
+                {/* <Col md={6} className='my-3'>
                     <Card
                         className="my-0"
                         color="light"
@@ -97,7 +97,7 @@ const Dashboard = () => {
                             </CardText>
                         </CardBody>
                     </Card>
-                </Col>
+                </Col> */}
             </Row>
         </Container>
     )

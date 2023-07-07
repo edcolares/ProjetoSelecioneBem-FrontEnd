@@ -4,7 +4,7 @@ import { Chart } from "react-google-charts";
 
 export const options = {
   legend: "none",
-  chartArea: { left: 130, top: 50, right: 0, bottom: 50 },
+  chartArea: { left: 200, top: 50, right: 0, bottom: 50 },
   pieSliceText: "label",
 };
 

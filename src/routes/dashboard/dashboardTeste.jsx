@@ -6,10 +6,10 @@ import '../../css/style.css'
 
 export const options = {
     legend: 'bottom',
-    chartArea: { left: 150, top: 25, right: 25, bottom: 75 },
+    chartArea: { left: 75, top: 25, right: 25, bottom: 75 },
     pieSliceText: "none",
     fontName: 'Inter',
-    fontSize: 10,
+    fontSize: 12,
     colors: ['#2196F3', '#4CAF50'],
     // hAxis: {
     //     title: 'Ano',

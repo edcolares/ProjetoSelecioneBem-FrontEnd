@@ -1,7 +1,6 @@
 import fetch from '../../services/config';
 import React, { useState, useEffect } from 'react'
 import { Chart } from 'react-google-charts'
-import { string } from 'yup';
 
 const teste = () => {
 
@@ -38,7 +37,7 @@ const teste = () => {
 
     for (let i = 0; i < skills.length; i++) {
         const skill = skills[i];
-        data.push([String(skill.name), Number(skill.count), 'color:  #8F70A6'])
+        data.push([String(skill.name), Number(skill.count), 'color:  #CD4C7D'])
         console.log(`'color: `+colors[i]+`'`);
     }
 
@@ -46,9 +45,9 @@ const teste = () => {
         // title: "As 10 mais utilizadas",
         legend: "none", //Remove a legenda do canot superior direito
         pieSliceText: "label", // "label" "value" aparece o titulo
-        chartArea: { left: 150, top: 20, right: 20, bottom: 20 },
+        chartArea: { left: 180, top: 20, right: 20, bottom: 20 },
         fontName: 'Inter',
-        fontSize: 10,
+        fontSize: 12,
     };
 
     useEffect(() => {
