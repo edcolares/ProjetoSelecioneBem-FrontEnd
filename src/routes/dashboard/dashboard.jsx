@@ -37,7 +37,7 @@ const Dashboard = () => {
                         </CardHeader>
                         <CardBody className='p-0 my-0'>
                             <CardText>
-                                {/* <JobOpportunitiesMonthByUser /> */}
+                                <JobOpportunitiesMonthByUser />
                             </CardText>
                         </CardBody>
                     </Card>
@@ -55,7 +55,7 @@ const Dashboard = () => {
                         </CardHeader>
                         <CardBody className='p-0 my-0'>
                             <CardText>
-                                {/* <ChartsFilterControl /> */}
+                                <ChartsFilterControl />
                             </CardText>
                         </CardBody>
                     </Card>
@@ -74,7 +74,7 @@ const Dashboard = () => {
                         </CardHeader>
                         <CardBody className='p-2 my-0'>
                             <CardText>
-                                {/* <PieChartTop10Skill></PieChartTop10Skill> */}
+                                <PieChartTop10Skill></PieChartTop10Skill>
                             </CardText>
                         </CardBody>
                     </Card>

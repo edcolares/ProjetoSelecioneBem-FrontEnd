@@ -11,10 +11,6 @@ export const options = {
     fontName: 'Inter',
     fontSize: 10,
     colors: ['#2196F3', '#4CAF50'],
-    chartArea: {
-        width: '85%',
-        height: '70%',
-    },
     // hAxis: {
     //     title: 'Ano',
     // },
