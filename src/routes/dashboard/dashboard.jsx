@@ -1,15 +1,10 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import fetch from '../../services/config';
 import Charts2 from './charts2.jsx'
 import PieChartTop10Skill from '../jobopportunity/PieChartTop10Skill'
 import ChartsFilterControl from './chartsFilterControl';
-import ChartDepartmentStatistics from './departmentWithOpportunityOpenCloseStatistics';
-import ChartDepartment from './DepartmentStatistics.jsx';
 import InfoJobOpportunities from './infoJobOpportunities';
 import { useAuth } from '../../context/AuthProvider/useAuth';
 import JobOpportunitiesMonthByUser from './dashboardTeste';
-import TableOpenJobOpportunity from '../jobopportunity/tableOpenJobOpportunity.jsx'
 
 import {
     Row,
