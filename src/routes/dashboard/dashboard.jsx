@@ -1,10 +1,10 @@
 import React from 'react';
 import Charts2 from './charts2.jsx'
-// import PieChartTop10Skill from '../jobopportunity/PieChartTop10Skill'
-// import ChartsFilterControl from './chartsFilterControl';
+import PieChartTop10Skill from '../jobopportunity/PieChartTop10Skill'
+import ChartsFilterControl from './chartsFilterControl';
 import InfoJobOpportunities from './infoJobOpportunities';
 import { useAuth } from '../../context/AuthProvider/useAuth';
-// import JobOpportunitiesMonthByUser from './dashboardTeste';
+import JobOpportunitiesMonthByUser from './dashboardTeste';
 
 import {
     Row,
